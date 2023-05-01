@@ -1,4 +1,4 @@
-/**
+package model; /**
  * @author <Kang Junsik - s3916884>
  */
 

@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import model.*;
 class DigitalTest {
 
     @Test
     void testPrintOut() {
         Digital eBook = new Digital("eBook", "Popular", 10, 15);
         String expectOutput = "DIGITAL - <eBook>";
-        assertEquals(expectOutput, eBook.printOut());
+        assertEquals(expectOutput, eBook.toString());
     }
 
     @Test

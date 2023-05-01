@@ -3,8 +3,8 @@
  */
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import model.*;
 
 class PhysicalTest {
 
@@ -12,7 +12,7 @@ class PhysicalTest {
     void testPrintOut() {
         Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
         String expectOutput = "PHYSICAL - <iPhone>";
-        assertEquals(expectOutput, iPhone.printOut());
+        assertEquals(expectOutput, iPhone.toString());
     }
 
     @Test

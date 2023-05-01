@@ -2,8 +2,10 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import model.*;
 import java.util.Collections;
 import java.util.Scanner;
+
 
 // this one is to run the Online Shopping Service
 

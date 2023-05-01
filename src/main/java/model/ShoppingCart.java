@@ -1,4 +1,7 @@
+package model;
+
 /**
+ * This class
  * @author <Kang Junsik - s3916884>
  */
 
@@ -7,7 +10,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class ShoppingCart extends ShoppingService implements Comparable<ShoppingCart> {
-    private HashSet<String> productsName = new HashSet<String>();
+    private int cartID;
+    private HashSet<String> productsName = new HashSet<>();
     private double totalWeight = 0;
     private double totalPrice = 0;
     private final double BASEFEE = 0.1; // to calculate shipping fee
@@ -19,7 +23,7 @@ public class ShoppingCart extends ShoppingService implements Comparable<Shopping
         addNumber++;
     }
 
-    boolean addItem(String productName, ArrayList<Product> savedProductsOnSystem) {
+    public boolean addItem(String productName, ArrayList<Product> savedProductsOnSystem) {
         Iterator<String> savedProductsName = productsName.iterator(); // to check the product that is already in the cart
         while(savedProductsName.hasNext()) {
             if (savedProductsName.next().equals(productName)) { // already exists
@@ -48,7 +52,7 @@ public class ShoppingCart extends ShoppingService implements Comparable<Shopping
         return false;
     }
 
-    boolean removeItem(String productName, ArrayList<Product> savedProductsOnSystem) {
+    public boolean removeItem(String productName, ArrayList<Product> savedProductsOnSystem) {
         Iterator<String> savedProductsName = productsName.iterator(); // iterator for the products(name) in current shopping cart
         while(savedProductsName.hasNext()) {
             if(savedProductsName.next().equals(productName)) { // find the product that user is searching!
@@ -67,7 +71,7 @@ public class ShoppingCart extends ShoppingService implements Comparable<Shopping
         return false;
     }
 
-    double cartAmount(ArrayList<Product> savedProductsOnSystem) {
+    public double cartAmount(ArrayList<Product> savedProductsOnSystem) {
         ArrayList<Physical> physicalProductsOnCart = new ArrayList<>();
 
         for(int i = 0; i < savedProductsOnSystem.size(); i++) {
