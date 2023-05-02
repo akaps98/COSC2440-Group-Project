@@ -3,17 +3,22 @@ package model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+
 import database.ShoppingDB;
 
 public class DataInput {
     ProductMap products;
     ShoppingCartList carts;
+    Map<String, Double> taxes;
 
     // CONSTRUCTOR
 
     public DataInput() {
         products = new ProductMap();
         carts = new ShoppingCartList();
+        taxes = new HashMap<>();
     }
 
     // METHOD
@@ -63,6 +68,11 @@ public class DataInput {
                                         case "TAX":
                                             // Initialise values for Tax here
                                             // ...
+                                            if (newLine[1].equals("normalTax")) {
+                                                taxes.put((newLine[1]), Double.parseDouble(newLine[2]));
+                                            } else if (newLine[1].equals("luxuryTax")) {
+                                                taxes.put((newLine[1]), Double.parseDouble(newLine[2]));
+                                            }
                                             break;
                                         default:
                                             break;

@@ -3,15 +3,20 @@ package database;
 import model.ProductMap;
 import model.ShoppingCartList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ShoppingDB {
     private static ShoppingDB instance = null;
     ProductMap products;
     ShoppingCartList carts;
+    Map<String, Double> taxes;
 
     // CONSTRUCTOR
     private ShoppingDB() {
         products = new ProductMap();
         carts = new ShoppingCartList();
+        taxes = new HashMap<>();
     }
 
     // Static method to create instance of ShoppingDB class
