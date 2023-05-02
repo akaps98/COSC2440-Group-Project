@@ -23,7 +23,7 @@ public class DataInput {
     }
 
     // METHOD
-    public ProductMap readProductFile() {
+    public void readProductFile() {
         // Storing location of the created products
         // ProductMap products = new ProductMap();
 
@@ -82,7 +82,11 @@ public class DataInput {
             System.out.println("Finish!");
 
         } catch (IOException e) {}
-        return products;
+        // Store all the created products, coupons, taxes into ShoppingDB
+        ShoppingDB db = ShoppingDB.getInstance();
+        db.setProducts(this.products);
+        db.setCoupons(this.coupons);
+        db.setTaxes(this.taxes);
     }
 
     public ShoppingCartList readCartFile() {
@@ -110,7 +114,8 @@ public class DataInput {
 //            carts.viewCarts();
             System.out.println("Finish!");
         } catch (IOException e) {}
-        return carts;
+        ShoppingDB db = ShoppingDB.getInstance();
+        db.setCarts(this.carts);
     }
 
     public void readReceipt(int cartID) {
@@ -128,8 +133,6 @@ public class DataInput {
     public static void main(String[] args) {
         DataInput dataProcess = new DataInput();
         ShoppingDB db = ShoppingDB.getInstance();
-        db.setProducts(dataProcess.readProductFile());
-        db.setCarts(dataProcess.readCartFile());
         db.getProducts().viewAvailableProducts();
         db.getCarts().viewCartsAfterSorted();
 //        dataProcess.readReceipt(1);

@@ -49,4 +49,12 @@ public class ShoppingDB {
     }
     public ArrayList<Coupon> getCoupons() {return coupons;}
     public void setCoupons(ArrayList<Coupon> coupons) {this.coupons = coupons;}
+
+    public Map<String, Double> getTaxes() {
+        return taxes;
+    }
+
+    public void setTaxes(Map<String, Double> taxes) {
+        this.taxes = taxes;
+    }
 }
