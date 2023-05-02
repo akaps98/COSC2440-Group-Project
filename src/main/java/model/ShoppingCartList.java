@@ -51,8 +51,13 @@ public class ShoppingCartList {
      * @param cartNumber: the cart # that is stored inside the Shopping Cart list (not the index of the cart in the list)
      * @return ShoppingCart: the Shopping Cart instance at the cartNumber - 1 position in the list
      */
-    public ShoppingCart2 getCart(int cartNumber) {
-        return cartList.get(cartNumber - 1);
+    public ShoppingCart2 getCart(int cartID) {
+        for (ShoppingCart2 cart : cartList) {
+            if (cart.getCartID() == cartID) {
+                return cart;
+            }
+        }
+        return null;
     }
 
     /**

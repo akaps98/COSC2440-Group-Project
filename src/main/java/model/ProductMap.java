@@ -15,8 +15,7 @@ public class ProductMap {
     private Map<String, Product> productList;
 
     // CONSTRUCTOR
-    public ProductMap() {
-        productList = new HashMap<>();
+    public ProductMap() { productList = new HashMap<>();
     }
 
     // METHODS
@@ -47,10 +46,7 @@ public class ProductMap {
             return true;
         }
         return false;
-
     }
-
-
 
     /**
      * The method used to provide all the product name inside the product list
@@ -61,7 +57,7 @@ public class ProductMap {
         StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
         allProducts.append("[");
         for (Product p : productList.values()) { // Loop for each product inside the list
-            allProducts.append(p.toString() + ", ");
+            allProducts.append(p.toString() + ": " + p.getQuantity() + ", ");
         }
         allProducts.append("]");
         // Display to the console
@@ -82,7 +78,7 @@ public class ProductMap {
         int availableCount = 0;
         for (Product p : productList.values()) { // Loop for each product inside the list
             if (p.getQuantity() != 0) {
-                availableProducts.append(p.toString() + ", "); // Add
+                availableProducts.append(p.toString() + ": " + p.getQuantity() + ", "); // Add
                 availableCount++;
             }
         }

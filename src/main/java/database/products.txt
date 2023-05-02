@@ -38,11 +38,11 @@ DIGITAL,JetBrains License,a license to download the pro software from Jetbrains 
 DIGITAL,Netflix Family,a subscription to the max option of a netflix account for watching unlimited movies and share to maximum of 4 devices,1000,48,luxuryTax
 DIGITAL,Shooting Game,a multiplayer game on Steam,1000,12,freeTax
 DIGITAL,Canvas Pro,a pro plan to access all the pictures and templates on Canvas,1000,20,normalTax
-GIFT,PHYSICAL,Iphone Case,an accessories for iphone user,50,20.5,normalTax,take this iphone case for your birthday present
-GIFT,PHYSICAL,Laptop Holder,an accessory to cover the laptop when moving,50,11.9,freeTax,thank you for buying our Macbook and this is our additional product for you
-GIFT,PHYSICAL,Apple Stickers,a number of random stickers provide from Apple when purchasing an Apple product,50,15.8,luxuryTax,To celebrate the national 8/3 day we would like to give you this brand new stickers
-GIFT,PHYSICAL,Selfie Stick,an accessory that help you take picture of yourself easier,50,3.8,normalTax,hope you like my present
-GIFT,PHYSICAL,16gb USB,a small and portable device that help you save your documents to an external storage,50,8.9,normalTax,I saw you waste a lot of time finding documents and hope this present can help
+GIFT,PHYSICAL,Iphone Case,an accessories for iphone user,50,20.5,normalTax,20,take this iphone case for your birthday present
+GIFT,PHYSICAL,Laptop Holder,an accessory to cover the laptop when moving,50,11.9,freeTax,180,thank you for buying our Macbook and this is our additional product for you
+GIFT,PHYSICAL,Apple Stickers,a number of random stickers provide from Apple when purchasing an Apple product,50,15.8,luxuryTax,0.2,To celebrate the national 8/3 day we would like to give you this brand new stickers
+GIFT,PHYSICAL,Selfie Stick,an accessory that help you take picture of yourself easier,50,3.8,normalTax,113,hope you like my present
+GIFT,PHYSICAL,16gb USB,a small and portable device that help you save your documents to an external storage,50,8.9,normalTax,0.088,I saw you waste a lot of time finding documents and hope this present can help
 GIFT,DIGITAL,Coursera Course,a course that teaches programming skills for data science,50,7.8,freeTax,level up your coding skill with this data analytic course from Coursera
 GIFT,DIGITAL,BHD Cinema eTicket,an online ticket that can watch any movie,50,4.8,normalTax,thank you for being our VIP member and this is our free ticket for you
 GIFT,DIGITAL,Python Tutorial eBook,an online book that contains the tutorial sessions to kick start learning Python,50,23.6,freeTax,good luck to start Python from scratch

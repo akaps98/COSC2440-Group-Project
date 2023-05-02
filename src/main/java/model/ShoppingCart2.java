@@ -23,27 +23,50 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
         this.cartID = cartID;
         cartItems = new HashMap<>();
         totalWeight = 0;
-    };
+    }
 
     public ShoppingCart2(int cartID, String couponID){
         this.cartID = cartID;
         this.appliedCouponID = couponID;
         cartItems = new HashMap<>();
         totalWeight = 0;
-    };
+    }
 
     //? GETTERS & SETTERS
-    public double getTotalWeight() {return this.totalWeight;}
+    public int getCartID() {return cartID;}
 
-    public void setTotalWeight(double totalWeight) {this.totalWeight = totalWeight;}
+    public void setCartID(int cartID) {this.cartID = cartID;}
+
+    public Map<String, Integer> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Map<String, Integer> cartItems) {
+        this.cartItems = cartItems;
+    }
 
     public String getAppliedCouponID() {return this.appliedCouponID;}
     public void setAppliedCouponID(String appliedCouponID) {this.appliedCouponID = appliedCouponID;}
 
-    // METHOD
-    public void resetCart() {
+    public double getTotalWeight() {return this.totalWeight;}
 
+    public void setTotalWeight(double totalWeight) {this.totalWeight = totalWeight;}
+
+
+    // METHOD
+    public void resetCart() {}
+
+    public int totalUniqueItems() {
+        return cartItems.keySet().size();
     }
+    public int totalItems() {
+        int itemCount = 0;
+        for (int itemQuantity : cartItems.values()) {
+            itemCount += itemQuantity;
+        }
+        return itemCount;
+    }
+
 
     /**
      * This method add the new item with the specific number of quantity to the item map
@@ -88,8 +111,11 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      *
      * Conditions:
      * 1. The product must existed in the Shopping Cart
+     * 2. The quantity to remove must <= the current product quantity in the cart
      *
      * @param productName - Name of the product
+     * @param quantity: number of product to remove
+     * @param productList: the list contains all the existed product
      * @return boolean - Boolean value states if the product has been added successfully to the cart
      * Action: update the quantity available for that product: quantityAvailable + 1
      */
@@ -195,10 +221,9 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
     public String toString() {
         String cartInfo = String.format("Cart #%d --- Cart items: ", cartID);
         String cartItemsInfo = "";
-        String nextProduct = "";
         Iterator<String> it = cartItems.keySet().iterator();
         while (it.hasNext()) {
-            nextProduct = it.next();
+            String nextProduct = it.next();
             cartItemsInfo += nextProduct + ": " + cartItems.get(nextProduct) + ", ";
         }
         return cartInfo + cartItemsInfo;
@@ -218,11 +243,13 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      */
     @Override
     public int compareTo(ShoppingCart2 c) {
-        if (totalWeight == ((ShoppingCart2) c).getTotalWeight()) {
-            return 0;
-        } else if (totalWeight > ((ShoppingCart2) c).getTotalWeight()) {
-            return 1;
-        } else return -1;
+        return Double.compare(totalWeight, c.getTotalWeight());
+
+//        if (totalWeight == ((ShoppingCart2) c).getTotalWeight()) {
+//            return 0;
+//        } else if (totalWeight > ((ShoppingCart2) c).getTotalWeight()) {
+//            return 1;
+//        } else return -1;
     }
 
 }

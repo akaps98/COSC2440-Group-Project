@@ -1,31 +1,24 @@
 package model;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
-public class DataInputProcess {
+public class DataInput {
     ProductMap products;
     ShoppingCartList carts;
 
     // CONSTRUCTOR
 
-    public DataInputProcess() {
+    public DataInput() {
         products = new ProductMap();
         carts = new ShoppingCartList();
     }
 
     // METHOD
-    public void readProductFile() {
-        // display the length of each line of a file
-
-        // must be final to use in lamda
-        final int[] start = new int[] {1};
-
-//        // Storing location of the created products
-//        ProductMap products = new ProductMap();
+    public ProductMap readProductFile() {
+        // Storing location of the created products
+        // ProductMap products = new ProductMap();
 
         try {
             Files.lines(Paths.get("src/main/java/database/products.txt"))
@@ -48,15 +41,15 @@ public class DataInputProcess {
                                             break;
                                         // Case 3: create a Gift Product
                                         case "GIFT":
-                                            if (newLine[1] == "PHYSICAL") {
-                                                Product p = new Physical(newLine[2], newLine[3], Integer.parseInt(newLine[4]), Double.parseDouble(newLine[5]), newLine[6], Double.parseDouble(newLine[7]));
+                                            Product p;
+                                            if (newLine[1].equalsIgnoreCase("PHYSICAL")) {
+                                                p = new Physical(newLine[2], newLine[3], Integer.parseInt(newLine[4]), Double.parseDouble(newLine[5]), newLine[6], Double.parseDouble(newLine[7]));
                                                 ((Physical) p).setMessage(newLine[8]);
-                                                products.addProduct(p);
                                             } else {
-                                                Product p = new Digital(newLine[2], newLine[3], Integer.parseInt(newLine[4]), Double.parseDouble(newLine[5]), newLine[6]);
+                                                p = new Digital(newLine[2], newLine[3], Integer.parseInt(newLine[4]), Double.parseDouble(newLine[5]), newLine[6]);
                                                 ((Digital) p).setMessage(newLine[7]);
-                                                products.addProduct(p);
                                             }
+                                            products.addProduct(p);
                                             break;
                                         // Case 4: create a Coupon
                                         case "COUPON":
@@ -77,10 +70,12 @@ public class DataInputProcess {
                             });
             System.out.println(products.viewAllProducts());
             System.out.println("Finish!");
+
         } catch (IOException e) {}
+        return products;
     }
 
-    public void readCartFile() {
+    public ShoppingCartList readCartFile() {
 //        // Storing location of the created Shopping Cart
 //        ShoppingCartList carts = new ShoppingCartList();
         try {
@@ -102,14 +97,15 @@ public class DataInputProcess {
                                     carts.addCart(c);
                                 }
                             });
-            carts.viewCartsAfterSorted();
+            carts.viewCarts();
             System.out.println("Finish!");
         } catch (IOException e) {}
+        return carts;
     }
 
 
     public static void main(String[] args) {
-        DataInputProcess dataProcess = new DataInputProcess();
+        DataInput dataProcess = new DataInput();
         dataProcess.readProductFile();
         dataProcess.readCartFile();
     }

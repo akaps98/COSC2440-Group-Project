@@ -1,0 +1,25 @@
+				Online Shopping Service
+
+Receipt Number: C2440 - G09 - C1			
+02/05/2023 14:36:20
+User: Nguyen Anh Duy 
+----------------------------------------------------
+iPhone
+2x $180.00							$1480.00
+Airpods
+2x $180.00							$1480.00
+iMac
+1x $180.00							$1480.00
+iPad
+1x $180.00							$1480.00
+Macbook
+1x $180.00							$1480.00
+----------------------------------------------------
+Cart Items:	7
+
+Cart Discount: 50%							$1200.50
+
+Subtotal: 									$1923.11
+
+TOTAL: 										$1904.23
+(already included tax)
