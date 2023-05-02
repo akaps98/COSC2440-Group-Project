@@ -81,7 +81,7 @@ COUPON,d0905a,percent,3.25,Youtube Premium
 COUPON,d0906b,percent,10,CGV VIP membership
 COUPON,d0907b,percent,29,Nicepage Premium
 COUPON,d0908b,percent,31,VPN Server Agent
-COUPON,d0909b,price,,PDF Watermark
+COUPON,d0909b,price,12,PDF Watermark
 COUPON,d0910b,price,68,Image Converter
 COUPON,d0911a,price,15.25,Powerpoint Template
 COUPON,d0912a,price,15.25,GitHub Enterprise

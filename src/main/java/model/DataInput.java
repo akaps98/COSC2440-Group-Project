@@ -61,17 +61,13 @@ public class DataInput {
                                         // Case 4: create a Coupon
                                         case "COUPON":
                                             // Create new coupon
-                                            Coupon coupon = new Coupon(newLine[1],newLine[2],products.getProduct(newLine[4]),Double.parseDouble(newLine[3]));
+                                            Coupon coupon = new Coupon(newLine[1],newLine[2],Double.parseDouble(newLine[3]),newLine[4]);
                                             // Add new coupon to the coupon list
                                             coupons.add(coupon);
                                             break;
                                         case "TAX":
                                             // Initialise values for Tax here
-                                            if (newLine[1].equals("normalTax")) {
-                                                taxes.put((newLine[1]), Double.parseDouble(newLine[2]));
-                                            } else if (newLine[1].equals("luxuryTax")) {
-                                                taxes.put((newLine[1]), Double.parseDouble(newLine[2]));
-                                            }
+                                            taxes.put(newLine[1], Double.parseDouble(newLine[2]));
                                             break;
                                         default:
                                             break;
@@ -89,7 +85,7 @@ public class DataInput {
         db.setTaxes(this.taxes);
     }
 
-    public ShoppingCartList readCartFile() {
+    public void readCartFile() {
 //        // Storing location of the created Shopping Cart
 //        ShoppingCartList carts = new ShoppingCartList();
         try {
@@ -132,6 +128,8 @@ public class DataInput {
 
     public static void main(String[] args) {
         DataInput dataProcess = new DataInput();
+        dataProcess.readProductFile();
+        dataProcess.readCartFile();
         ShoppingDB db = ShoppingDB.getInstance();
         db.getProducts().viewAvailableProducts();
         db.getCarts().viewCartsAfterSorted();

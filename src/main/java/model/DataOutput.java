@@ -54,12 +54,13 @@ public class DataOutput {
     public static void main(String[] args) {
         // Test data input
         DataInput dataProcess = new DataInput();
-        ProductMap products = dataProcess.readProductFile();
-        ShoppingCartList carts = dataProcess.readCartFile();
+        dataProcess.readProductFile();
+        dataProcess.readCartFile();
 
         // Test data output
         DataOutput dOut = new DataOutput();
-        ShoppingCart2 c = carts.getCart(1);
+        ShoppingDB db = ShoppingDB.getInstance();
+        ShoppingCart2 c = db.getCarts().getCart(2);
         dOut.writeReceipt(c);
     }
 }

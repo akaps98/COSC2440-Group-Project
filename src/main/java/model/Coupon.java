@@ -3,13 +3,14 @@ package model;
 public class Coupon {
     protected String couponID;
     protected String type;
-    protected Product product;
     protected double couponValue;
+    protected String productName;
 
-    public Coupon(String couponID, String type, Product product, double couponValue) {
+    // CONSTRUCTOR
+    public Coupon(String couponID, String type, double couponValue, String productName) {
         this.couponID = couponID;
         this.type = type;
-        this.product = product;
         this.couponValue = couponValue;
+        this.productName = productName;
     }
 }
