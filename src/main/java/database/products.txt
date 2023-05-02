@@ -1,0 +1,116 @@
+PHYSICAL,iPad,a tablet use for entertainment or presentation purpose,500,1200,normalTax,487.0
+PHYSICAL,iPhone,a smart device use for entertainment or presentation purpose,500,1430,normalTax,148.0
+PHYSICAL,Macbook,a laptop using MacOs operating system and M2 processor and exclusive components from Apple,500,2500,normalTax,2200.0
+PHYSICAL,Airpods,a smart and convenient wireless earphones for apple users,500,1200,normalTax,38.2
+PHYSICAL,iMac,a portable device and a mini version of a desktop with a cheaper option that run MacOS,500,988,normalTax,1200.0
+PHYSICAL,Apple Watch,a smart watch that have multiple functionalities compared to a normal watch and synchronised with your smartphone,500,499,normalTax,61.3
+PHYSICAL,Galaxy S23,the best selling smart phone using android and snapdragon processor from Samsung,500,865,luxuryTax,168.0
+PHYSICAL,Samsung Buds2 Pro,a smart earphones that is compatible for Samsung Products and a competitor of Apple Airpod,500,529,luxuryTax,71.0
+PHYSICAL,Huawei FreeBuds,a smart earphones that is compatible for Huawei products and have similar features like Apple Airpod,500,529,luxuryTax,71.0
+PHYSICAL,Magic Mouse,a smart and wireless mouse with maximum of 10000 DPI,500,60,luxuryTax,0.85
+PHYSICAL,4K Monitor,a big screen monitor to display when using with PC,500,350,freeTax,4180
+PHYSICAL,Mechanical Keyboard,a tablet use for entertainment or presentation purpose,500,115,freeTax,0.53
+PHYSICAL,Webcam,a device to catch picture or record yourself during a meeting,500,34,freeTax,0.123
+PHYSICAL,Wireless Charger,a thing use to charge the electronic devices,500,8,freeTax,0.169
+PHYSICAL,Streaming Dock,a device use by streamers,500,750,freeTax,2.4
+PHYSICAL,Nintendo Switch,the most popular nintendo gaming console to play games,500,298,normalTax,398
+PHYSICAL,HP Printer,a device use for printing paper,500,125.5,normalTax,2730
+PHYSICAL,Enkor Speakers,a pair of speakers that output quality sound with amazing bass and treble,500,78.71,freeTax,3200
+PHYSICAL,Router Wifi,a device use to spread the internet connection for other mobile or electronic device to use,500,188,freeTax,375
+PHYSICAL,Corsair Mousepad,a thing to provide a smooth and friendly experience for electronic mouses,500,58,luxuryTax,0.201
+DIGITAL,ChatGPT Account,a legitable account with access to ChatGPT - an AI from openAI,1000,30,normalTax
+DIGITAL,NordVPN Plus,a premium plan to access to all features from NordVPN including free servers,1000,20,normalTax
+DIGITAL,Spotify Premium,a premium plan to access over a million of music playlists and podcasts on Spotify,1000,20.9,normalTax
+DIGITAL,Steam Gift Card,a 50000VND gift voucher for purchasing apps on Steam,1000,30,freeTax
+DIGITAL,Youtube Premium,a premium plan to watch Youtube clips without advertisement,1000,25,normalTax
+DIGITAL,CGV VIP membership,a vip membership plan after spending over 5 million VND into CGV and get access to many benefits,1000,250.5,freeTax
+DIGITAL,Nicepage Premium,a premium plan that access all the website templates including pro version and full website components,1000,129.9,normalTax
+DIGITAL,VPN Server Agent,a service provide a vpn server for user,1000,12.4,luxuryTax
+DIGITAL,PDF Watermark,a service to remove or add watermark from pdf,1000,10.2,normalTax
+DIGITAL,Image Converter,an application specialised in converting images from different img format,1000,18.2,normalTax
+DIGITAL,Powerpoint Template,beautiful design templates for powerpoint presentation,1000,65.75,normalTax
+DIGITAL,GitHub Enterprise,a pro plan for GitHub user that want to manage code in teams easier with much more features,1000,89.9,luxuryTax
+DIGITAL,iWallpaper Template,provide unlimited use of iPhone or Macbook wallpaper,1000,40.8,freeTax
+DIGITAL,WordPress Themes,provide different design and decorative ideas and themes for website,1000,25.4,normalTax
+DIGITAL,Fitness Program,a 3 month training program consists of cardio and core strength exercises,1000,89.99,luxuryTax
+DIGITAL,Office 365,the office 365 softwares like word excel powerpoint teams etc.,1000,120,normalTax
+DIGITAL,JetBrains License,a license to download the pro software from Jetbrains company,1000,1200,normalTax
+DIGITAL,Netflix Family,a subscription to the max option of a netflix account for watching unlimited movies and share to maximum of 4 devices,1000,48,luxuryTax
+DIGITAL,Shooting Game,a multiplayer game on Steam,1000,12,freeTax
+DIGITAL,Canvas Pro,a pro plan to access all the pictures and templates on Canvas,1000,20,normalTax
+GIFT,PHYSICAL,Iphone Case,an accessories for iphone user,50,20.5,normalTax,20,take this iphone case for your birthday present
+GIFT,PHYSICAL,Laptop Holder,an accessory to cover the laptop when moving,50,11.9,freeTax,180,thank you for buying our Macbook and this is our additional product for you
+GIFT,PHYSICAL,Apple Stickers,a number of random stickers provide from Apple when purchasing an Apple product,50,15.8,luxuryTax,0.2,To celebrate the national 8/3 day we would like to give you this brand new stickers
+GIFT,PHYSICAL,Selfie Stick,an accessory that help you take picture of yourself easier,50,3.8,normalTax,113,hope you like my present
+GIFT,PHYSICAL,16gb USB,a small and portable device that help you save your documents to an external storage,50,8.9,normalTax,0.088,I saw you waste a lot of time finding documents and hope this present can help
+GIFT,DIGITAL,Coursera Course,a course that teaches programming skills for data science,50,7.8,freeTax,level up your coding skill with this data analytic course from Coursera
+GIFT,DIGITAL,BHD Cinema eTicket,an online ticket that can watch any movie,50,4.8,normalTax,thank you for being our VIP member and this is our free ticket for you
+GIFT,DIGITAL,Python Tutorial eBook,an online book that contains the tutorial sessions to kick start learning Python,50,23.6,freeTax,good luck to start Python from scratch
+GIFT,DIGITAL,eLearning Account,an account that access to the best english teaching service and lessons,50,55.9,normalTax,learn up to 5000 new English words with this eLearning curriculum
+GIFT,DIGITAL,Adobe Package,the adobe softwares: photoshop + premier pro + lightroom,50,1200,luxuryTax,all adobe products is in the gift box for you
+COUPON,p0901a,15.25,iPad
+COUPON,p0902a,22.5,iPhone
+COUPON,p0903a,31.0,Macbook
+COUPON,p0904a,18.75,Airpods
+COUPON,p0905a,25.5,iMac
+COUPON,p0906b,11,Apple Watch
+COUPON,p0907b,15,Galaxy S23
+COUPON,p0908b,21,Samsung Buds2 Pro
+COUPON,p0909b,11,Huawei FreeBuds
+COUPON,p0910b,8,Magic Mouse
+COUPON,p0911a,30.0,4K Monitor
+COUPON,p0912a,35.0,Mechanical Keyboard
+COUPON,p0913a,12.85,Webcam
+COUPON,p0914a,1.75,Wireless Charger
+COUPON,p0915b,07,Streaming Dock
+COUPON,p0916b,12,Nintendo Switch
+COUPON,p0917b,18,HP Printer
+COUPON,p0918b,2,Enkor Speakers
+COUPON,p0919b,5,Router Wifi
+COUPON,p0920b,65,Corsair Mousepad
+COUPON,p0921a,1.25,Iphone Case
+COUPON,p0922b,15,Laptop Holder
+COUPON,p0923a,9.8,Apple Stickers
+COUPON,p0924b,25,Selfie Stick
+COUPON,p0925a,12.2,16gb USB
+COUPON,d0901a,1.25,ChatGPT Account
+COUPON,d0902a,2.75,NordVPN Plus
+COUPON,d0903a,3.0,Spotify Premium
+COUPON,d0904a,5.25,Steam Gift Card
+COUPON,d0905a,3.25,Youtube Premium
+COUPON,d0906b,10,CGV VIP membership
+COUPON,d0907b,29,Nicepage Premium
+COUPON,d0908b,31,VPN Server Agent
+COUPON,d0909b,82,PDF Watermark
+COUPON,d0910b,68,Image Converter
+COUPON,d0911a,15.25,Powerpoint Template
+COUPON,d0912a,15.25,GitHub Enterprise
+COUPON,d0913a,15.25,iWallpaper Template
+COUPON,d0914a,15.25,WordPress Themes
+COUPON,d0915a,15.25,Fitness Program
+COUPON,d0916b,7,Office 365
+COUPON,d0917b,15,Jetbrains License
+COUPON,d0918b,12,Netflix Family
+COUPON,d0919b,22,Shooting Game
+COUPON,d0920b,25,Canvas Pro
+COUPON,d0921a,1.25,Coursera Course
+COUPON,d0922b,15,BHD Cinema eTicket
+COUPON,d0923a,9.8,Python Tutorial eBook
+COUPON,d0924b,9,eLearning Account
+COUPON,d0925a,12.2,Adobe Package
+TAX,freeTax,0.0
+TAX,normalTax,0.1
+TAX,luxuryTax,0.2
+
+(40 Products, 10 gifts, 50 coupons, 3 tax values)
+--- PRODUCT syntax ---
+#type {PHYSICAL / DIGITAL},#name,#description,#quantity,#price($),#taxType,#weight(g) *only for PHYSICAL PRODUCTS*
+
+--- GIFT syntax ---
+#type {GIFT},#type,#name,#description,#quantity,#price($),#taxType,#weight(g) *only for PHYSICAL PRODUCTS*,#giftMessage *only for GIFT PRODUCTS*
+
+--- COUPON syntax ---
+#type {COUPON},#couponID,#couponValue,#productName
+
+--- TAX syntax ---
+#type {COUPON},#taxType,#taxValue

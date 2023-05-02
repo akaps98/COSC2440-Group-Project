@@ -1,0 +1,35 @@
+				Online Shopping Service
+
+Receipt Number: C2440 - G09 - C3			
+02/05/2023 14:36:00
+User: Nguyen Anh Duy 
+----------------------------------------------------
+Galaxy S23
+1x $180.00 (-10%)							$1480.00
+Huawei FreeBuds
+4x $180.00 (-10%)							$1480.00
+Apple Watch
+5x $180.00 (-10%)							$1480.00
+Magic Mouse
+1x $180.00 (-10%)							$1480.00
+Wireless Charger
+2x $180.00 (-10%)							$1480.00
+Streaming Dock
+1x $180.00 (-10%)							$1480.00
+4K Monitor
+1x $180.00 (-10%)							$1480.00
+Webcam
+1x $180.00 (-10%)							$1480.00
+Mechanical Keyboard
+1x $180.00 (-10%)							$1480.00
+Samsung Buds2 Pro
+2x $180.00 (-10%)							$1480.00
+----------------------------------------------------
+Cart Items:	19
+
+Cart Discount: 50%							$1200.50
+
+Subtotal: 									$1923.11
+
+TOTAL: 										$1904.23
+(already included tax)
