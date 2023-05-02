@@ -3,17 +3,19 @@ package model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import database.ShoppingDB;
 
 public class DataInput {
     ProductMap products;
     ShoppingCartList carts;
-
+    ArrayList<Coupon> coupons;
     // CONSTRUCTOR
 
     public DataInput() {
         products = new ProductMap();
         carts = new ShoppingCartList();
+        coupons = new ArrayList<Coupon>();
     }
 
     // METHOD
@@ -56,9 +58,10 @@ public class DataInput {
                                         case "COUPON":
                                             // Create new coupon here
                                             // ...
-
+                                            Coupon coupon = new Coupon(newLine[1],newLine[2],products.getProduct(newLine[4]),Double.parseDouble(newLine[3]));
                                             // Add new coupon to the coupon list here
                                             // ...
+                                            coupons.add(coupon);
                                             break;
                                         case "TAX":
                                             // Initialise values for Tax here
