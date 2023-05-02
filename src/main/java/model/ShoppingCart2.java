@@ -54,7 +54,9 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
 
 
     // METHOD
-    public void resetCart() {}
+
+    /* Utilities Method */
+    public void resetCart() {cartItems.clear();}
 
     public int totalUniqueItems() {
         return cartItems.keySet().size();

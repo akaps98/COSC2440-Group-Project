@@ -3,6 +3,7 @@ package model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import database.ShoppingDB;
 
 public class DataInput {
     ProductMap products;
@@ -68,7 +69,7 @@ public class DataInput {
                                     }
                                 }
                             });
-            System.out.println(products.viewAllProducts());
+//            System.out.println(products.viewAllProducts());
             System.out.println("Finish!");
 
         } catch (IOException e) {}
@@ -97,17 +98,32 @@ public class DataInput {
                                     carts.addCart(c);
                                 }
                             });
-            carts.viewCarts();
+//            carts.viewCarts();
             System.out.println("Finish!");
         } catch (IOException e) {}
         return carts;
     }
 
+    public void readReceipt(int cartID) {
+        try {
+            Files.lines(Paths.get("src/main/java/database/cart"+cartID+".txt"))
+                    .forEach(
+                            line -> {
+                                System.out.println(line);
+                            });
+            System.out.println("Finish!");
+        } catch (IOException e) {}
+
+    }
 
     public static void main(String[] args) {
         DataInput dataProcess = new DataInput();
-        dataProcess.readProductFile();
-        dataProcess.readCartFile();
+        ShoppingDB db = ShoppingDB.getInstance();
+        db.setProducts(dataProcess.readProductFile());
+        db.setCarts(dataProcess.readCartFile());
+        db.getProducts().viewAvailableProducts();
+        db.getCarts().viewCartsAfterSorted();
+//        dataProcess.readReceipt(1);
     }
 }
 
