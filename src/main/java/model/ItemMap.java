@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The class stores information about all the Products inside a Product List
+ * The class stores information about all the Products inside a shopping cart
  *
  * @author Nguyen Anh Duy - s3878141
  * @since 2023 - 04 - 01
@@ -15,83 +15,66 @@ public class ItemMap {
     private Map<String, Integer> itemMap;
 
     // CONSTRUCTOR
-    public ItemMap(Product p) {
+    public ItemMap() {
         itemMap = new HashMap<>();
-
     }
 
     // METHODS
-    public boolean addProduct(Product p) {
-        if (productList.containsValue(p)) { // Check if the product list contains the existed product name
+
+    /**
+     * This method add the new item with the specific number of quantity to the item map
+     * @param productName: name of the added product
+     * @param quantity: number of product to add
+     * @param productList: the list contains all the existed product
+     * @return boolean: this value state whether the item has been added successfully
+     */
+    public boolean addItem(String productName, int quantity, HashMap<String, Product> productList) {
+        // Check if the item map contains the existed product name
+        if (!productList.containsKey(productName)) {
+            System.out.println("Product not existed!");
             return false;
         }
-        productList.put(p.getName(), p);
+        // Check if there is enough available quantity for the added product(s)
+        if (productList.get(productName).getQuantity() < quantity) {
+            System.out.println("Not enough available quantity for this product");
+            return false;
+        }
+
+        // Add product to the shopping cart
+        if (itemMap.containsKey(productName)) { // Check if item already existed in the cart
+            itemMap.put(productName, itemMap.get(productName) + quantity);
+        } else {
+            itemMap.put(productName, quantity);
+        }
         return true;
     }
 
-    public boolean removeProduct(Product p) {
-        if (productList.containsValue(p)) { // Check if the product list contains the existed product name
-            productList.remove(p.getName());
-            return true;
+    public boolean removeItem(String productName, int quantity, HashMap<String, Product> productList) {
+        // Check if the item map contains the existed product name
+        if (!productList.containsKey(productName)) {
+            System.out.println("Product not existed!");
+            return false;
         }
-        return false;
-
-    }
-
-    public int countProduct() {
-        return productList.size();
-    }
-
-    public void resetProductList() {
-        productList.clear();
-    }
-
-    public Product getProduct(String productName) {
-        return productList.get(productName);
-    }
-
-    public boolean containProduct(String productName) {
-        return productList.containsKey(productName);
-    }
-
-    /**
-     * The method used to provide all the product name inside the product list
-     *
-     * @return StringBuilder: the StringBuilder contains the number of products in the list and the all the product names
-     */
-    public StringBuilder viewAllProducts() {
-        StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
-        allProducts.append("[");
-        for (Product p : productList.values()) { // Loop for each product inside the list
-            allProducts.append(p.toString() + ", ");
+        // Check if the quantity number to remove is valid
+        if (itemMap.get(productName) < quantity) {
+            System.out.println("Your quantity number is larger than the current number of this product in the cart!");
+            return false;
         }
-        allProducts.append("]");
-        // Display to the console
-        System.out.println(String.format("Number of Products: %d", countProduct()));
-        System.out.println(allProducts);
-        return allProducts;
+
+        // Remove the product entirely if the quantity reduced to 0
+        itemMap.put(productName, itemMap.get(productName) - quantity);
+        if (itemMap.get(productName) == 0) {
+            itemMap.remove(productName);
+        }
+        return true;
+
     }
 
-    /**
-     * The method used to provide all the product name that are currently available to add to a cart inside the product list
-     *
-     * Condition: product must have availableQuantity > 0
-     *
-     * @return StringBuilder: the StringBuilder contains the number of products in the list and the all the product names
-     */
-    public StringBuilder viewAvailableProducts() {
-        StringBuilder availableProducts = new StringBuilder(); // The String that contains information of all available products
-        int availableCount = 0;
-        for (Product p : productList.values()) { // Loop for each product inside the list
-            if (p.getQuantity() != 0) {
-                availableProducts.append(p.toString() + ", "); // Add
-                availableCount++;
-            }
-        }
-        availableProducts.append("]");
-        // Display to the console
-        System.out.println(String.format("Number of Available Products: %d", availableCount));
-        System.out.println(availableProducts);
-        return availableProducts;
+    public int countItems() {
+        return itemMap.size();
+    }
+
+    public boolean containItem(String productName) {
+        return itemMap.containsKey(productName);
     }
 }

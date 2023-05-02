@@ -1,19 +1,31 @@
 package model;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class DataInputProcess {
+    ProductMap products;
+    ShoppingCartList carts;
 
+    // CONSTRUCTOR
+
+    public DataInputProcess() {
+        products = new ProductMap();
+        carts = new ShoppingCartList();
+    }
+
+    // METHOD
     public void readProductFile() {
         // display the length of each line of a file
 
         // must be final to use in lamda
         final int[] start = new int[] {1};
 
-        // Storing location of the created products
-        ProductMap products = new ProductMap();
+//        // Storing location of the created products
+//        ProductMap products = new ProductMap();
 
         try {
             Files.lines(Paths.get("src/main/java/database/products.txt"))
@@ -69,14 +81,37 @@ public class DataInputProcess {
     }
 
     public void readCartFile() {
-        // Storing location of the created Shopping Cart
-        ShoppingCartList carts = new ShoppingCartList();
+//        // Storing location of the created Shopping Cart
+//        ShoppingCartList carts = new ShoppingCartList();
+        try {
+            Files.lines(Paths.get("src/main/java/database/carts.txt"))
+                    .forEach(
+                            line -> {
+                                if (!line.isEmpty()) {
+                                    String[] newLine = line.split(",");
+                                    int cartID = Integer.parseInt(newLine[0]);
+                                    ShoppingCart2 c = new ShoppingCart2(cartID);
+                                    String[] coupon = newLine[1].split(":");
+                                    if (coupon.length == 2) {
+                                        c.setAppliedCouponID(coupon[1]);
+                                    }
+                                    for (int i = 2; i < newLine.length; i++) {
+                                        String[] item = newLine[i].split(":");
+                                        c.addItem(item[0], Integer.parseInt(item[1]), products);
+                                    }
+                                    carts.addCart(c);
+                                }
+                            });
+            carts.viewCartsAfterSorted();
+            System.out.println("Finish!");
+        } catch (IOException e) {}
     }
 
 
     public static void main(String[] args) {
         DataInputProcess dataProcess = new DataInputProcess();
         dataProcess.readProductFile();
+        dataProcess.readCartFile();
     }
 }
 

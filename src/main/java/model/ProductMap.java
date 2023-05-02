@@ -20,6 +20,19 @@ public class ProductMap {
     }
 
     // METHODS
+    public Product getProduct(String productName) {return productList.get(productName);}
+
+    /* Utilities Methods */
+    public int countProduct() {
+        return productList.size();
+    }
+
+    public void resetProductList() {
+        productList.clear();
+    }
+
+    public boolean contains(String productName) {return productList.containsKey(productName);}
+
     public boolean addProduct(Product p) {
         if (productList.containsValue(p)) { // Check if the product list contains the existed product name
             return false;
@@ -37,21 +50,7 @@ public class ProductMap {
 
     }
 
-    public int countProduct() {
-        return productList.size();
-    }
 
-    public void resetProductList() {
-        productList.clear();
-    }
-
-    public Product getProduct(String productName) {
-        return productList.get(productName);
-    }
-
-    public boolean containProduct(String productName) {
-        return productList.containsKey(productName);
-    }
 
     /**
      * The method used to provide all the product name inside the product list

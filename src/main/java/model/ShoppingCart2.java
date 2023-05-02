@@ -7,74 +7,84 @@ package model;
  * @since 2023 - 03 - 31
  */
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class ShoppingCart2 implements Comparable<ShoppingCart2> {
 
-    //? ATTRIBUTES
-    protected Set<String> cartItems;
-    protected double totalWeight;
+    // ATTRIBUTES
+    protected int cartID;
     protected String appliedCouponID;
+    protected Map<String, Integer> cartItems;
+    protected double totalWeight;
+
 
     //? CONSTRUCTOR
-    public ShoppingCart2(){
-        cartItems = new HashSet<>();
+    public ShoppingCart2(int cartID){
+        this.cartID = cartID;
+        cartItems = new HashMap<>();
+        totalWeight = 0;
+    };
+
+    public ShoppingCart2(int cartID, String couponID){
+        this.cartID = cartID;
+        this.appliedCouponID = couponID;
+        cartItems = new HashMap<>();
         totalWeight = 0;
     };
 
     //? GETTERS & SETTERS
-    public double getTotalWeight() {
-        return totalWeight;
-    }
+    public double getTotalWeight() {return this.totalWeight;}
 
-    public void setTotalWeight(double totalWeight) {
-        this.totalWeight = totalWeight;
-    }
+    public void setTotalWeight(double totalWeight) {this.totalWeight = totalWeight;}
 
-    public String getAppliedCouponID() {
-        return this.appliedCouponID;
-    }
-
-    public void setAppliedCouponID(String appliedCouponID) {
-        this.appliedCouponID = appliedCouponID;
-    }
-
+    public String getAppliedCouponID() {return this.appliedCouponID;}
+    public void setAppliedCouponID(String appliedCouponID) {this.appliedCouponID = appliedCouponID;}
 
     // METHOD
+    public void resetCart() {
 
-    /**
-     * The method use to add a item (Product) into the shopping cart
-     *
-     * Conditions:
-     * 1. The product has not been added to the Shopping Cart yet
-     * 2. The product with the productName existed in the Product List
-     * 3. There is available quantity (> 0) for that Product in the Product List
-     *
-     * @param productName - Name of the product
-     * @return boolean - Boolean value states if the product has been added successfully to the cart
-     * Action: update the quantity available for that product: quantityAvailable - 1
-     */
-    public boolean addItem(String productName) {
-        // Check if the product is existed in the shopping cart
-        if (cartItems.contains(productName)) {
-            return false;
-        }
-        // Get the Product from the product name
-        Product p = App.productList.getProduct(productName);
-        // Check if a product existed, and if there is available quantity for that product
-        if (p != null && p.getQuantity() > 0) {
-            cartItems.add(productName);
-            p.setQuantity(p.getQuantity() - 1); // update available quantity for the product
-            calTotalWeight(); // Calculate the new total weight for the shopping cart
-            return true;
-        }
-        return false;
     }
 
     /**
-     * The method use to remove a item (Product) into the shopping cart
+     * This method add the new item with the specific number of quantity to the item map
+     *
+     * Conditions:
+     * 1. The product is existed
+     * 2. There is available quantity (> 0) for that Product in the Product List
+     *
+     * @param productName: name of the added product
+     * @param quantity: number of product to add
+     * @param productList: the list contains all the existed product
+     * @return boolean: Boolean value states if the product item has been added successfully to the cart
+     *
+     * Action: update the quantity available for that product: quantityAvailable - 1
+     */
+    public boolean addItem(String productName, int quantity, ProductMap productList) {
+        // Check if the item map contains the existed product name
+        if (!productList.contains(productName)) {
+            System.out.println("Product not existed!");
+            return false;
+        }
+        // Check if there is enough available quantity for the added product(s)
+        Product p = productList.getProduct(productName);
+        if (p.getQuantity() < quantity) {
+            System.out.println("Not enough available quantity for this product");
+            return false;
+        }
+
+        // Add product to the shopping cart
+        if (cartItems.containsKey(productName)) { // Check if item already existed in the cart
+            cartItems.put(productName, cartItems.get(productName) + quantity);
+        } else {
+            cartItems.put(productName, quantity);
+        }
+
+        p.setQuantity(p.getQuantity() - 1); // update available quantity for the product
+        calTotalWeight(productList); // Calculate the new total weight for the shopping cart
+        return true;
+    }
+    /**
+     * The method use to remove item(s) (Product) into the shopping cart
      *
      * Conditions:
      * 1. The product must existed in the Shopping Cart
@@ -83,20 +93,32 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      * @return boolean - Boolean value states if the product has been added successfully to the cart
      * Action: update the quantity available for that product: quantityAvailable + 1
      */
-    public boolean removeItem(String productName) {
+    public boolean removeItem(String productName, int quantity, ProductMap productList) {
         // Check if the product is not existed in the shopping cart
-        if (!(cartItems.contains(productName))) {
+        if (!cartItems.containsKey(productName)) {
+            System.out.println("Product not existed!");
             return false;
         }
-        // Get the Product from the product name
-        Product p = App.productList.getProduct(productName);
-        if (p != null) {
-            cartItems.remove(productName);
-            p.setQuantity(p.getQuantity() + 1); // update available quantity for the product
-            calTotalWeight(); // Calculate the new total weight for the shopping cart
-            return true;
+
+        // Check if the quantity number to remove is valid
+        if (cartItems.get(productName) < quantity) {
+            System.out.println("Your quantity number is larger than the current number of this product in the cart!");
+            return false;
         }
-        return false;
+
+        // Get the Product from the product name
+        Product p = productList.getProduct(productName);
+
+        // Reduce a number of quantity from the product
+        cartItems.put(productName, cartItems.get(productName) - quantity);
+        p.setQuantity(p.getQuantity() + quantity); // update available quantity for the product
+        calTotalWeight(productList); // Calculate the new total weight for the shopping cart
+
+        // Remove the product entirely if the quantity reduced to 0
+        if (cartItems.get(productName) == 0) {
+            cartItems.remove(productName);
+        }
+        return true;
     }
 
     /**
@@ -108,7 +130,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      * @return double - the double value is the total weight of the Physical Products in the cart
      * Action: set the total weight of
      */
-    private double calTotalWeight() {
+    private double calTotalWeight(ProductMap productList) {
         // Check if shopping cart is empty
         if (cartItems.size() == 0) {
             return 0;
@@ -122,10 +144,10 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
         // }
 
         // Iterate through all the product names in the cart items
-        Iterator<String> it = cartItems.iterator();
+        Iterator<String> it = cartItems.keySet().iterator();
         while(it.hasNext()) { // checking the next Product
             String productName = it.next();
-            Product p = App.productList.getProduct(productName);
+            Product p = productList.getProduct(productName);
             if (p instanceof Physical) { // check if the product is a Physical Product
                 weight += ((Physical) p).getWeight(); // get the weight by casting PhysicalProduct type, and add to the weight variable
             }
@@ -143,7 +165,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      * @return double - the double value is the total price of the shopping cart
      * and update the quantity available for that product: quantityAvailable + 1
      */
-    public double cartAmount() {
+    public double cartAmount(ProductMap productList) {
         double totalPrice = 0;
         // for (String productName : cartItems) {
         //     Product p = App.productList.getProduct(productName);
@@ -151,10 +173,10 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
         // }
 
         // Iterate through all the product names in the shopping cart
-        Iterator<String> it = cartItems.iterator();
+        Iterator<String> it = cartItems.keySet().iterator();
         while(it.hasNext()) { // checking the next Product
             String productName = it.next();
-            Product p = App.productList.getProduct(productName);
+            Product p = productList.getProduct(productName);
             totalPrice += p.getPrice(); // adding up the price
         }
 
@@ -171,11 +193,13 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      */
     @Override
     public String toString() {
-        String cartInfo = String.format("Cart #%d --- Cart items: ", App.cartList.indexOf(this) + 1);
+        String cartInfo = String.format("Cart #%d --- Cart items: ", cartID);
         String cartItemsInfo = "";
-        Iterator<String> it = cartItems.iterator();
+        String nextProduct = "";
+        Iterator<String> it = cartItems.keySet().iterator();
         while (it.hasNext()) {
-            cartItemsInfo += it.next() + ", ";
+            nextProduct = it.next();
+            cartItemsInfo += nextProduct + ": " + cartItems.get(nextProduct) + ", ";
         }
         return cartInfo + cartItemsInfo;
     }
