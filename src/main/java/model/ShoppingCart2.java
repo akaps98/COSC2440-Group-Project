@@ -195,17 +195,25 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      */
     public double cartAmount(ProductMap productList) {
         double totalPrice = 0;
+        double overallSubtotal = 0;
         // for (String productName : cartItems) {
         //     Product p = App.productList.getProduct(productName);
         //     totalPrice += p.getPrice();
         // }
 
         // Iterate through all the product names in the shopping cart
-        Iterator<String> it = cartItems.keySet().iterator();
-        while(it.hasNext()) { // checking the next Product
-            String productName = it.next();
+        for (String productName : cartItems.keySet()) { // checking the next Product
             Product p = productList.getProduct(productName);
-            totalPrice += p.getPrice(); // adding up the price
+
+            double itemSubtotal = p.getPrice() * cartItems.get(productName);
+            Tax TaxInstance = Tax.getTaxInstance(productName);
+            double taxSubtotal = TaxInstance.getTaxAmount();
+
+            overallSubtotal += itemSubtotal; // for subtotal before coupons and taxes
+
+            totalPrice += itemSubtotal; // price of all the products before coupons and taxes
+            totalPrice -= 10; // coupon placeholder for price after coupon
+            totalPrice += taxSubtotal; // price after tax
         }
 
         double shippingFee = totalWeight * 0.1;
