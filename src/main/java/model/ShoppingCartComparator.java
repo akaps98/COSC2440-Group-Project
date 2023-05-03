@@ -8,7 +8,7 @@ package model;
 
 import java.util.Comparator;
 
-public class ShoppingCartComparator implements Comparator<ShoppingCart2>{
+public class ShoppingCartComparator implements Comparator<ShoppingCart>{
     // public static final int COMPARE_BY_WEIGHT = 1;
     // private int compareBy;
 
@@ -23,7 +23,7 @@ public class ShoppingCartComparator implements Comparator<ShoppingCart2>{
      *
      */
     @Override
-    public int compare(ShoppingCart2 c1, ShoppingCart2 c2) {
+    public int compare(ShoppingCart c1, ShoppingCart c2) {
         return c1.compareTo(c2);
     }
 }

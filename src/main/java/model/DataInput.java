@@ -98,7 +98,7 @@ public class DataInput {
                                 if (!line.isEmpty()) {
                                     String[] newLine = line.split(",");
                                     int cartID = Integer.parseInt(newLine[0]);
-                                    ShoppingCart2 c = new ShoppingCart2(cartID);
+                                    ShoppingCart c = new ShoppingCart(cartID);
                                     String[] coupon = newLine[1].split(":");
                                     if (coupon.length == 2) {
                                         c.setAppliedCouponID(coupon[1]);

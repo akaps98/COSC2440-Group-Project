@@ -1,172 +1,309 @@
 package model;
 
 /**
- * This class
- * @author <Kang Junsik - s3916884>
+ * The class store information about the Shopping Cart
+ *
+ * @author Nguyen Anh Duy - s3878141
+ * @since 2023 - 03 - 31
  */
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import database.ShoppingDB;
 
-public class ShoppingCart extends ShoppingService implements Comparable<ShoppingCart> {
-    private int cartID;
-    private HashSet<String> productsName = new HashSet<>();
-    private double totalWeight = 0;
-    private double totalPrice = 0;
-    private final double BASEFEE = 0.1; // to calculate shipping fee
-    private static int addNumber = 1;
-    private int numbering = 0;
+import java.util.*;
 
-    public ShoppingCart() {
-        numbering = addNumber;
-        addNumber++;
+public class ShoppingCart implements Comparable<ShoppingCart> {
+
+    // ATTRIBUTES
+    protected int cartID;
+    protected String appliedCouponID;
+    protected Map<String, Integer> cartItems;
+    protected double totalWeight;
+
+
+    //? CONSTRUCTOR
+    public ShoppingCart(int cartID){
+        this.cartID = cartID;
+        cartItems = new HashMap<>();
+        totalWeight = 0;
     }
 
-    public boolean addItem(String productName, ArrayList<Product> savedProductsOnSystem) {
-        Iterator<String> savedProductsName = productsName.iterator(); // to check the product that is already in the cart
-        while(savedProductsName.hasNext()) {
-            if (savedProductsName.next().equals(productName)) { // already exists
-                System.out.println("This product is already in the cart." +
-                                   "\n--------------------------------");
-                return false;
+    public ShoppingCart(int cartID, String couponID){
+        this.cartID = cartID;
+        this.appliedCouponID = couponID;
+        cartItems = new HashMap<>();
+        totalWeight = 0;
+    }
+
+    //? GETTERS & SETTERS
+    public int getCartID() {return cartID;}
+
+    public void setCartID(int cartID) {this.cartID = cartID;}
+
+    public Map<String, Integer> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Map<String, Integer> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public String getAppliedCouponID() {return this.appliedCouponID;}
+    public void setAppliedCouponID(String appliedCouponID) {this.appliedCouponID = appliedCouponID;}
+
+    public double getTotalWeight() {return this.totalWeight;}
+
+    public void setTotalWeight(double totalWeight) {this.totalWeight = totalWeight;}
+
+
+    // METHOD
+
+    /* Utilities Method */
+    public void resetCart() {cartItems.clear();}
+
+    public int countUniqueItems() {
+        return cartItems.keySet().size();
+    }
+    public int countItems() {
+        int itemCount = 0;
+        for (int itemQuantity : cartItems.values()) {
+            itemCount += itemQuantity;
+        }
+        return itemCount;
+    }
+
+    public boolean containItem(String productName) {
+        for (String item : cartItems.keySet()) {
+            if (productName.equals(item)) {
+                return true;
             }
         }
-        for(int i = 0; i < savedProductsOnSystem.size(); i++) {
-            if(savedProductsOnSystem.get(i).getName().equals(productName)) {
-                if(savedProductsOnSystem.get(i).getQuantity() == 0) {
-                    System.out.println("Out of stock!" +
-                                       "\n--------------------------------");
-                    return false;
-                } else {
-                    productsName.add(savedProductsOnSystem.get(i).getName());
-                    savedProductsOnSystem.get(i).setQuantity(savedProductsOnSystem.get(i).getQuantity() - 1);
-                    System.out.println("The product has been added in this shopping cart!" +
-                                       "\n--------------------------------");
-                    return true;
-                }
-            }
-        }
-        System.out.println("This product is not exist!" +
-                           "\n--------------------------------");
+        System.out.println("Product is not existed in the shopping cart!");
         return false;
     }
 
-    public boolean removeItem(String productName, ArrayList<Product> savedProductsOnSystem) {
-        Iterator<String> savedProductsName = productsName.iterator(); // iterator for the products(name) in current shopping cart
-        while(savedProductsName.hasNext()) {
-            if(savedProductsName.next().equals(productName)) { // find the product that user is searching!
-                productsName.remove(productName); // remove the product in the cart first
-                System.out.println("The product has been removed in this shopping cart!");
-                for(int i = 0; i < savedProductsOnSystem.size(); i++) { // find the product in the product in system
-                    if(savedProductsOnSystem.get(i).getName().equals(productName)) {
-                        savedProductsOnSystem.get(i).setQuantity(savedProductsOnSystem.get(i).getQuantity() + 1); // increase the quantity of product
-                        return true;
-                    }
-                }
-            }
-        } // if the while loop doesn't find any products,
-        System.out.println("This product is not exist in this shopping cart." +
-                           "\n--------------------------------");
-        return false;
+    public static boolean checkCartExisted(int cartID, ShoppingCartList carts){
+        if (carts.contains(cartID)) {
+            System.out.println("This cart is already existed on our system!" +
+                    "\nPlease select another ID." +
+                    "\n--------------------------------");
+            return false;
+        }
+        return true;
     }
 
-    public double cartAmount(ArrayList<Product> savedProductsOnSystem) {
-        ArrayList<Physical> physicalProductsOnCart = new ArrayList<>();
 
-        for(int i = 0; i < savedProductsOnSystem.size(); i++) {
-            if(savedProductsOnSystem.get(i) instanceof Physical) {
-                physicalProductsOnCart.add((Physical) savedProductsOnSystem.get(i));
+    /**
+     * This method add the new item with the specific number of quantity to the item map
+     *
+     * Conditions:
+     * 1. The product is existed
+     * 2. There is available quantity (> 0) for that Product in the Product List
+     *
+     * @param productName: name of the added product
+     * @param quantity: number of product to add
+     * @param productList: the list contains all the existed product
+     * @return boolean: Boolean value states if the product item has been added successfully to the cart
+     *
+     * Action: update the quantity available for that product: quantityAvailable - 1
+     */
+    public boolean addItem(String productName, int quantity, ProductMap productList) {
+        // Check if the item map contains the existed product name
+        if (!productList.contains(productName)) {
+            System.out.println("Product not existed!");
+            return false;
+        }
+        // Check if there is enough available quantity for the added product(s)
+        Product p = productList.getProduct(productName);
+        if (p.getQuantity() < quantity) {
+            System.out.println("Not enough available quantity for this product");
+            return false;
+        }
+
+        // Add product to the shopping cart
+        if (cartItems.containsKey(productName)) { // Check if item already existed in the cart
+            cartItems.put(productName, cartItems.get(productName) + quantity);
+        } else {
+            cartItems.put(productName, quantity);
+        }
+
+        p.setQuantity(p.getQuantity() - 1); // update available quantity for the product
+        calTotalWeight(productList); // Calculate the new total weight for the shopping cart
+        return true;
+    }
+    /**
+     * The method use to remove item(s) (Product) into the shopping cart
+     *
+     * Conditions:
+     * 1. The product must existed in the Shopping Cart
+     * 2. The quantity to remove must <= the current product quantity in the cart
+     *
+     * @param productName - Name of the product
+     * @param quantity: number of product to remove
+     * @param productList: the list contains all the existed product
+     * @return boolean - Boolean value states if the product has been added successfully to the cart
+     * Action: update the quantity available for that product: quantityAvailable + 1
+     */
+    public boolean removeItem(String productName, int quantity, ProductMap productList) {
+        // Check if the product is not existed in the shopping cart
+        if (!cartItems.containsKey(productName)) {
+            System.out.println("Product not existed!");
+            return false;
+        }
+
+        // Check if the quantity number to remove is valid
+        if (cartItems.get(productName) < quantity) {
+            System.out.println("Your quantity number is larger than the current number of this product in the cart!");
+            return false;
+        }
+
+        // Get the Product from the product name
+        Product p = productList.getProduct(productName);
+
+        // Reduce a number of quantity from the product
+        cartItems.put(productName, cartItems.get(productName) - quantity);
+        p.setQuantity(p.getQuantity() + quantity); // update available quantity for the product
+        calTotalWeight(productList); // Calculate the new total weight for the shopping cart
+
+        // Remove the product entirely if the quantity reduced to 0
+        if (cartItems.get(productName) == 0) {
+            cartItems.remove(productName);
+        }
+        return true;
+    }
+
+    /**
+     * The method use to calculate the total weight of the shopping cart
+     * Note:
+     * 1/ private method and only used as a part the cartAmount() method
+     * 2/ The product list is a dependency injection from the App class
+     *
+     * @return double - the double value is the total weight of the Physical Products in the cart
+     * Action: set the total weight of
+     */
+    private double calTotalWeight(ProductMap productList) {
+        // Check if shopping cart is empty
+        if (cartItems.size() == 0) {
+            return 0;
+        }
+        double weight = 0;
+        // for (String productName : cartItems) {
+        //     Product p = App.productList.getProduct(productName);
+        //     if (p instanceof PhysicalProduct) {
+        //         weight += ((PhysicalProduct) p).getWeight();
+        //     }
+        // }
+
+        // Iterate through all the product names in the cart items
+        Iterator<String> it = cartItems.keySet().iterator();
+        while(it.hasNext()) { // checking the next Product
+            String productName = it.next();
+            Product p = productList.getProduct(productName);
+            if (p instanceof Physical) { // check if the product is a Physical Product
+                weight += ((Physical) p).getWeight(); // get the weight by casting PhysicalProduct type, and add to the weight variable
             }
         }
+        setTotalWeight(weight);
+        return weight;
+    }
 
-        double productPrice = 0;
-        double totalWeight = 0;
-        double finalAmount = 0;
+    /**
+     * The method use to calculate the total price of the shopping cart:
+     * Total price = price of all products + shippingFee, where shipping Fee = total weight * 0.1
+     * Note:
+     * 1/ The product list is a dependency injection from the App class
+     *
+     * @return double - the double value is the total price of the shopping cart
+     * and update the quantity available for that product: quantityAvailable + 1
+     */
+    public double cartAmount(ProductMap productList) {
+        double totalPrice = 0;
+        double overallSubtotal = 0;
+        double discount = 0;
+        // for (String productName : cartItems) {
+        //     Product p = App.productList.getProduct(productName);
+        //     totalPrice += p.getPrice();
+        // }
 
-        Iterator<String> temporarySavedProductsName = productsName.iterator(); // iterator for the products(name) in current shopping cart
+        // Iterate through all the product names in the shopping cart
+        for (String productName : cartItems.keySet()) { // checking the next Product
+            Product p = productList.getProduct(productName);
 
-        ArrayList<String> savedProductName = new ArrayList<>(); // change iterator to arraylist
+            double itemSubtotal = p.getPrice() * cartItems.get(productName);
+            double taxSubtotal = Tax.getTaxAmount(productName);
 
-        while(temporarySavedProductsName.hasNext()) {
-            savedProductName.add(temporarySavedProductsName.next());
-        }
 
-        for(int i = 0; i < savedProductName.size(); i++) {
-            for(int j = 0; j < savedProductsOnSystem.size(); j++) {
-                if (savedProductName.get(i).equals(savedProductsOnSystem.get(j).getName())) {
-                    productPrice += savedProductsOnSystem.get(j).getPrice();
-                    if (savedProductsOnSystem.get((j)) instanceof Physical) { // the weight only be added when the product is physical
-                        for (int k = 0; k < physicalProductsOnCart.size(); k++) { // find the physical product
-                            if (physicalProductsOnCart.get(k).equals(savedProductsOnSystem.get((j)))) {
-                                totalWeight += physicalProductsOnCart.get(k).getWeight();
-                                break;
-                            }
+//            Traverse through the coupon list, looking for the CouponID
+            for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
+                if (coupon.getCouponID().equals(appliedCouponID)) {
+//                    The coupon must match the product name for it to work
+                    if (coupon.getProductName().equals(productName)) {
+//                        Check for the coupon type, price or percent
+                        if (Coupon.getType(appliedCouponID).equals("price")) {
+                            PriceCoupon priceCoupon = (PriceCoupon) coupon;
+//                            Subtract the price for all the matching products
+                            discount += priceCoupon.getCouponValue() * cartItems.get(productName);
+                        } else if (Coupon.getType(appliedCouponID).equals("percent")) {
+                            PercentCoupon percentCoupon = (PercentCoupon) coupon;
+//                            Subtract the price after percentage calculation
+                            discount += (itemSubtotal*percentCoupon.getCouponValue()/100);
                         }
                     }
-                    break;
                 }
             }
-        }
-        finalAmount = productPrice + (totalWeight * BASEFEE); // calculate final cost
-        this.totalPrice = finalAmount;
-        this.totalWeight = totalWeight; // to save & renew the total weight
-        return finalAmount; // to save & renew the final amount
-    }
 
-    @Override
-    public int compareTo(ShoppingCart o) {
-        return (int) (o.totalWeight - this.totalWeight); // sort the shopping carts as the ascending order by its total weight
-    }
+            overallSubtotal += itemSubtotal; // for subtotal before coupons and taxes
 
-    @Override
-    public String toString() {
-        String printOutProducts = "";
-
-        Iterator<String> allProducts = productsName.iterator();
-
-        while(allProducts.hasNext()) {
-            printOutProducts += allProducts.next() + " ";
+            totalPrice += itemSubtotal; // price of all the products before coupons and taxes
+            totalPrice -= discount; // coupon placeholder for price after coupon
+            totalPrice += taxSubtotal; // price after tax
         }
 
-        return  "Shopping Cart no." + numbering +
-                "\n----------------------" +
-                "\nAll Products: " + printOutProducts +
-                "\nTotal weight: " + totalWeight +
-                "\nTotal price: " + totalPrice +
-                "\n----------------------";
-    }
+        calTotalWeight(productList);
+        double shippingFee = totalWeight * 0.1;
+        totalPrice += shippingFee; // add the shipping fee to the total price
 
-    public HashSet<String> getProductsName() {
-        return productsName;
-    }
-
-    public void setProductsName(HashSet<String> productsName) {
-        this.productsName = productsName;
-    }
-
-    public double getTotalWeight() {
-        return totalWeight;
-    }
-
-    public void setTotalWeight(double totalWeight) {
-        this.totalWeight = totalWeight;
-    }
-
-    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    /**
+     * The method use to print out the cart information: Cart #number, and all the cart items (Product) info
+     *
+     * @return String - the String contains the cart information
+     */
+    @Override
+    public String toString() {
+        String cartInfo = String.format("Cart #%d --- Cart items: ", cartID);
+        String cartItemsInfo = "";
+        Iterator<String> it = cartItems.keySet().iterator();
+        while (it.hasNext()) {
+            String nextProduct = it.next();
+            cartItemsInfo += nextProduct + ": " + cartItems.get(nextProduct) + ", ";
+        }
+        return cartInfo + cartItemsInfo;
     }
 
-    public int getNumbering() {
-        return numbering;
+    /**
+     * The method use to compare one cart to another cart (the method is overriding the method compareTo() from the Comparable interface)
+     *
+     * Condition:
+     * 1/ In the function, the shopping cart is compared by the cart's weight
+     *
+     * @return int - the int value state the comparison results of the 2 cart
+     * For example: cart1.compareTo(ShoppingCart cart2)
+     * 0: cart1 == cart2
+     * 1: cart1 > cart2
+     * 2: cart1 < cart2
+     */
+    @Override
+    public int compareTo(ShoppingCart c) {
+        return Double.compare(totalWeight, c.getTotalWeight());
+
+//        if (totalWeight == ((ShoppingCart2) c).getTotalWeight()) {
+//            return 0;
+//        } else if (totalWeight > ((ShoppingCart2) c).getTotalWeight()) {
+//            return 1;
+//        } else return -1;
     }
 
-    public void setNumbering(int numbering) {
-        this.numbering = numbering;
-    }
 }
 

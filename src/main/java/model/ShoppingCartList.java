@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public class ShoppingCartList {
     // ATTRIBUTE
-    private List<ShoppingCart2> cartList;
+    private List<ShoppingCart> cartList;
 
     // CONSTRUCTOR
     public ShoppingCartList() {
@@ -21,7 +21,7 @@ public class ShoppingCartList {
     }
 
     // METHODS
-    public boolean addCart(ShoppingCart2 c) {
+    public boolean addCart(ShoppingCart c) {
         if (c != null) {
             cartList.add(c);
             return true;
@@ -29,7 +29,7 @@ public class ShoppingCartList {
         return false;
     }
 
-    public boolean removeCart(ShoppingCart2 c) { // Unused method
+    public boolean removeCart(ShoppingCart c) { // Unused method
         if (c != null) {
             cartList.remove(c);
             return true;
@@ -38,7 +38,7 @@ public class ShoppingCartList {
     }
 
     public boolean contains(int cartID) {
-        for (ShoppingCart2 cart : cartList) {
+        for (ShoppingCart cart : cartList) {
             if (cart.getCartID() == cartID) {
                 return true;
             }
@@ -47,7 +47,7 @@ public class ShoppingCartList {
     }
 
 
-    public int indexOf(ShoppingCart2 c) {
+    public int indexOf(ShoppingCart c) {
         return cartList.indexOf(c);
     }
 
@@ -61,8 +61,8 @@ public class ShoppingCartList {
      * @param cartID: the cart # that is stored inside the Shopping Cart list (not the index of the cart in the list)
      * @return ShoppingCart: the Shopping Cart instance at the cartNumber - 1 position in the list
      */
-    public ShoppingCart2 getCart(int cartID) {
-        for (ShoppingCart2 cart : cartList) {
+    public ShoppingCart getCart(int cartID) {
+        for (ShoppingCart cart : cartList) {
             if (cart.getCartID() == cartID) {
                 return cart;
             }
@@ -73,7 +73,7 @@ public class ShoppingCartList {
     /**
      * The method sort all the Shopping Carts in the list according to the weight of the cart
      */
-    private void sortCartsByWeight(ArrayList<ShoppingCart2> sortedList) {
+    private void sortCartsByWeight(ArrayList<ShoppingCart> sortedList) {
         sortedList.sort(new ShoppingCartComparator()); // Using the ShoppingCart Comparator as the indicator for the sorting element
     }
 
@@ -82,10 +82,10 @@ public class ShoppingCartList {
      */
     public void viewCarts() {
         // Loop through all the carts in the list
-        Iterator<ShoppingCart2> it = cartList.iterator();
+        Iterator<ShoppingCart> it = cartList.iterator();
         System.out.println(String.format("Number of Shopping Carts: %d", countCarts()));
         while(it.hasNext()) { // Get the next shopping cart
-            ShoppingCart2 c = it.next();
+            ShoppingCart c = it.next();
             System.out.println(c.toString()); // Display the cart detail
         }
     }
@@ -94,11 +94,11 @@ public class ShoppingCartList {
      * The method displays all the Shopping Carts in the list according to the weight of the cart (in ascending order)
      */
     public void viewCartsAfterSorted() {
-        ArrayList<ShoppingCart2> sortedCartList = new ArrayList<>(); // Create a new list to store the sorted shopping carts
+        ArrayList<ShoppingCart> sortedCartList = new ArrayList<>(); // Create a new list to store the sorted shopping carts
         // Loop through all the carts in the current shopping list (unsorted one)
-        Iterator<ShoppingCart2> it = this.cartList.iterator();
+        Iterator<ShoppingCart> it = this.cartList.iterator();
         while(it.hasNext()) { // Get the next shopping cart
-            ShoppingCart2 c = it.next();
+            ShoppingCart c = it.next();
             sortedCartList.add(c); // Add the shopping cart to the sorted cart list
         }
 
@@ -108,7 +108,7 @@ public class ShoppingCartList {
         it = sortedCartList.iterator();
         System.out.println(String.format("Number of Shopping Carts: %d", countCarts()));
         while(it.hasNext()) { // Get the next shopping cart
-            ShoppingCart2 c = it.next();
+            ShoppingCart c = it.next();
             System.out.println(c.toString()); // Display the cart detail
         }
     }

@@ -4,7 +4,7 @@
 
 import database.ShoppingDB;
 import model.*;
-import java.util.Collections;
+
 import java.util.Scanner;
 
 
@@ -301,9 +301,9 @@ public class Main { // run the program
         do {
             System.out.print("Enter shopping cart ID: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart2.checkCartExisted(cartID, carts));
+        } while (ShoppingCart.checkCartExisted(cartID, carts));
 
-        ShoppingCart2 c = new ShoppingCart2(cartID);
+        ShoppingCart c = new ShoppingCart(cartID);
         carts.addCart(c);
         System.out.println(String.format("Successfully created cart %d!", c.getCartID()));
     }
@@ -349,8 +349,8 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to add product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart2.checkCartExisted(cartID, carts));
-        ShoppingCart2 c = carts.getCart(cartID);
+        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        ShoppingCart c = carts.getCart(cartID);
 
         // Get input for quantity to add and check if it is valid
         int quantity;
@@ -402,8 +402,8 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart2.checkCartExisted(cartID, carts));
-        ShoppingCart2 c = carts.getCart(cartID);
+        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        ShoppingCart c = carts.getCart(cartID);
 
         // Display the available products in the cart
         c.toString();
@@ -532,8 +532,8 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart2.checkCartExisted(cartID, carts));
-        ShoppingCart2 c = carts.getCart(cartID);
+        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        ShoppingCart c = carts.getCart(cartID);
 
         // Calculate the cart amount and display in the console
         System.out.println(String.format("Shopping Cart #%d's cart amount: %,.2f", c.getCartID(), c.cartAmount(products)));
@@ -564,8 +564,8 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart2.checkCartExisted(cartID, carts));
-        ShoppingCart2 c = carts.getCart(cartID);
+        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        ShoppingCart c = carts.getCart(cartID);
 
         // Print the receipt for the selected shopping cart
         DataOutput dOut = new DataOutput();

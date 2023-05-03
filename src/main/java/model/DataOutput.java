@@ -7,7 +7,7 @@ import java.util.Date;
 import database.ShoppingDB;
 
 public class DataOutput {
-    public void writeReceipt(ShoppingCart2 c) {
+    public void writeReceipt(ShoppingCart c) {
         try {
             FileWriter fWriter = new FileWriter("src/main/java/database/cart"+c.getCartID()+".txt");
             // Header
@@ -61,7 +61,7 @@ public class DataOutput {
         // Test data output
         DataOutput dOut = new DataOutput();
         ShoppingDB db = ShoppingDB.getInstance();
-        ShoppingCart2 c = db.getCarts().getCart(2);
+        ShoppingCart c = db.getCarts().getCart(2);
         dOut.writeReceipt(c);
     }
 }
