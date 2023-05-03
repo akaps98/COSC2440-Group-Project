@@ -206,8 +206,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
             Product p = productList.getProduct(productName);
 
             double itemSubtotal = p.getPrice() * cartItems.get(productName);
-            Tax TaxInstance = Tax.getTaxInstance(productName);
-            double taxSubtotal = TaxInstance.getTaxAmount();
+            double taxSubtotal = Tax.getTaxAmount(productName);
 
             overallSubtotal += itemSubtotal; // for subtotal before coupons and taxes
 
@@ -216,6 +215,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
             totalPrice += taxSubtotal; // price after tax
         }
 
+        calTotalWeight(productList);
         double shippingFee = totalWeight * 0.1;
         totalPrice += shippingFee; // add the shipping fee to the total price
 

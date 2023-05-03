@@ -2,44 +2,29 @@ package model;
 
 import database.ShoppingDB;
 
+import java.util.Map;
+
 /**
  * @author Group
  */
 
 public class Tax {
-    private static Tax TaxInstance;
-    private double taxAmount;
+    private static Map<String, Double> taxes;
 
 
-    private Tax() {
-        this.taxAmount = 0;
+    public Tax() {
+        taxes = ShoppingDB.getInstance().getTaxes();
     }
 
-    public void setTaxAmount(String productName) {
-//        Edit tax value here
-        double freeTax = 0;
-        double normalTax = 0.1;
-        double luxuryTax = 0.2;
-
+    /**
+     *
+     * @param productName : name of the product as a String
+     * @return double : the tax percentage in decimal form
+     */
+    public static double getTaxAmount(String productName) {
+        // get tax type from the product name
         String taxType = ShoppingDB.getInstance().getProducts().getProduct(productName).getTaxType();
-
-//        Assign tax amount based on type
-        switch (taxType) {
-            case "freeTax" -> taxAmount = freeTax;
-            case "normalTax" -> taxAmount = normalTax;
-            case "luxuryTax" -> taxAmount = luxuryTax;
-        }
-    }
-
-    public double getTaxAmount() {
-        return taxAmount;
-    }
-
-    public static Tax getTaxInstance(String productName) {
-        if (TaxInstance == null) {
-            TaxInstance = new Tax();
-        }
-        TaxInstance.setTaxAmount(productName);
-        return TaxInstance;
+        // return the tax percentage stored in the Map using the tax type as the key
+        return taxes.get(taxType);
     }
 }
