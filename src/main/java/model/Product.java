@@ -76,14 +76,12 @@ abstract public class Product {
      * @param savedProducts
      * @return
      */
-    public static boolean checkNameIsUnique(String inputName, ArrayList<Product> savedProducts) { // validation to check the name is unique
-        for(int i = 0; i < savedProducts.size(); i++) {
-            if(savedProducts.get(i).getName().equals(inputName)) {
-                System.out.println("This product exists on our system." +
-                    "\nPlease input another product." +
+    public static boolean checkProductExisted(String productName, ProductMap products) { // validation to check the name is unique
+        if (products.contains(productName)) {
+            System.out.println("This product name existed on our system!" +
+                    "\nPlease select another name." +
                     "\n--------------------------------");
-                return false;
-            }
+            return false;
         }
         return true;
     }
@@ -94,7 +92,7 @@ abstract public class Product {
      * @return boolean: boolean value states if the quantity is valid
      */
     public static boolean checkQuantityIsValid(int quantity) {
-        if(!(quantity < 0)) { // validation to check the quantity is valid number (non-negative number)
+        if(quantity < 0) { // validation to check the quantity is valid number (non-negative number)
             System.out.println("You cannot input negative number" +
                                "\nPlease input the valid quantity again." +
                                "\n--------------------------------");

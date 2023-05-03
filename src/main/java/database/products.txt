@@ -48,56 +48,56 @@ GIFT,DIGITAL,BHD Cinema eTicket,an online ticket that can watch any movie,50,4.8
 GIFT,DIGITAL,Python Tutorial eBook,an online book that contains the tutorial sessions to kick start learning Python,50,23.6,freeTax,good luck to start Python from scratch
 GIFT,DIGITAL,eLearning Account,an account that access to the best english teaching service and lessons,50,55.9,normalTax,learn up to 5000 new English words with this eLearning curriculum
 GIFT,DIGITAL,Adobe Package,the adobe softwares: photoshop + premier pro + lightroom,50,1200,luxuryTax,all adobe products is in the gift box for you
-COUPON,p0901a,percent,15.25,iPad
-COUPON,p0902a,price,22.5,iPhone
-COUPON,p0903a,percent,31.0,Macbook
-COUPON,p0904a,price,18.75,Airpods
-COUPON,p0905a,percent,25.5,iMac
-COUPON,p0906b,percent,11,Apple Watch
-COUPON,p0907b,percent,15,Galaxy S23
-COUPON,p0908b,price,21,Samsung Buds2 Pro
-COUPON,p0909b,price,11,Huawei FreeBuds
-COUPON,p0910b,price,8,Magic Mouse
-COUPON,p0911a,percent,30.0,4K Monitor
-COUPON,p0912a,percent,35.0,Mechanical Keyboard
-COUPON,p0913a,price,12.85,Webcam
-COUPON,p0914a,percent,1.75,Wireless Charger
-COUPON,p0915b,price,07,Streaming Dock
-COUPON,p0916b,price,12,Nintendo Switch
-COUPON,p0917b,price,18,HP Printer
-COUPON,p0918b,percent,2,Enkor Speakers
-COUPON,p0919b,price,5,Router Wifi
-COUPON,p0920b,percent,65,Corsair Mousepad
-COUPON,p0921a,price,1.25,Iphone Case
-COUPON,p0922b,price,15,Laptop Holder
-COUPON,p0923a,price,9.8,Apple Stickers
-COUPON,p0924b,price,25,Selfie Stick
-COUPON,p0925a,price,12.2,16gb USB
-COUPON,d0901a,price,1.25,ChatGPT Account
-COUPON,d0902a,price,2.75,NordVPN Plus
-COUPON,d0903a,percent,3.0,Spotify Premium
-COUPON,d0904a,percent,5.25,Steam Gift Card
-COUPON,d0905a,percent,3.25,Youtube Premium
-COUPON,d0906b,percent,10,CGV VIP membership
-COUPON,d0907b,percent,29,Nicepage Premium
-COUPON,d0908b,percent,31,VPN Server Agent
-COUPON,d0909b,price,12,PDF Watermark
-COUPON,d0910b,price,68,Image Converter
-COUPON,d0911a,price,15.25,Powerpoint Template
-COUPON,d0912a,price,15.25,GitHub Enterprise
-COUPON,d0913a,price,15.25,iWallpaper Template
-COUPON,d0914a,percent,15.25,WordPress Themes
-COUPON,d0915a,percent,15.25,Fitness Program
-COUPON,d0916b,percent,7,Office 365
-COUPON,d0917b,percent,15,Jetbrains License
-COUPON,d0918b,percent,12,Netflix Family
-COUPON,d0919b,percent,22,Shooting Game
-COUPON,d0920b,percent,25,Canvas Pro
-COUPON,d0921a,percent,1.25,Coursera Course
-COUPON,d0922b,price,15,BHD Cinema eTicket
-COUPON,d0923a,percent,9.8,Python Tutorial eBook
-COUPON,d0924b,percent,9,eLearning Account
-COUPON,d0925a,percent,12.2,Adobe Package
+COUPON,p0901a,15.25,iPad
+COUPON,p0902a,22.5,iPhone
+COUPON,p0903a,31.0,Macbook
+COUPON,p0904a,18.75,Airpods
+COUPON,p0905a,25.5,iMac
+COUPON,p0906b,11,Apple Watch
+COUPON,p0907b,15,Galaxy S23
+COUPON,p0908b,21,Samsung Buds2 Pro
+COUPON,p0909b,11,Huawei FreeBuds
+COUPON,p0910b,8,Magic Mouse
+COUPON,p0911a,30.0,4K Monitor
+COUPON,p0912a,35.0,Mechanical Keyboard
+COUPON,p0913a,12.85,Webcam
+COUPON,p0914a,1.75,Wireless Charger
+COUPON,p0915b,7,Streaming Dock
+COUPON,p0916b,12,Nintendo Switch
+COUPON,p0917b,18,HP Printer
+COUPON,p0918b,2,Enkor Speakers
+COUPON,p0919b,5,Router Wifi
+COUPON,p0920b,65,Corsair Mousepad
+COUPON,p0921a,1.25,Iphone Case
+COUPON,p0922b,15,Laptop Holder
+COUPON,p0923a,9.8,Apple Stickers
+COUPON,p0924b,25,Selfie Stick
+COUPON,p0925a,12.2,16gb USB
+COUPON,d0901a,1.25,ChatGPT Account
+COUPON,d0902a,2.75,NordVPN Plus
+COUPON,d0903a,3.0,Spotify Premium
+COUPON,d0904a,5.25,Steam Gift Card
+COUPON,d0905a,3.25,Youtube Premium
+COUPON,d0906b,10,CGV VIP membership
+COUPON,d0907b,29,Nicepage Premium
+COUPON,d0908b,31,VPN Server Agent
+COUPON,d0909b,12,PDF Watermark
+COUPON,d0910b,68,Image Converter
+COUPON,d0911a,15.25,Powerpoint Template
+COUPON,d0912a,15.25,GitHub Enterprise
+COUPON,d0913a,15.25,iWallpaper Template
+COUPON,d0914a,15.25,WordPress Themes
+COUPON,d0915a,15.25,Fitness Program
+COUPON,d0916b,7,Office 365
+COUPON,d0917b,15,Jetbrains License
+COUPON,d0918b,12,Netflix Family
+COUPON,d0919b,22,Shooting Game
+COUPON,d0920b,25,Canvas Pro
+COUPON,d0921a,1.25,Coursera Course
+COUPON,d0922b,15,BHD Cinema eTicket
+COUPON,d0923a,9.8,Python Tutorial eBook
+COUPON,d0924b,9,eLearning Account
+COUPON,d0925a,12.2,Adobe Package
 TAX,freeTax,0.0
 TAX,normalTax,0.1
 TAX,luxuryTax,0.2

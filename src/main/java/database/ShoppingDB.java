@@ -1,6 +1,7 @@
 package database;
 
 import model.Coupon;
+import model.CouponList;
 import model.ProductMap;
 import model.ShoppingCartList;
 import java.util.HashMap;
@@ -12,10 +13,8 @@ public class ShoppingDB {
     private static ShoppingDB instance = null;
     ProductMap products;
     ShoppingCartList carts;
-
+    CouponList coupons;
     Map<String, Double> taxes;
-
-    ArrayList<Coupon> coupons;
 
     // CONSTRUCTOR
     private ShoppingDB() {
@@ -47,8 +46,10 @@ public class ShoppingDB {
     public void setCarts(ShoppingCartList carts) {
         this.carts = carts;
     }
-    public ArrayList<Coupon> getCoupons() {return coupons;}
-    public void setCoupons(ArrayList<Coupon> coupons) {this.coupons = coupons;}
+
+    public CouponList getCoupons() {return coupons;}
+
+    public void setCoupons(CouponList coupons) {this.coupons = coupons;}
 
     public Map<String, Double> getTaxes() {
         return taxes;

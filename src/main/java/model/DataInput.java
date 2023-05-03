@@ -5,21 +5,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
 import database.ShoppingDB;
 
 public class DataInput {
     ProductMap products;
     ShoppingCartList carts;
+    CouponList coupons;
     Map<String, Double> taxes;
-    ArrayList<Coupon> coupons;
 
     // CONSTRUCTOR
     public DataInput() {
         products = new ProductMap();
         carts = new ShoppingCartList();
+        coupons = new CouponList();
         taxes = new HashMap<>();
-        coupons = new ArrayList<Coupon>();
     }
 
     // METHOD
@@ -61,9 +60,16 @@ public class DataInput {
                                         // Case 4: create a Coupon
                                         case "COUPON":
                                             // Create new coupon
-                                            // Coupon coupon = new Coupon(newLine[1],newLine[2],Double.parseDouble(newLine[3]),newLine[4]);
+                                            Coupon coupon = null;
+                                            if (Coupon.getType(newLine[1]).equalsIgnoreCase("price")) {
+                                                coupon = new PriceCoupon(newLine[1], newLine[3], Double.parseDouble(newLine[2]));
+                                            } else if (Coupon.getType(newLine[1]).equalsIgnoreCase("percent")) {
+                                                coupon = new PercentCoupon(newLine[1], newLine[3], Integer.parseInt(newLine[2]));
+                                            }
                                             // Add new coupon to the coupon list
-                                            // coupons.add(coupon);
+                                            if (coupon != null) {
+                                                coupons.addCoupon(coupon);
+                                            }
                                             break;
                                         case "TAX":
                                             // Initialise values for Tax here
@@ -133,6 +139,7 @@ public class DataInput {
         ShoppingDB db = ShoppingDB.getInstance();
         db.getProducts().viewAvailableProducts();
         db.getCarts().viewCartsAfterSorted();
+        db.getCoupons().viewAllCoupons();
 //        dataProcess.readReceipt(1);
     }
 }

@@ -35,9 +35,9 @@ public abstract class Coupon {
      */
     public static String getType(String couponID) {
         if (couponID.charAt(5) == 'a') {
-            return "Price Coupon";
+            return "price";
         }
-        return "Percent Coupon";
+        return "percent";
     }
 
     /* Abstract methods */

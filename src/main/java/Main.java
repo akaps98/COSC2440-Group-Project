@@ -2,6 +2,7 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import database.ShoppingDB;
 import model.*;
 import java.util.Collections;
 import java.util.Scanner;
@@ -10,6 +11,83 @@ import java.util.Scanner;
 // this one is to run the Online Shopping Service
 
 public class Main { // run the program
+    // ATTRIBUTES
+    ShoppingDB db = ShoppingDB.getInstance();
+    ProductMap products = db.getProducts();
+    ShoppingCartList carts = db.getCarts();
+    Scanner input = new Scanner(System.in); // collect user inputs
+    int choice = -1; // get option
+    boolean check; // if the user successfully use a feature
+
+    /**
+     * Function 2: this method is use to create a new Product and added to the system database (product list)
+     *
+     * User inputs:
+     * 1/ name
+     * 2/ description
+     * 3/ quantityAvailable
+     * 4/ price
+     * 5/ weight (for Physical Product only)
+     *
+     * Action: create a Physical or Digital Product and add them to the product list
+     * Also, output a message to the user accordingly to the return value
+     *
+     * @return boolean: boolean value states if the Product has been created successfully
+     */
+    public boolean createProduct() {
+        check = false; // boolean value to return
+
+        // Get input for product name and check if it existed
+        String name;
+        do {
+            System.out.print("Enter product name: ");
+            name = input.nextLine();
+        } while (!products.contains(name));
+
+        // Get input for quantity and check if it is valid
+        int quantity;
+        do {
+            System.out.print("Enter product available quantity: ");
+            quantity = Integer.parseInt(input.nextLine());
+        } while (!Product.checkQuantityIsValid(quantity));
+
+        // Get all the other inputs (description, price)
+        System.out.print("Enter product description: ");
+        String description = input.nextLine();
+        System.out.print("Enter product price($): ");
+        double price = Double.parseDouble(input.nextLine());
+
+        // Get input for product type and provide appropriate type casting
+        while (!check) {
+            System.out.println("""
+                            What is the type of the product?
+                            1. Digital
+                            2. Physical""");
+            int productTypeOption = Integer.parseInt(input.nextLine());
+            if (productTypeOption == 1) { // Create Digital Product
+                Product addedProduct = new Digital(name, description, quantity, price);
+                products.addProduct(addedProduct);
+                check = true;
+            } else if (productTypeOption == 2) { // Create Physical Product
+                System.out.print("\nEnter product weight(g): ");
+                double weight = Double.parseDouble(input.nextLine());
+                Physical addedProduct = new Physical(name, description, quantity, price, weight);
+                products.addProduct(addedProduct);
+                check = true;
+            } else {
+                System.out.println("Invalid option. Please enter again!" +
+                        "\n-----------------------");
+            }
+        }
+
+        // Display corresponding message whether the product is created and added to the system
+        if (check) { // display a message if success
+            System.out.println(String.format("Successfully create product: %s, available quantity: %d!", name, quantity));
+        } else {
+            System.out.println("Failed to create the product, please try again!");
+        }
+        return check;
+    }
 
     /**
      * Display the console application primary menu (menu for user to select the feature)
@@ -39,11 +117,11 @@ public class Main { // run the program
      * This method is called in Main class to run the whole program
      */
     public void run() {
-        int choice = -1;
-        boolean defaultCheck = false; // Use to check if the default method have been called yet
-
-        System.out.println("\nWelcome to the online shopping service application!");
-        while (choice != 12) {
+//        int choice = -1;
+//        boolean defaultCheck = false; // Use to check if the default method have been called yet
+//
+//        System.out.println("\nWelcome to the online shopping service application!");
+//        while (choice != 12) {
 //            displayMenu();
 //            choice = scanner.nextLine(); // get the user's input
 //            switch (choice) {
@@ -96,8 +174,7 @@ public class Main { // run the program
 //                    displayMenu();
 //                    choice = scanner.nextLine();
 //            }
-
-        }
+//        }
     }
 
     public static void main(String[] args){
@@ -127,46 +204,7 @@ public class Main { // run the program
             if (option == 1) { // view products
 
             } else if (option == 2) { // Create new product
-                String productName;
-                do {
-                    System.out.println("Input the name of product.");
-                    productName = input.nextLine();
-                } while (!Product.checkNameIsUnique(productName, ss.getProducts())); // check the input name is unique or not
-                System.out.println("Input the description of product.");
-                String productDesc = input.nextLine();
-                int productQuantity;
-                do {
-                    System.out.println("Input the quantity of product.");
-                    productQuantity = input.nextInt();
-                    input.nextLine();
-                } while (!Product.checkQuantityIsValid(productQuantity));
-                System.out.println("Input the price of product.");
-                double productPrice = input.nextDouble();
-                input.nextLine();
-                while (true) {
-                    System.out.println("""
-                            What is the type of the product?
-                            1. Digital
-                            2. Physical""");
-                    int optionTypeProduct = input.nextInt();
-                    if (optionTypeProduct == 1) { // Digital
-                        Digital newProduct = new Digital(productName, productDesc, productQuantity, productPrice);
-                        ss.getProducts().add(newProduct);
-                        System.out.println("New product has been added on system!");
-                        break;
-                    } else if (optionTypeProduct == 2) { // Physical
-                        System.out.println("Input the weight of product."); // only physical product requires its weight
-                        double productWeight = input.nextDouble();
-                        input.nextLine();
-                        Physical newProduct = new Physical(productName, productDesc, productQuantity, productPrice, productWeight);
-                        ss.getProducts().add(newProduct);
-                        System.out.println("New product has been added on system!");
-                        break;
-                    } else {
-                        System.out.println("You input wrong option." +
-                                "\n-----------------------");
-                    }
-                }
+
             } else if (option == 3) { // Edit products
                 while (true) {
                     if (ss.getProducts().size() == 0) { // no saved products in the system
