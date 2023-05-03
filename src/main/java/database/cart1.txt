@@ -1,15 +1,15 @@
 				Online Shopping Service
 
 Receipt Number: C2440 - G09 - C1			
-02/05/2023 16:39:58
+03/05/2023 18:32:40
 User: Nguyen Anh Duy 
 ---------------------------------------------
-ITEMS 			 QUANTITY 			 PRICE
-iPhone				2				 $1480.00
-Airpods				2				 $1480.00
-iMac				1				 $1480.00
-iPad				1				 $1480.00
-Macbook				1				 $1480.00
+ITEMS 						QUANTITY			  PRICE
+iPhone							2				 $1480.00
+Airpods							2				 $1480.00
+iMac							1				 $1480.00
+iPad							1				 $1480.00
+Macbook							1				 $1480.00
 ---------------------------------------------
 Items Count:		7
 
@@ -17,4 +17,4 @@ Subtotal: 							 $1923.11
 Discount: 							 -$12.50
 Tax: 								 +$12.50
 
-TOTAL: 								 $1904.23
+TOTAL: 								$10305.82

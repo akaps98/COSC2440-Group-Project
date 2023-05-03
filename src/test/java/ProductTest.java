@@ -5,6 +5,8 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,16 +19,16 @@ class ProductTest {
         Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
         Digital eBook = new Digital("eBook", "Popular", 10, 15);
 
-        ArrayList<Product> savedProductsOnSystem = new ArrayList<>(); // test Product arraylist (all saved products on system)
+        ProductMap savedProductsOnSystem = new ProductMap(); // test Productmap (all saved products on system)
 
-        savedProductsOnSystem.add(iPhone); // so, this process is to register new product on the store(system)
-        savedProductsOnSystem.add(eBook);
+        savedProductsOnSystem.addProduct(iPhone); // so, this process is to register new product on the store(system)
+        savedProductsOnSystem.addProduct(eBook);
 
         // if the input name by user is not unique, it returns false.
         // but it is unique, it returns true.
 
-        assertFalse(Product.checkNameIsUnique("iPhone", savedProductsOnSystem));
-        assertTrue(Product.checkNameIsUnique("Comic", savedProductsOnSystem));
+        assertFalse(Product.checkProductExisted("iPhone", savedProductsOnSystem));
+        assertTrue(Product.checkProductExisted("Comic", savedProductsOnSystem));
     }
 
     @Test
@@ -34,7 +36,7 @@ class ProductTest {
         // This is a validation to check the quantity is valid
         // if the quantity is below 0, it is invalid quantity.
 
-        assertFalse(Product.checkQuantityIsValid(-3));
-        assertTrue(Product.checkQuantityIsValid(2));
+        assertFalse(Product.checkQuantityIsValid(-5));
+        assertTrue(Product.checkQuantityIsValid(4));
     }
 }

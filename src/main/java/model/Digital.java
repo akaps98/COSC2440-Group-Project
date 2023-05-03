@@ -7,7 +7,6 @@ package model;
  */
 
 public class Digital extends Product implements Gift {
-    private String message;
 
     // CONSTRUCTORS
     public Digital(String name, String description, int quantity, double price) {
@@ -52,19 +51,5 @@ public class Digital extends Product implements Gift {
         // Provide the String to store detail
         String productDetail = String.format("{\nProduct Name: %s \nType: %s \nProduct Description: %s \nQuantity Available: %d \nPrice: $ %,.2f \nTaxType: %s \nGift message: %s \n}",name,"DIGITAL",description,quantity,price,taxType,giftMessage);
         return productDetail;
-    }
-
-    /* Gift methods overidding */
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        if(message == null) {
-            return "There is no message on this gift.";
-        }
-        return message;
     }
 }

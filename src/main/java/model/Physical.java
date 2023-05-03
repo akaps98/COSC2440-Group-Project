@@ -9,7 +9,6 @@ package model;
 public class Physical extends Product implements Gift {
     // ATTRIBUTES
     private double weight;
-    private String message;
 
     // CONSTRUCTORS
     public Physical(String name, String description, int quantity, double price, double weight) {
@@ -63,19 +62,5 @@ public class Physical extends Product implements Gift {
         }
         // Provide the String to store detail
         return String.format("{\nProduct Name: %s \nType: %s \nProduct Description: %s \nQuantity Available: %d \nPrice: $ %,.2f \nTaxType: %s \nWeight: %,.2f g \nGift message: %s \n}",name,"PHYSICAL",description,quantity,price,taxType,weight,giftMessage);
-    }
-
-    /* Gift methods overriding */
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        if(this.message == null) {
-            return "There is no message on this gift.";
-        }
-        return this.message;
     }
 }
