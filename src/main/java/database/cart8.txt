@@ -40,4 +40,3 @@ Cart Discount: 							    -$120.50
 Tax Amount:                                 +$120.5
 
 TOTAL: 										$1904.23
-(already included tax)
