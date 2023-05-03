@@ -134,7 +134,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
      * The method use to remove item(s) (Product) into the shopping cart
      *
      * Conditions:
-     * 1. The product must existed in the Shopping Cart
+     * 1. The product must exist in the Shopping Cart
      * 2. The quantity to remove must <= the current product quantity in the cart
      *
      * @param productName - Name of the product
@@ -228,9 +228,10 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
         for (String productName : cartItems.keySet()) { // checking the next Product
             Product p = productList.getProduct(productName);
 
+//            Calculate the price and tax of all the items
+//            cartItems.get(productName) is getting the quantity
             double itemSubtotal = p.getPrice() * cartItems.get(productName);
-            double taxSubtotal = Tax.getTaxAmount(productName);
-
+            double taxSubtotal = Tax.getTaxAmount(productName) * itemSubtotal;
 
 //            Traverse through the coupon list, looking for the CouponID
             for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
