@@ -12,6 +12,15 @@ public abstract class Coupon {
         this.productName = productName;
     }
 
+    // GETTERS & SETTERS
+    public String getCouponID() {return couponID;}
+
+    public void setCouponID(String couponID) {this.couponID = couponID;}
+
+    public String getProductName() {return productName;}
+
+    public void setProductName(String productName) {this.productName = productName;}
+
     // METHOD
     /**
      * This method validate the couponID

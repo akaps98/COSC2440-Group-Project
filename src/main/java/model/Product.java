@@ -8,13 +8,14 @@ import java.util.ArrayList;
  * @author
  * @since 2023 - 05 - 01
  */
-abstract public class Product {
+abstract public class Product implements Gift {
     // ATTRIBUTES
     protected String name;
     protected String description;
     protected int quantity;
     protected double price;
     protected String taxType;
+    protected String message;
 
     // CONSTRUCTORS
     public Product(){}
@@ -71,9 +72,10 @@ abstract public class Product {
 
     // METHODS
     /**
+     * This method check if the product is existed or not
      *
-     * @param inputName
-     * @param savedProducts
+     * @param productName: name of the product
+     * @param products: list that contains all the products
      * @return
      */
     public static boolean checkProductExisted(String productName, ProductMap products) { // validation to check the name is unique
@@ -100,6 +102,21 @@ abstract public class Product {
         }
         return true;
     }
+
+    /* Gift methods overriding */
+    @Override
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String getMessage() {
+        if(this.message == null) {
+            return "There is no message on this gift.";
+        }
+        return this.message;
+    }
+
     /* Abstract method to implement in child class */
     abstract public String toString(); // String representation
     abstract public String toData(); // String data written to products.txt

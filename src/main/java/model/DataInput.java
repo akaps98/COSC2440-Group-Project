@@ -80,9 +80,6 @@ public class DataInput {
                                     }
                                 }
                             });
-//            System.out.println(products.viewAllProducts());
-            System.out.println("Finish!");
-
         } catch (IOException e) {}
         // Store all the created products, coupons, taxes into ShoppingDB
         ShoppingDB db = ShoppingDB.getInstance();
@@ -113,7 +110,6 @@ public class DataInput {
                                     carts.addCart(c);
                                 }
                             });
-//            carts.viewCarts();
             System.out.println("Finish!");
         } catch (IOException e) {}
         ShoppingDB db = ShoppingDB.getInstance();
@@ -127,7 +123,6 @@ public class DataInput {
                             line -> {
                                 System.out.println(line);
                             });
-            System.out.println("Finish!");
         } catch (IOException e) {}
 
     }

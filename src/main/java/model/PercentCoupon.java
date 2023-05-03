@@ -22,6 +22,6 @@ public class PercentCoupon extends Coupon{
      */
     @Override
     public String toString() {
-        return String.format("PercentCoupon - <%s: %d%%>",couponID,couponValue) ;
+        return String.format("PercentCoupon - <%s: %d%%, applied to: %s>",couponID,couponValue, productName) ;
     }
 }

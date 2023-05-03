@@ -22,12 +22,12 @@ public class DataOutput {
             fWriter.write(formatter.format(date)+"\n");
             fWriter.write("User: Nguyen Anh Duy \n");
             fWriter.write("---------------------------------------------\n");
-            fWriter.write("ITEMS \t\t\t QUANTITY \t\t\t PRICE\n");
+            fWriter.write("ITEMS \t\t\t\t\t\tQUANTITY\t\t\t  PRICE\n");
 
             // Write each item
             for (String item : c.getCartItems().keySet()) {
                 int quantity = c.getCartItems().get(item);
-                fWriter.write(item + "\t\t\t\t" + quantity + "\t\t\t\t" + " $1480.00" + "\n");
+                fWriter.write(item + "\t\t\t\t\t\t\t" + quantity + "\t\t\t\t" + " $1480.00" + "\n");
                 String coupon = c.getAppliedCouponID();
                 if (coupon != null) {
                     // replace later with product price discount and total price of a product
@@ -36,11 +36,12 @@ public class DataOutput {
             }
             fWriter.write("---------------------------------------------\n");
             // Cart Items Amount
-            fWriter.write("Items Count:\t\t" + c.totalItems() + "\n\n");
+            ProductMap products = ShoppingDB.getInstance().getProducts();
+            fWriter.write("Items Count:\t\t" + c.countItems() + "\n\n");
             fWriter.write("Subtotal: \t\t\t\t\t\t\t" + " $1923.11" + "\n");
             fWriter.write("Discount: \t\t\t\t\t\t\t" + " -" + "$12.50" + "\n");
             fWriter.write("Tax: \t\t\t\t\t\t\t\t" + " +" + "$12.50" + "\n\n");
-            fWriter.write("TOTAL: \t\t\t\t\t\t\t\t" + " $1904.23" + "\n");
+            fWriter.write("TOTAL: \t\t\t\t\t\t\t\t" + String.format("$%.2f",c.cartAmount(products)) + "\n");
             fWriter.flush();
             fWriter.close();
             System.out.println("Finish writing the printing receipt for cart #" + c.getCartID() + "!");

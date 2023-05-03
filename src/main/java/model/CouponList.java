@@ -24,6 +24,24 @@ public class CouponList {
         return coupons.size();
     }
 
+    public Coupon getCoupon(String couponID) {
+        for (Coupon coupon : coupons) {
+            if (coupon.getCouponID().equals(couponID)) {
+                return coupon;
+            }
+        }
+        return null;
+    }
+
+    public boolean contains(String couponID) {
+        for (Coupon coupon : coupons) {
+            if (coupon.getCouponID().equals(couponID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public StringBuilder viewAllCoupons() {
         StringBuilder allCoupons = new StringBuilder();
         allCoupons.append("[");

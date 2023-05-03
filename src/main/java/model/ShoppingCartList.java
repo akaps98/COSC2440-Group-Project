@@ -37,6 +37,16 @@ public class ShoppingCartList {
         return false;
     }
 
+    public boolean contains(int cartID) {
+        for (ShoppingCart2 cart : cartList) {
+            if (cart.getCartID() == cartID) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public int indexOf(ShoppingCart2 c) {
         return cartList.indexOf(c);
     }
@@ -48,7 +58,7 @@ public class ShoppingCartList {
     /**
      * The method return the Shopping Cart according to the cartNumber
      *
-     * @param cartNumber: the cart # that is stored inside the Shopping Cart list (not the index of the cart in the list)
+     * @param cartID: the cart # that is stored inside the Shopping Cart list (not the index of the cart in the list)
      * @return ShoppingCart: the Shopping Cart instance at the cartNumber - 1 position in the list
      */
     public ShoppingCart2 getCart(int cartID) {

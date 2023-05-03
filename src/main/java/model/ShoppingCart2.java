@@ -58,15 +58,35 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
     /* Utilities Method */
     public void resetCart() {cartItems.clear();}
 
-    public int totalUniqueItems() {
+    public int countUniqueItems() {
         return cartItems.keySet().size();
     }
-    public int totalItems() {
+    public int countItems() {
         int itemCount = 0;
         for (int itemQuantity : cartItems.values()) {
             itemCount += itemQuantity;
         }
         return itemCount;
+    }
+
+    public boolean containItem(String productName) {
+        for (String item : cartItems.keySet()) {
+            if (productName.equals(item)) {
+                return true;
+            }
+        }
+        System.out.println("Product is not existed in the shopping cart!");
+        return false;
+    }
+
+    public static boolean checkCartExisted(int cartID, ShoppingCartList carts){
+        if (carts.contains(cartID)) {
+            System.out.println("This cart is already existed on our system!" +
+                    "\nPlease select another ID." +
+                    "\n--------------------------------");
+            return false;
+        }
+        return true;
     }
 
 
