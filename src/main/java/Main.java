@@ -577,9 +577,7 @@ public class Main { // run the program
     }
 
     public void generateData() {
-        DataInput dIn = new DataInput();
-        dIn.readProductFile();
-        dIn.readCartFile();
+
     }
 
     /**
@@ -608,8 +606,6 @@ public class Main { // run the program
         System.out.print("Select the option you want: ");
     }
 
-
-
     /**
      * This method is called in Main class to run the whole program
      */
@@ -618,7 +614,7 @@ public class Main { // run the program
         boolean defaultCheck = false; // Use to check if the default method have been called yet
 
         // By default, when the system run, the program will execute the database files: products.txt + carts.txt
-        generateData();
+        // generateData();
 
         // --------------MAIN PROGRAM--------------
         System.out.println("\nWelcome to the online shopping service application!");
@@ -672,6 +668,9 @@ public class Main { // run the program
 
     public static void main(String[] args) {
         Main program = new Main();
+        DataInput dIn = new DataInput();
+        dIn.readProductFile();
+        dIn.readCartFile();
         program.run();
     }
 }
