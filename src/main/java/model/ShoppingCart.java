@@ -229,7 +229,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             Product p = productList.getProduct(productName);
 
             double itemSubtotal = p.getPrice() * cartItems.get(productName);
-            double taxSubtotal = Tax.getTaxAmount(productName);
+            double tax = Tax.getTaxAmount(productName) * itemSubtotal;
 
 
 //            Traverse through the coupon list, looking for the CouponID
@@ -255,7 +255,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
             totalPrice += itemSubtotal; // price of all the products before coupons and taxes
             totalPrice -= discount; // coupon placeholder for price after coupon
-            totalPrice += taxSubtotal; // price after tax
+            totalPrice += tax; // price after tax
         }
 
         calTotalWeight(productList);
