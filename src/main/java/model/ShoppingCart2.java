@@ -7,6 +7,8 @@ package model;
  * @since 2023 - 03 - 31
  */
 
+import database.ShoppingDB;
+
 import java.util.*;
 
 public class ShoppingCart2 implements Comparable<ShoppingCart2> {
@@ -212,7 +214,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
 
 
 //            Traverse through the coupon list, looking for the CouponID
-            for (Coupon coupon : CouponList.getCoupons()) {
+            for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
                 if (coupon.getCouponID().equals(appliedCouponID)) {
 //                    The coupon must match the product name for it to work
                     if (coupon.getProductName().equals(productName)) {

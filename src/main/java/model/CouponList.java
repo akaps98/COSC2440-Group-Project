@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CouponList {
-    private static List<Coupon> coupons;
+    private List<Coupon> coupons;
 
     // CONSTRUCTOR
     public CouponList() {
@@ -24,7 +24,7 @@ public class CouponList {
         return coupons.size();
     }
 
-    public static List<Coupon> getCoupons() {
+    public List<Coupon> getCoupons() {
         return coupons;
     }
 
