@@ -40,6 +40,14 @@ public abstract class Coupon {
         return "percent";
     }
 
+    public String getCouponID() {
+        return couponID;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
     /* Abstract methods */
     @Override
     public abstract String toString();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CouponList {
-    private List<Coupon> coupons;
+    private static List<Coupon> coupons;
 
     // CONSTRUCTOR
     public CouponList() {
@@ -24,14 +24,18 @@ public class CouponList {
         return coupons.size();
     }
 
+    public static List<Coupon> getCoupons() {
+        return coupons;
+    }
+
     public StringBuilder viewAllCoupons() {
         StringBuilder allCoupons = new StringBuilder();
         allCoupons.append("[");
         for (Coupon coupon : coupons) {
-            allCoupons.append(coupon.toString() + ", ");
+            allCoupons.append(coupon.toString()).append(", ");
         }
         allCoupons.append("]");
-        System.out.println(String.format("Number of Coupons: %d", countCoupon()));
+        System.out.printf("Number of Coupons: %d%n", countCoupon());
         System.out.println(allCoupons);
         return allCoupons;
     }
