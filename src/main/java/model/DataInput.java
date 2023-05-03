@@ -61,9 +61,9 @@ public class DataInput {
                                         // Case 4: create a Coupon
                                         case "COUPON":
                                             // Create new coupon
-                                            Coupon coupon = new Coupon(newLine[1],newLine[2],Double.parseDouble(newLine[3]),newLine[4]);
+                                            // Coupon coupon = new Coupon(newLine[1],newLine[2],Double.parseDouble(newLine[3]),newLine[4]);
                                             // Add new coupon to the coupon list
-                                            coupons.add(coupon);
+                                            // coupons.add(coupon);
                                             break;
                                         case "TAX":
                                             // Initialise values for Tax here

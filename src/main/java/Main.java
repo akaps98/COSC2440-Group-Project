@@ -10,6 +10,96 @@ import java.util.Scanner;
 // this one is to run the Online Shopping Service
 
 public class Main { // run the program
+
+    /**
+     * Display the console application primary menu (menu for user to select the feature)
+     */
+    public void displayMenu() {
+        System.out.println("""
+                    ----------------------------------------
+                        *** ONLINE SHOPPING SERVICE  ***    
+                    ----------------------------------------
+                    1. View product(s)
+                    2. Create new product
+                    3. Edit product
+                    4. Create a new shopping cart
+                    5. Add product(s) to shopping cart
+                    6. Remove product(s) from shopping cart
+                    7. Apply coupon
+                    8. Remove coupon
+                    9. Display the cart amount
+                    10. Display shopping cart(s)
+                    11. Print receipt
+                    12. Exit
+                    ----------------------------------------
+                    Select the option you want: """);
+    }
+
+    /**
+     * This method is called in Main class to run the whole program
+     */
+    public void run() {
+        int choice = -1;
+        boolean defaultCheck = false; // Use to check if the default method have been called yet
+
+        System.out.println("\nWelcome to the online shopping service application!");
+        while (choice != 12) {
+//            displayMenu();
+//            choice = scanner.nextLine(); // get the user's input
+//            switch (choice) {
+//                case 0:
+//                    if (defaultCheck == true) { // Check if the default feature has been called before or not
+//                        System.out.println("You can only use default option for only once! Please select other options.");
+//                        break;
+//                    }
+//                    runDefault(); // Call function 0
+//                    defaultCheck = true;
+//                    break;
+//                case "1":
+//                    createProduct();
+//                    break;
+//                case "2":
+//                    editProduct();
+//                    break;
+//                case "3":
+//                    displayProducts();
+//                    break;
+//                case "4":
+//                    createShoppingCart();
+//                    break;
+//                case "5":
+//                    addProductToCart();
+//                    break;
+//                case "6":
+//                    removeProductFromCart();
+//                    break;
+//                case "7":
+//                    displayCartAmount();
+//                    break;
+//                case "8":
+//                    displayAllCartByWeight();
+//                    break;
+//                case "9":
+//                    System.out.println("\nThank you for using our service! We hope to see you again ^^");
+//                    break;
+//                case "10":
+//                    System.out.println("\nThank you for using our service! We hope to see you again ^^");
+//                    break;
+//                case "11":
+//                    System.out.println("\nThank you for using our service! We hope to see you again ^^");
+//                    break;
+//                case "12":
+//                    System.out.println("\nThank you for using our service! We hope to see you again ^^");
+//                    break;
+//                default:
+//                    System.out.println("\n Invalid choice, please try again!");
+//                    displayMenu();
+//                    choice = scanner.nextLine();
+//            }
+
+        }
+    }
+
     public static void main(String[] args){
         ShoppingService ss = new ShoppingService();
         Scanner input = new Scanner(System.in);
