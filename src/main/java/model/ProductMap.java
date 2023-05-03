@@ -61,7 +61,7 @@ public class ProductMap {
         }
         allProducts.append("]");
         // Display to the console
-        System.out.println(String.format("Number of Products: %d", countProduct()));
+        System.out.println("Number of Products: " + countProduct());
         System.out.println(allProducts);
         return allProducts;
     }
@@ -71,9 +71,9 @@ public class ProductMap {
      *
      * Condition: product must have availableQuantity > 0
      *
-     * @return StringBuilder: the StringBuilder contains the number of products in the list and the all the product names
+     * Action: print the number of products in the list and the all the product names
      */
-    public StringBuilder viewAvailableProducts() {
+    public void viewAvailableProducts() {
         StringBuilder availableProducts = new StringBuilder(); // The String that contains information of all available products
         int availableCount = 0;
         for (Product p : productList.values()) { // Loop for each product inside the list
@@ -84,8 +84,7 @@ public class ProductMap {
         }
         availableProducts.append("]");
         // Display to the console
-        System.out.println(String.format("Number of Available Products: %d", availableCount));
+        System.out.println("Number of Available Products: " + availableCount);
         System.out.println(availableProducts);
-        return availableProducts;
     }
 }

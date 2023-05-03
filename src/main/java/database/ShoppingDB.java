@@ -21,6 +21,7 @@ public class ShoppingDB {
         products = new ProductMap();
         carts = new ShoppingCartList();
         taxes = new HashMap<>();
+        coupons = new CouponList();
     }
 
     // Static method to create instance of ShoppingDB class

@@ -7,6 +7,8 @@ package model;
  * @since 2023 - 03 - 31
  */
 
+import database.ShoppingDB;
+
 import java.util.*;
 
 public class ShoppingCart2 implements Comparable<ShoppingCart2> {
@@ -216,6 +218,7 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
     public double cartAmount(ProductMap productList) {
         double totalPrice = 0;
         double overallSubtotal = 0;
+        double discount = 0;
         // for (String productName : cartItems) {
         //     Product p = App.productList.getProduct(productName);
         //     totalPrice += p.getPrice();
@@ -229,10 +232,30 @@ public class ShoppingCart2 implements Comparable<ShoppingCart2> {
             Tax TaxInstance = Tax.getTaxInstance(productName);
             double taxSubtotal = TaxInstance.getTaxAmount();
 
+
+//            Traverse through the coupon list, looking for the CouponID
+            for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
+                if (coupon.getCouponID().equals(appliedCouponID)) {
+//                    The coupon must match the product name for it to work
+                    if (coupon.getProductName().equals(productName)) {
+//                        Check for the coupon type, price or percent
+                        if (Coupon.getType(appliedCouponID).equals("price")) {
+                            PriceCoupon priceCoupon = (PriceCoupon) coupon;
+//                            Subtract the price for all the matching products
+                            discount += priceCoupon.getCouponValue() * cartItems.get(productName);
+                        } else if (Coupon.getType(appliedCouponID).equals("percent")) {
+                            PercentCoupon percentCoupon = (PercentCoupon) coupon;
+//                            Subtract the price after percentage calculation
+                            discount += (itemSubtotal*percentCoupon.getCouponValue()/100);
+                        }
+                    }
+                }
+            }
+
             overallSubtotal += itemSubtotal; // for subtotal before coupons and taxes
 
             totalPrice += itemSubtotal; // price of all the products before coupons and taxes
-            totalPrice -= 10; // coupon placeholder for price after coupon
+            totalPrice -= discount; // coupon placeholder for price after coupon
             totalPrice += taxSubtotal; // price after tax
         }
 

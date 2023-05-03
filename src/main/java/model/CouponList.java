@@ -33,24 +33,27 @@ public class CouponList {
         return null;
     }
 
-    public boolean contains(String couponID) {
-        for (Coupon coupon : coupons) {
-            if (coupon.getCouponID().equals(couponID)) {
+    public boolean contains(String id) {
+        for (Coupon c : coupons) {
+            if (c.getCouponID().equals(id)) {
                 return true;
             }
         }
         return false;
     }
 
-    public StringBuilder viewAllCoupons() {
+    public List<Coupon> getCoupons() {
+        return coupons;
+    }
+
+    public void viewAllCoupons() {
         StringBuilder allCoupons = new StringBuilder();
         allCoupons.append("[");
         for (Coupon coupon : coupons) {
-            allCoupons.append(coupon.toString() + ", ");
+            allCoupons.append(coupon.toString()).append(", ");
         }
         allCoupons.append("]");
-        System.out.println(String.format("Number of Coupons: %d", countCoupon()));
+        System.out.printf("Number of Coupons: %d%n", countCoupon());
         System.out.println(allCoupons);
-        return allCoupons;
     }
 }
