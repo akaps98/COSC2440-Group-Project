@@ -12,13 +12,19 @@ import java.util.Scanner;
 
 public class Main { // run the program
     // ATTRIBUTES
-    ShoppingDB db = ShoppingDB.getInstance();
-    ProductMap products = db.getProducts();
-    ShoppingCartList carts = db.getCarts();
-    CouponList coupons = db.getCoupons();
+    ProductMap products;
+    ShoppingCartList carts;
+    CouponList coupons;
     Scanner input = new Scanner(System.in); // collect user inputs
     int choice = -1; // get option
     boolean check; // if the user successfully use a feature
+
+    public Main() {
+        ShoppingDB db = ShoppingDB.getInstance();
+        products = db.getProducts();
+        carts = db.getCarts();
+        coupons = db.getCoupons();
+    }
 
     /**
      * Function 1: this method is used to display the product(s) information in the product list
@@ -576,8 +582,10 @@ public class Main { // run the program
         dIn.readReceipt(cartID);
     }
 
-    public void generateData() {
-
+    public static void generateData() {
+        DataInput dIn = new DataInput();
+        dIn.readProductFile();
+        dIn.readCartFile();
     }
 
     /**
@@ -612,9 +620,6 @@ public class Main { // run the program
     public void run() {
         int choice = -1;
         boolean defaultCheck = false; // Use to check if the default method have been called yet
-
-        // By default, when the system run, the program will execute the database files: products.txt + carts.txt
-        // generateData();
 
         // --------------MAIN PROGRAM--------------
         System.out.println("\nWelcome to the online shopping service application!");
@@ -667,10 +672,9 @@ public class Main { // run the program
     }
 
     public static void main(String[] args) {
+        // By default, when the system run, the program will execute the database files: products.txt + carts.txt
+        Main.generateData();
         Main program = new Main();
-        DataInput dIn = new DataInput();
-        dIn.readProductFile();
-        dIn.readCartFile();
         program.run();
     }
 }
