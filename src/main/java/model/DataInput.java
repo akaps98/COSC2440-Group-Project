@@ -11,14 +11,14 @@ public class DataInput {
     ProductMap products;
     ShoppingCartList carts;
     CouponList coupons;
-    Map<String, Double> taxes;
+    Tax taxes;
 
     // CONSTRUCTOR
     public DataInput() {
         products = new ProductMap();
         carts = new ShoppingCartList();
         coupons = new CouponList();
-        taxes = new HashMap<>();
+        taxes = new Tax();
     }
 
     // METHOD
@@ -73,7 +73,7 @@ public class DataInput {
                                             break;
                                         case "TAX":
                                             // Initialise values for Tax here
-                                            taxes.put(newLine[1], Double.parseDouble(newLine[2]));
+                                            taxes.addTax(newLine[1], Double.parseDouble(newLine[2]));
                                             break;
                                         default:
                                             break;

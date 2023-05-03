@@ -1,9 +1,7 @@
 package database;
 
-import model.Coupon;
-import model.CouponList;
-import model.ProductMap;
-import model.ShoppingCartList;
+import model.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -14,13 +12,13 @@ public class ShoppingDB {
     ProductMap products;
     ShoppingCartList carts;
     CouponList coupons;
-    Map<String, Double> taxes;
+    Tax taxes;
 
     // CONSTRUCTOR
     private ShoppingDB() {
         products = new ProductMap();
         carts = new ShoppingCartList();
-        taxes = new HashMap<>();
+        taxes = new Tax();
         coupons = new CouponList();
     }
 
@@ -52,11 +50,11 @@ public class ShoppingDB {
 
     public void setCoupons(CouponList coupons) {this.coupons = coupons;}
 
-    public Map<String, Double> getTaxes() {
+    public Tax getTaxes() {
         return taxes;
     }
 
-    public void setTaxes(Map<String, Double> taxes) {
+    public void setTaxes(Tax taxes) {
         this.taxes = taxes;
     }
 }

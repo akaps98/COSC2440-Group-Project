@@ -229,7 +229,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             Product p = productList.getProduct(productName);
 
             double itemSubtotal = p.getPrice() * cartItems.get(productName);
-            double tax = Tax.getTaxAmount(productName) * itemSubtotal;
+            double tax = ShoppingDB.getInstance().getTaxes().getTaxAmount(productName);
 
 
 //            Traverse through the coupon list, looking for the CouponID
