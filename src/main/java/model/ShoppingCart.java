@@ -174,13 +174,13 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     /**
      * The method use to calculate the total weight of the shopping cart
      * Note:
-     * 1/ private method and only used as a part the cartAmount() method
+     * 1/ public method and only used as a part the cartAmount() method
      * 2/ The product list is a dependency injection from the App class
      *
      * @return double - the double value is the total weight of the Physical Products in the cart
      * Action: set the total weight of
      */
-    private double calTotalWeight(ProductMap productList) {
+    public double calTotalWeight(ProductMap productList) {
         // Check if shopping cart is empty
         if (cartItems.size() == 0) {
             return 0;

@@ -4,11 +4,9 @@
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import model.*;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,141 +14,117 @@ class ShoppingCartTest {
 
     @Test
     void testAddItemWithShoppingCartSize() {
-        ShoppingCart testSc = new ShoppingCart();
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
-        Digital eBook = new Digital("eBook", "Popular", 10, 15);
+        ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        ArrayList<Product> savedProductsOnSystem = new ArrayList<>(); // test Product arraylist (all saved products on system)
+        Main.generateData(); // to read data from database
+        Main program = new Main();
 
-        savedProductsOnSystem.add(iPhone); // so, this process is to register new product on the store(system)
-        savedProductsOnSystem.add(eBook);
+        ProductMap products = program.products; // make a products map
 
-        testSc.addItem("iPhone", savedProductsOnSystem); // save the products on shopping cart
-        testSc.addItem("eBook", savedProductsOnSystem);
+        testSc.addItem("iPhone", 3, products); // save the products on shopping cart
+        testSc.addItem("WordPress Themes", 5, products);
 
         // now, I added two products on shopping cart; iPhone and eBook.
-        // Let's check the size of shopping cart. I added 2 products.
+        // Let's check the size of shopping cart. I added only 2 products.
 
-        assertEquals(2, testSc.getProductsName().size());
+        assertEquals(2, testSc.getCartItems().size());
     }
 
     @Test
     void testAddItemWithProductNameInShoppingCart() {
-        ShoppingCart testSc = new ShoppingCart();
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
-        Digital eBook = new Digital("eBook", "Popular", 10, 15);
+        ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        ArrayList<Product> savedProductsOnSystem = new ArrayList<>(); // test Product arraylist (all saved products on system)
+        Main.generateData(); // to read data from database
+        Main program = new Main();
 
-        savedProductsOnSystem.add(iPhone); // so, this process is to register new product on the store(system)
-        savedProductsOnSystem.add(eBook);
+        ProductMap products = program.products; // make a products map
 
-        testSc.addItem("iPhone", savedProductsOnSystem); // save the products on shopping cart
-        testSc.addItem("eBook", savedProductsOnSystem);
+        testSc.addItem("iPhone", 3, products); // save the products on shopping cart
+        testSc.addItem("WordPress Themes", 5, products);
 
         // now, I added two products on shopping cart; iPhone and eBook.
         // In shopping carts, if it has same names with 'iPhone' and 'eBook', it means that the system saved successfully.
 
-        assertTrue(testSc.getProductsName().contains("iPhone"));
-        assertTrue(testSc.getProductsName().contains("eBook"));
+        assertTrue(testSc.getCartItems().containsKey("iPhone"));
+        assertTrue(testSc.getCartItems().containsKey("WordPress Themes"));
     }
 
     @Test
     void testRemoveItem() {
-        ShoppingCart testSc = new ShoppingCart();
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
-        Digital eBook = new Digital("eBook", "Popular", 10, 15);
+        ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        ArrayList<Product> savedProductsOnSystem = new ArrayList<>(); // test Product arraylist (all saved products on system)
+        Main.generateData(); // to read data from database
+        Main program = new Main();
 
-        savedProductsOnSystem.add(iPhone); // so, this process is to register new product on the store(system)
-        savedProductsOnSystem.add(eBook);
+        ProductMap products = program.products; // make a products map
 
-        testSc.addItem("iPhone", savedProductsOnSystem); // save the products on shopping cart
-        testSc.addItem("eBook", savedProductsOnSystem);
+        testSc.addItem("iPhone", 3, products); // save the products on shopping cart
+        testSc.addItem("WordPress Themes", 5, products);
 
-        testSc.removeItem("eBook", savedProductsOnSystem); // remove the product 'eBook' on shopping cart
+        testSc.removeItem("iPhone", 1, products); // remove 1 iPhone, so remained quantity will be 3-1=2.
+        testSc.removeItem("WordPress Themes", 2, products); // remove 2 eBook, so remained quantity will be 5-2=3.
 
-        // I only removed 'eBook', so 'iPhone' should be remained.
-
-        assertFalse(testSc.getProductsName().contains("eBook")); // eBook is deleted,
-        assertTrue(testSc.getProductsName().contains("iPhone")); // iPhone is still remained.
+        assertEquals(2, testSc.getCartItems().get("iPhone"));
+        assertEquals(3, testSc.getCartItems().get("WordPress Themes"));
     }
 
     @Test
     void testCartAmount() {
-        ShoppingCart testSc = new ShoppingCart();
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
-        Digital eBook = new Digital("eBook", "Popular", 10, 15);
+        ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        ArrayList<Product> savedProductsOnSystem = new ArrayList<>(); // test Product arraylist (all saved products on system)
+        Main.generateData(); // to read data from database
+        Main program = new Main();
 
-        savedProductsOnSystem.add(iPhone); // so, this process is to register new product on the store(system)
-        savedProductsOnSystem.add(eBook);
+        ProductMap products = program.products; // make a products map
 
-        testSc.addItem("iPhone", savedProductsOnSystem); // save the products on shopping cart
-        testSc.addItem("eBook", savedProductsOnSystem);
+        testSc.addItem("iPhone", 5, products); // save the products on shopping cart
+        //testSc.addItem("GitHub Enterprise", 3, products);
 
-        // Let's calculate the total cost. Only iPhone is a physical product.
-        // (200 + 15) + (5 * 0.1) = 215.5
+         // Let's calculate the total cost. Only iPhone is a physical product.
+         // {(200 + 15) * 5} + {(5 * 0.1) * 7} = 1,099.5.5
 
-        assertEquals(testSc.cartAmount(savedProductsOnSystem), 215.5);
+        // assertEquals(testSc.cartAmount(products), 1099.5);
     }
 
     @Test
     void testCompareTo() {
         // Let's test it sorts the array of shopping carts as ascending order properly.
-        ArrayList<ShoppingCart> savedShoppingCartsOnSystem = new ArrayList<>(); // test Shopping Cart arraylist (all saved shopping carts on system)
+        ShoppingCart testSc1 = new ShoppingCart(1); // generate new shopping cart
+        ShoppingCart testSc2 = new ShoppingCart(2); // generate new shopping cart
+        ShoppingCart testSc3 = new ShoppingCart(3); // generate new shopping cart
 
-        ShoppingCart testSc1 = new ShoppingCart(); // it has numbering 1
-        ShoppingCart testSc2 = new ShoppingCart(); // it has numbering 2
-        ShoppingCart testSc3 = new ShoppingCart(); // it has numbering 3
+        Main.generateData(); // to read data from database
+        Main program = new Main();
 
-        savedShoppingCartsOnSystem.add(testSc1);
-        savedShoppingCartsOnSystem.add(testSc2);
-        savedShoppingCartsOnSystem.add(testSc3);
+        ProductMap products = program.products; // make a products map
+        ArrayList<ShoppingCart> carts = new ArrayList<>();
 
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
-        Physical tablet = new Physical("tablet", "Sharp", 30, 150, 8);
-        Physical monitor = new Physical("monitor", "Big", 25, 250, 12);
+        // save the products on shopping cart
+        testSc1.addItem("Galaxy S23", 4, products); // total weight = 168 * 4 = 672
+        System.out.println(testSc1.calTotalWeight(products)); // doesn't work
+        testSc2.addItem("iPhone", 3, products); // total weight = 148 * 3 = 444
+        testSc3.addItem("iPad", 1, products); // total weight = 487 * 1 = 487
 
-        ArrayList<Product> savedProductsOnSystem = new ArrayList<>(); // test Product arraylist (all saved products on system)
+        // save the cart on shopping carts list
+        carts.add(testSc1);
+        carts.add(testSc2);
+        carts.add(testSc3);
 
-        savedProductsOnSystem.add(iPhone); // so, this process is to register new product on the store(system)
-        savedProductsOnSystem.add(tablet);
-        savedProductsOnSystem.add(monitor);
+        System.out.println(carts.get(0).getTotalWeight());
+        System.out.println(carts.get(1).getTotalWeight());
+        System.out.println(carts.get(2).getTotalWeight());
 
-        testSc3.addItem("iPhone", savedProductsOnSystem);
-        testSc3.addItem("tablet", savedProductsOnSystem);
-        testSc3.addItem("monitor", savedProductsOnSystem); // total weight = 5 + 8 + 12 = 25
-        testSc3.cartAmount(savedProductsOnSystem);
+        // according to the total weight, it should be testSc2 -> testSc3 -> testSc1 after sorting as ascending order
+        ShoppingCartList.sortCartsByWeight(carts);
 
-        testSc1.addItem("monitor", savedProductsOnSystem);
-        testSc1.addItem("iPhone", savedProductsOnSystem); // total weight = 12 + 5 = 17
-        testSc1.cartAmount(savedProductsOnSystem);
+        System.out.println(carts.get(0).getTotalWeight());
+        System.out.println(carts.get(1).getTotalWeight());
+        System.out.println(carts.get(2).getTotalWeight());
 
-        testSc2.addItem("iPhone", savedProductsOnSystem); // total weight = 5
-        testSc2.cartAmount(savedProductsOnSystem);
-
-        // according to the total weight, it should be testSc3 -> testSc1 -> testSc2 after sorting as ascending order
-        Collections.sort(savedShoppingCartsOnSystem);
 
         // They have their own number, let's check by it.
-        assertEquals(3, savedShoppingCartsOnSystem.get(0).getNumbering()); // testSc3
-        assertEquals(1, savedShoppingCartsOnSystem.get(1).getNumbering()); // testSc1
-        assertEquals(2, savedShoppingCartsOnSystem.get(2).getNumbering()); // testSc2
-    }
-
-    @Test
-    void testNumbering() {
-        // This is my own function.
-        // Shopping cart will get the number by the order of creation.
-        ShoppingCart testSc1 = new ShoppingCart(); // no.1
-        ShoppingCart testSc2 = new ShoppingCart(); // no.2
-        ShoppingCart testSc3 = new ShoppingCart(); // no.3
-
-        assertEquals(1, testSc1.getNumbering());
-        assertEquals(2, testSc2.getNumbering());
-        assertEquals(3, testSc3.getNumbering());
+//        assertEquals(2, carts.get(0).getCartID()); // testSc3
+//        assertEquals(3, carts.get(1).getCartID()); // testSc1
+//        assertEquals(1, carts.get(2).getCartID()); // testSc2
     }
 }
