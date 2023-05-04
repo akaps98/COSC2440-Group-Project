@@ -218,38 +218,12 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     public double cartAmount(ProductMap productList) {
         double totalPrice = 0;
         double overallSubtotal = 0;
-        double discount = 0;
-        // for (String productName : cartItems) {
-        //     Product p = App.productList.getProduct(productName);
-        //     totalPrice += p.getPrice();
-        // }
 
         // Iterate through all the product names in the shopping cart
         for (String productName : cartItems.keySet()) { // checking the next Product
-            Product p = productList.getProduct(productName);
-
-            double itemSubtotal = p.getPrice() * cartItems.get(productName);
-            double tax = ShoppingDB.getInstance().getTaxes().getTaxAmount(productName);
-
-
-//            Traverse through the coupon list, looking for the CouponID
-            for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
-                if (coupon.getCouponID().equals(appliedCouponID)) {
-//                    The coupon must match the product name for it to work
-                    if (coupon.getProductName().equals(productName)) {
-//                        Check for the coupon type, price or percent
-                        if (Coupon.getType(appliedCouponID).equals("price")) {
-                            PriceCoupon priceCoupon = (PriceCoupon) coupon;
-//                            Subtract the price for all the matching products
-                            discount += priceCoupon.getCouponValue() * cartItems.get(productName);
-                        } else if (Coupon.getType(appliedCouponID).equals("percent")) {
-                            PercentCoupon percentCoupon = (PercentCoupon) coupon;
-//                            Subtract the price after percentage calculation
-                            discount += (itemSubtotal*percentCoupon.getCouponValue()/100);
-                        }
-                    }
-                }
-            }
+            double itemSubtotal = getItemSubtotal(productName, productList);
+            double tax = getItemTax(productName, productList);
+            double discount = getItemDiscount(productName, productList);
 
             overallSubtotal += itemSubtotal; // for subtotal before coupons and taxes
 
@@ -263,6 +237,39 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         totalPrice += shippingFee; // add the shipping fee to the total price
 
         return totalPrice;
+    }
+
+    public Double getItemSubtotal(String productName, ProductMap productList) {
+        return productList.getProduct(productName).getPrice() * cartItems.get(productName);
+    }
+
+    public Double getItemTax(String productName, ProductMap productList) {
+        return ShoppingDB.getInstance().getTaxes().getTaxAmount(productName) * getItemSubtotal(productName, productList);
+    }
+
+    public Double getItemDiscount(String productName, ProductMap productList) {
+        double discount = 0;
+
+//        Traverse through the coupon list, looking for the CouponID
+        for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
+            if (coupon.getCouponID().equals(appliedCouponID)) {
+//                    The coupon must match the product name for it to work
+                if (coupon.getProductName().equals(productName)) {
+//                        Check for the coupon type, price or percent
+                    if (Coupon.getType(appliedCouponID).equals("price")) {
+                        PriceCoupon priceCoupon = (PriceCoupon) coupon;
+//                            Add the price for all the matching products
+                        discount = priceCoupon.getCouponValue() * cartItems.get(productName);
+                    } else if (Coupon.getType(appliedCouponID).equals("percent")) {
+                        PercentCoupon percentCoupon = (PercentCoupon) coupon;
+//                            Add the price after percentage calculation
+                        discount = (getItemSubtotal(productName, productList)*percentCoupon.getCouponValue()/100);
+                    }
+                }
+            }
+        }
+
+        return discount;
     }
 
     /**
