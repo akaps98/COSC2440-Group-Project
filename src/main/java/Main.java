@@ -4,7 +4,6 @@
 
 import database.ShoppingDB;
 import model.*;
-
 import java.util.Scanner;
 
 
