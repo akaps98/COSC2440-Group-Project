@@ -199,7 +199,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             String productName = it.next();
             Product p = productList.getProduct(productName);
             if (p instanceof Physical) { // check if the product is a Physical Product
-                weight += ((Physical) p).getWeight(); // get the weight by casting PhysicalProduct type, and add to the weight variable
+                weight += ((Physical) p).getWeight() * cartItems.get(productName); // get the weight by casting PhysicalProduct type, and add to the weight variable
             }
         }
         setTotalWeight(weight);
