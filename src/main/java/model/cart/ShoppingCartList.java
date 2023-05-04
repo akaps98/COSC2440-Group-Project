@@ -7,6 +7,9 @@ package model.cart;
  * @since 2023 - 03 - 31
  */
 
+import model.cart.ShoppingCart;
+import model.cart.ShoppingCartComparator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;

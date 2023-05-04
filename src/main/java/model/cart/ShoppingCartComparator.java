@@ -6,6 +6,8 @@ package model.cart;
  * @since 2023 - 03 - 31
  */
 
+import model.cart.ShoppingCart;
+
 import java.util.Comparator;
 
 public class ShoppingCartComparator implements Comparator<ShoppingCart>{

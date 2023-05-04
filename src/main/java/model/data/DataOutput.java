@@ -9,9 +9,13 @@ import model.product.ProductMap;
 import model.cart.ShoppingCart;
 
 public class DataOutput {
-    public void writeReceipt(ShoppingCart c) {
+    public void writeReceipt(int cartID) {
         try {
-            FileWriter fWriter = new FileWriter("src/main/java/database/cart"+c.getCartID()+".txt");
+            FileWriter fWriter = new FileWriter("src/main/java/database/receipts/cart"+cartID+".txt");
+
+            // Get shopping cart
+            ShoppingCart c = ShoppingDB.getInstance().getCarts().getCart(cartID);
+
             // Header
             fWriter.write("\t\t\t\tOnline Shopping Service\n");
             fWriter.write("\n");
@@ -64,6 +68,6 @@ public class DataOutput {
         DataOutput dOut = new DataOutput();
         ShoppingDB db = ShoppingDB.getInstance();
         ShoppingCart c = db.getCarts().getCart(2);
-        dOut.writeReceipt(c);
+        dOut.writeReceipt(1);
     }
 }

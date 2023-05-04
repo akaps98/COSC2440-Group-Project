@@ -5,13 +5,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import database.ShoppingDB;
+import model.product.Tax;
 import model.cart.ShoppingCart;
 import model.cart.ShoppingCartList;
 import model.coupon.Coupon;
 import model.coupon.CouponList;
 import model.coupon.PercentCoupon;
 import model.coupon.PriceCoupon;
-import model.product.*;
+import model.product.Digital;
+import model.product.Physical;
+import model.product.Product;
+import model.product.ProductMap;
 
 public class DataInput {
     ProductMap products;
@@ -33,7 +37,7 @@ public class DataInput {
         // ProductMap products = new ProductMap();
 
         try {
-            Files.lines(Paths.get("src/main/java/database/products.txt"))
+            Files.lines(Paths.get("src/main/java/database/files/products.txt"))
                     // .filter(l -> l.length() > 5)
                     // .map(line -> line.length())
                     .forEach(
@@ -98,7 +102,7 @@ public class DataInput {
 //        // Storing location of the created Shopping Cart
 //        ShoppingCartList carts = new ShoppingCartList();
         try {
-            Files.lines(Paths.get("src/main/java/database/carts.txt"))
+            Files.lines(Paths.get("src/main/java/database/files/carts.txt"))
                     .forEach(
                             line -> {
                                 if (!line.isEmpty()) {

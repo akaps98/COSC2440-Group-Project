@@ -8,13 +8,15 @@ package model.cart;
  */
 
 import database.ShoppingDB;
-import model.coupon.PercentCoupon;
-import model.product.Physical;
-import model.coupon.PriceCoupon;
-import model.product.ProductMap;
-import model.coupon.Coupon;
 import model.product.Product;
-
+import model.product.ProductMap;
+import model.product.Physical;
+import model.product.Digital;
+import model.coupon.Coupon;
+import model.coupon.CouponList;
+import model.coupon.PriceCoupon;
+import model.coupon.PercentCoupon;
+import model.product.Tax;
 import java.util.*;
 
 public class ShoppingCart implements Comparable<ShoppingCart> {
