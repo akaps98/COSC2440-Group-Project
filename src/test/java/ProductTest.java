@@ -2,12 +2,11 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import model.product.Digital;
+import model.product.Physical;
+import model.product.Product;
+import model.product.ProductMap;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Map;
-
-import model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

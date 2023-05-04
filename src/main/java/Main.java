@@ -3,11 +3,18 @@
  */
 
 import database.ShoppingDB;
-import model.*;
+import model.cart.ShoppingCart;
+import model.cart.ShoppingCartList;
+import model.coupon.Coupon;
+import model.coupon.CouponList;
+import model.data.DataInput;
+import model.data.DataOutput;
+import model.product.Digital;
+import model.product.Physical;
+import model.product.Product;
+import model.product.ProductMap;
 
 import java.util.Scanner;
-
-
 // this one is to run the Online Shopping Service
 
 public class Main { // run the program
@@ -571,11 +578,10 @@ public class Main { // run the program
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
         } while (ShoppingCart.checkCartExisted(cartID, carts));
-        ShoppingCart c = carts.getCart(cartID);
 
         // Print the receipt for the selected shopping cart
         DataOutput dOut = new DataOutput();
-        dOut.writeReceipt(c);
+        dOut.writeReceipt(cartID);
 
         // Also display the receipt in the console
         DataInput dIn = new DataInput();

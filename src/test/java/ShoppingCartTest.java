@@ -2,13 +2,14 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import model.cart.ShoppingCart;
+import model.product.Digital;
+import model.product.Physical;
+import model.product.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

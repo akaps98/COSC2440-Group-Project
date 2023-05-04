@@ -2,11 +2,11 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import model.product.Digital;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import model.*;
 class DigitalTest {
 
     @Test
