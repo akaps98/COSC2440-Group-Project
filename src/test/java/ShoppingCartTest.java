@@ -3,21 +3,12 @@
  */
 
 import model.cart.ShoppingCart;
-<<<<<<< HEAD
 import model.cart.ShoppingCartList;
 import model.product.ProductMap;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-=======
-import model.product.Digital;
-import model.product.Physical;
-import model.product.Product;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
->>>>>>> organise-code
 
 import static org.junit.jupiter.api.Assertions.*;
 
