@@ -3,7 +3,17 @@
  */
 
 import database.ShoppingDB;
-import model.*;
+import model.cart.ShoppingCart;
+import model.cart.ShoppingCartList;
+import model.coupon.Coupon;
+import model.coupon.CouponList;
+import model.data.DataInput;
+import model.data.DataOutput;
+import model.product.Digital;
+import model.product.Physical;
+import model.product.Product;
+import model.product.ProductMap;
+
 import java.util.Scanner;
 
 

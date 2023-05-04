@@ -1,4 +1,4 @@
-package model;
+package model.cart;
 
 /**
  * The class store information about the Shopping Cart
@@ -8,6 +8,12 @@ package model;
  */
 
 import database.ShoppingDB;
+import model.coupon.PercentCoupon;
+import model.product.Physical;
+import model.coupon.PriceCoupon;
+import model.product.ProductMap;
+import model.coupon.Coupon;
+import model.product.Product;
 
 import java.util.*;
 

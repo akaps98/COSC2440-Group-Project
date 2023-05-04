@@ -1,4 +1,4 @@
-package model;
+package model.product;
 
 /**
  * The class stores information about all the Products inside a Product List
@@ -6,6 +6,8 @@ package model;
  * @author Nguyen Anh Duy - s3878141
  * @since 2023 - 04 - 01
  */
+
+import model.product.Product;
 
 import java.util.Map;
 import java.util.HashMap;

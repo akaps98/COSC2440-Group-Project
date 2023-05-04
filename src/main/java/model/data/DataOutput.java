@@ -1,10 +1,12 @@
-package model;
+package model.data;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import database.ShoppingDB;
+import model.product.ProductMap;
+import model.cart.ShoppingCart;
 
 public class DataOutput {
     public void writeReceipt(ShoppingCart c) {

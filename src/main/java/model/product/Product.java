@@ -1,6 +1,6 @@
-package model;
+package model.product;
 
-import java.util.ArrayList;
+import model.Gift;
 
 /**
  * The class stores information about the Product

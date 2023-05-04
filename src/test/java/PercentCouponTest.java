@@ -2,7 +2,7 @@
  * @author <Kang Junsik - s3916884>
  */
 
-import model.PercentCoupon;
+import model.coupon.PercentCoupon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

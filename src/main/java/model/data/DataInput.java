@@ -1,11 +1,17 @@
-package model;
+package model.data;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+
 import database.ShoppingDB;
+import model.cart.ShoppingCart;
+import model.cart.ShoppingCartList;
+import model.coupon.Coupon;
+import model.coupon.CouponList;
+import model.coupon.PercentCoupon;
+import model.coupon.PriceCoupon;
+import model.product.*;
 
 public class DataInput {
     ProductMap products;

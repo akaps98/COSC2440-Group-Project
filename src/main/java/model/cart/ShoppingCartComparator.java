@@ -1,4 +1,4 @@
-package model;
+package model.cart;
 /**
  * The Comparator class manually created to compare the shopping carts in a shopping cart list (for sorting)
  *

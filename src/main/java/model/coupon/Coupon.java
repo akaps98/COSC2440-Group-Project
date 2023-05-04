@@ -1,4 +1,4 @@
-package model;
+package model.coupon;
 
 import java.util.regex.Pattern;
 

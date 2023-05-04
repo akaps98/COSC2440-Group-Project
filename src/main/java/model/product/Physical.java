@@ -1,4 +1,8 @@
-package model;
+package model.product;
+
+import model.Gift;
+import model.product.Product;
+
 /**
  * The class stores information about the Physical Product information
  *

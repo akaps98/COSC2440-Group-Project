@@ -1,6 +1,8 @@
-package model;
+package model.coupon;
 
-public class PercentCoupon extends Coupon{
+import model.coupon.Coupon;
+
+public class PercentCoupon extends Coupon {
     // ATTRIBUTES
     private int couponValue;
 

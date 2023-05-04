@@ -2,9 +2,10 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import model.cart.ShoppingCart;
+import model.cart.ShoppingCartList;
+import model.product.ProductMap;
 import org.junit.jupiter.api.Test;
-
-import model.*;
 
 import java.util.ArrayList;
 

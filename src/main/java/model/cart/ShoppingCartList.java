@@ -1,4 +1,4 @@
-package model;
+package model.cart;
 
 /**
  * The class stores information about all the shopping carts

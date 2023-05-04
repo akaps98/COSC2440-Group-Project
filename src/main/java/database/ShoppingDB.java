@@ -1,10 +1,9 @@
 package database;
 
-import model.*;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
+import model.cart.ShoppingCartList;
+import model.coupon.CouponList;
+import model.product.ProductMap;
+import model.product.Tax;
 
 
 public class ShoppingDB {

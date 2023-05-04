@@ -1,4 +1,6 @@
-package model;
+package model.coupon;
+
+import model.coupon.Coupon;
 
 public class PriceCoupon extends Coupon {
     // ATTRIBUTES

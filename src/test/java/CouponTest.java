@@ -2,8 +2,7 @@
  * @author <Kang Junsik - s3916884>
  */
 
-import model.Coupon;
-import model.CouponList;
+import model.coupon.Coupon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
