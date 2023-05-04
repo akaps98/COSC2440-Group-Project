@@ -7,17 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import model.*;
 
 class PhysicalTest {
-
     @Test
     void testPrintOut() {
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
-        String expectOutput = "PHYSICAL - <iPhone>";
+        Physical iPhone = new Physical("monitor", "big enough", 30, 250, 20);
+        String expectOutput = "PHYSICAL - <monitor>";
         assertEquals(expectOutput, iPhone.toString());
     }
 
     @Test
     void testGetMessage() { // test setMessage & getMessage together
-        Physical iPhone = new Physical("iPhone", "Cool", 20, 200, 5);
+        Physical iPhone = new Physical("iPad", "sharp", 30, 300, 7);
         iPhone.setMessage("Happy birthday!");
         assertEquals("Happy birthday!", iPhone.getMessage());
     }

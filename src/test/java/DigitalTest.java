@@ -8,17 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import model.*;
 class DigitalTest {
-
     @Test
     void testPrintOut() {
-        Digital eBook = new Digital("eBook", "Popular", 10, 15);
-        String expectOutput = "DIGITAL - <eBook>";
+        Digital eBook = new Digital("internet membership", "useful", 12, 20);
+        String expectOutput = "DIGITAL - <internet membership>";
         assertEquals(expectOutput, eBook.toString());
     }
 
     @Test
     void testGetMessage() { // test setMessage & getMessage together
-        Digital eBook = new Digital("eBook", "Popular", 10, 15);
+        Digital eBook = new Digital("Java ebook", "thick", 8, 17);
         eBook.setMessage("For you to study Java!");
         assertEquals("For you to study Java!", eBook.getMessage());
     }
