@@ -1,0 +1,25 @@
+				Online Shopping Service
+
+Receipt Number: C2440 - G09 - C2			
+04/05/2023 21:56:57
+User: Hoang Nguyen
+------------------------------------------------
+ITEMS                                    PRICE 
+ChatGPT Account
+1 x 30.00                               $30.00
+Youtube Premium
+2 x 25.00                               $50.00
+Spotify Premium
+1 x 20.90                               $20.90
+Steam Gift Card
+3 x 30.00                               $90.00
+NordVPN Plus
+3 x 20.00                               $60.00
+------------------------------------------------
+Items Count: 10
+
+Subtotal: 								$1923.11
+Discount: 								-$12.50
+Tax: 									+$12.50
+
+TOTAL: 									$266.99
