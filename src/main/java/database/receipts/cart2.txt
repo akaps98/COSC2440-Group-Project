@@ -1,8 +1,8 @@
 				Online Shopping Service
 
 Receipt Number: C2440 - G09 - C2			
-04/05/2023 21:56:57
-User: Hoang Nguyen
+05/05/2023 09:59:18
+User: Duy
 ------------------------------------------------
 ITEMS                                    PRICE 
 ChatGPT Account
@@ -18,8 +18,8 @@ NordVPN Plus
 ------------------------------------------------
 Items Count: 10
 
-Subtotal: 								$1923.11
-Discount: 								-$12.50
-Tax: 									+$12.50
+Subtotal: 								$250.90
+Discount: 								-($0.00)
+Tax: 									+$16.09
 
 TOTAL: 									$266.99

@@ -9,8 +9,13 @@ import java.util.Scanner;
 import database.ShoppingDB;
 import model.cart.ShoppingCart;
 import model.cart.ShoppingCartList;
+import model.coupon.Coupon;
+import model.coupon.CouponList;
+import model.coupon.PercentCoupon;
+import model.coupon.PriceCoupon;
 import model.product.Product;
 import model.product.ProductMap;
+import model.product.Tax;
 
 public class DataOutput {
     public void writeReceipt(int cartID) {
@@ -26,6 +31,8 @@ public class DataOutput {
             ShoppingDB db = ShoppingDB.getInstance();
             ProductMap products = db.getProducts();
             ShoppingCartList carts = db.getCarts();
+            CouponList coupons = db.getCoupons();
+            Tax taxes = db.getTaxes();
             ShoppingCart c = carts.getCart(cartID);
 
             // Header
@@ -42,6 +49,10 @@ public class DataOutput {
             fWriter.write(String.format("%-40s %s \n","ITEMS","PRICE"));
 
             // Write each item
+            double subCartTotal = 0;
+            double cartTax = 0;
+            double cartDiscount = 0;
+
             for (String item : c.getCartItems().keySet()) {
                 // Get product information
                 Product p = products.getProduct(item);
@@ -49,23 +60,36 @@ public class DataOutput {
                 int quantity = c.getCartItems().get(item);
                 double price = p.getPrice();
                 double subProductTotal = price * quantity;
+                subCartTotal += subProductTotal;
+                cartTax += c.getItemTax(p.getName(), products);
 
                 // Write product information
                 fWriter.write(item + "\n");
                 fWriter.write(String.format("%d x %-35.2f $%.2f\n",quantity,price,subProductTotal));
                 // fWriter.write(quantity + "x " + String.format("$%,.2f",p.getPrice()) + "\t\t\t\t\t\t\t\t" + subProductTotal + "\n");
-                String coupon = c.getAppliedCouponID();
-                if (coupon != null) {
-                    // replace later with product price discount and total price of a product
-                    fWriter.write(" *Discount(10%)*" + "\t\t\t\t\t" + "($1480.00)" + "\n");
+                String couponID = c.getAppliedCouponID();
+                if (couponID != null) {
+                    // Get the coupon
+                    Coupon coupon = coupons.getCoupon(couponID);
+
+                    // Check if the cart contains the product that can apply coupon
+                    if (coupon.getProductName().equals(p.getName())) {
+                        cartDiscount = c.getItemDiscount(p.getName(),products);
+                        // Write discount price for price coupon and percent coupon
+                        if (coupon instanceof PriceCoupon) {
+                            fWriter.write(String.format("  *Discount(-%.2f)*",((PriceCoupon) coupon).getCouponValue())+ "\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
+                        } else {
+                            fWriter.write(String.format("  *Discount(%d%%)*", ((PercentCoupon) coupon).getCouponValue()) + "\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
+                        }
+                    }
                 }
             }
             fWriter.write("------------------------------------------------\n");
             // Cart Items Amount
             fWriter.write("Items Count: " + c.countItems() + "\n\n");
-            fWriter.write("Subtotal: \t\t\t\t\t\t\t\t" + "$1923.11" + "\n");
-            fWriter.write("Discount: \t\t\t\t\t\t\t\t-" + "$12.50" + "\n");
-            fWriter.write("Tax: \t\t\t\t\t\t\t\t\t+" + "$12.50" + "\n\n");
+            fWriter.write("Subtotal: \t\t\t\t\t\t\t\t" + String.format("$%.2f", subCartTotal) + "\n");
+            fWriter.write("Discount: \t\t\t\t\t\t\t\t-" + String.format("($%.2f)", cartDiscount) + "\n");
+            fWriter.write("Tax: \t\t\t\t\t\t\t\t\t+" + String.format("$%.2f", cartTax) + "\n\n");
             fWriter.write("TOTAL: \t\t\t\t\t\t\t\t\t" + String.format("$%.2f",c.cartAmount(products)) + "\n");
             fWriter.flush();
             fWriter.close();
@@ -86,6 +110,6 @@ public class DataOutput {
         // Test data output
         DataOutput dOut = new DataOutput();
         ShoppingDB db = ShoppingDB.getInstance();
-        dOut.writeReceipt(2);
+        dOut.writeReceipt(7);
     }
 }

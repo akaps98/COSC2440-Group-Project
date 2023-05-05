@@ -1,0 +1,50 @@
+				Online Shopping Service
+
+Receipt Number: C2440 - G09 - C7			
+05/05/2023 10:09:11
+User: Nguyen Anh Duy
+------------------------------------------------
+ITEMS                                    PRICE 
+Galaxy S23
+3 x 865.00                              $2595.00
+Youtube Premium
+1 x 25.00                               $25.00
+JetBrains License
+1 x 1200.00                             $1200.00
+16gb USB
+4 x 8.90                                $35.60
+  *Discount(-12.20)*					($48.80)
+BHD Cinema eTicket
+16 x 4.80                                $76.80
+CGV VIP membership
+1 x 250.50                              $250.50
+Office 365
+1 x 120.00                              $120.00
+NordVPN Plus
+1 x 20.00                               $20.00
+Samsung Buds2 Pro
+2 x 529.00                              $1058.00
+Netflix Family
+4 x 48.00                               $192.00
+ChatGPT Account
+1 x 30.00                               $30.00
+Huawei FreeBuds
+1 x 529.00                              $529.00
+Nintendo Switch
+4 x 298.00                              $1192.00
+Canvas Pro
+1 x 20.00                               $20.00
+Shooting Game
+1 x 12.00                               $12.00
+Nicepage Premium
+1 x 129.90                              $129.90
+Router Wifi
+8 x 188.00                              $1504.00
+------------------------------------------------
+Items Count: 51
+
+Subtotal: 								$8989.80
+Discount: 								-($48.80)
+Tax: 									+$1159.73
+
+TOTAL: 									$10631.67
