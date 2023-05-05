@@ -11,12 +11,10 @@ import database.ShoppingDB;
 import model.product.Product;
 import model.product.ProductMap;
 import model.product.Physical;
-import model.product.Digital;
 import model.coupon.Coupon;
-import model.coupon.CouponList;
 import model.coupon.PriceCoupon;
 import model.coupon.PercentCoupon;
-import model.product.Tax;
+
 import java.util.*;
 
 public class ShoppingCart implements Comparable<ShoppingCart> {
@@ -225,21 +223,21 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
      */
     public double cartAmount(ProductMap productList) {
         double totalPrice = 0;
-        double overallSubtotal = 0;
 
         // Iterate through all the product names in the shopping cart
         for (String productName : cartItems.keySet()) { // checking the next Product
+//            Get the subtotal for all quantities of this product, its tax and discount (if any)
             double itemSubtotal = getItemSubtotal(productName, productList);
             double tax = getItemTax(productName, productList);
             double discount = getItemDiscount(productName, productList);
 
-            overallSubtotal += itemSubtotal; // for subtotal before coupons and taxes
-
+//            Formula for total price is item subtotal - discount + tax
             totalPrice += itemSubtotal; // price of all the products before coupons and taxes
             totalPrice -= discount; // coupon placeholder for price after coupon
             totalPrice += tax; // price after tax
         }
 
+//        Shipping fee is added to the total price
         calTotalWeight(productList);
         double shippingFee = totalWeight * 0.1;
         totalPrice += shippingFee; // add the shipping fee to the total price
@@ -247,31 +245,64 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return totalPrice;
     }
 
+    /**
+     * This method is used for calculating the item subtotal using the formula:
+     * price of product * quantity of product.
+     * The price is taken from the list of products, using the productName as a parameter.
+     * The quantity is taken from a Map which stores the productName as a key and quantity as the value.
+     * @param productName Name of product to be calculated
+     * @param productList List of all products
+     * @return Double: The subtotal for that product with quantity accounted for
+     */
     public Double getItemSubtotal(String productName, ProductMap productList) {
         return productList.getProduct(productName).getPrice() * cartItems.get(productName);
     }
 
+    /**
+     * This method is used for calculating the tax amount for an item using the formula:
+     * taxPercentage * itemSubtotal.
+     * The reason for itemSubtotal is so that the tax is calculated for all quantities of this product
+     * @param productName Name of product to be calculated
+     * @param productList List of all products
+     * @return Double: The tax amount for all quantity of an item
+     */
     public Double getItemTax(String productName, ProductMap productList) {
-        return ShoppingDB.getInstance().getTaxes().getTaxAmount(productName) * getItemSubtotal(productName, productList);
+//        Get tax percentage of the product then multiplying it to the item subtotal to get tax for all number of products
+        return ShoppingDB.getInstance().getTaxes().getTaxPercentage(productName) * getItemSubtotal(productName, productList);
     }
 
+    /**
+     * Used for calculating the discount from the coupon applied using the formula:
+     * For price coupon: couponValue * quantity.
+     * This is so that a coupon can be applied to all quantities of this product.
+     * For percentage coupon: couponValue/100 * itemSubtotal.
+     * couponValue is divided by 100 because it is an integer that represents a percentage.
+     * itemSubtotal has to be used so that the percentage is applied to all quantities of the product.
+     * @param productName Name of product to be calculated
+     * @param productList List of all products
+     * @return Double: The discount amount for a product
+     */
     public Double getItemDiscount(String productName, ProductMap productList) {
         double discount = 0;
 
 //        Traverse through the coupon list, looking for the CouponID
         for (Coupon coupon : ShoppingDB.getInstance().getCoupons().getCoupons()) {
+//            Check if the 2 couponIDs match
             if (coupon.getCouponID().equals(appliedCouponID)) {
-//                    The coupon must match the product name for it to work
+//                    The coupon is only valid for 1 product, so it must match the product name for it to work
                 if (coupon.getProductName().equals(productName)) {
 //                        Check for the coupon type, price or percent
                     if (Coupon.getType(appliedCouponID).equals("price")) {
                         PriceCoupon priceCoupon = (PriceCoupon) coupon;
-//                            Add the price for all the matching products
+//                            Add the discount for all the matching products
                         discount = priceCoupon.getCouponValue() * cartItems.get(productName);
+//                        A break is used to stop the loop after the coupon has been matched with the product
+                        break;
                     } else if (Coupon.getType(appliedCouponID).equals("percent")) {
                         PercentCoupon percentCoupon = (PercentCoupon) coupon;
-//                            Add the price after percentage calculation
+//                            Add the discount after percentage calculation
                         discount = (getItemSubtotal(productName, productList)*percentCoupon.getCouponValue()/100);
+                        break;
                     }
                 }
             }
