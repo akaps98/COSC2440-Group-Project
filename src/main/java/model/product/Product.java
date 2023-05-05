@@ -8,14 +8,14 @@ import model.Gift;
  * @author
  * @since 2023 - 05 - 01
  */
-abstract public class Product implements Gift {
+public abstract class Product {
     // ATTRIBUTES
     protected String name;
     protected String description;
     protected int quantity;
     protected double price;
     protected String taxType;
-    protected String message;
+    protected String defaultMessage;
 
     // CONSTRUCTORS
     public Product(){}
@@ -78,14 +78,24 @@ abstract public class Product implements Gift {
      * @param products: list that contains all the products
      * @return
      */
-    public static boolean checkProductExisted(String productName, ProductMap products) { // validation to check the name is unique
+    public static boolean checkProductAlreadyExisted(String productName, ProductMap products) { // validation to check the name is unique
         if (products.contains(productName)) {
-            System.out.println("This product name existed on our system!" +
+            System.out.println("This product name is already existed on our system!" +
                     "\nPlease select another name." +
                     "\n--------------------------------");
-            return false;
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    public static boolean checkProductNotExisted(String productName, ProductMap products) { // validation to check the name is unique
+        if (!products.contains(productName)) {
+            System.out.println("This product name is not existed on our system!" +
+                    "\nPlease select another name." +
+                    "\n--------------------------------");
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -103,23 +113,22 @@ abstract public class Product implements Gift {
         return true;
     }
 
-    /* Gift methods overriding */
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        if(this.message == null) {
-            return "There is no message on this gift.";
+    public static boolean checkQuantityIsEnough(int inputQuantity, String productName, ProductMap products) {
+        Product p = products.getProduct(productName);
+        if (inputQuantity > p.quantity) { // validation to check if the input quality exceeds the available quantity
+            System.out.println("The quantity you want exceeds our stock for this product!" +
+                    "\nPlease enter another quantity." +
+                    "\n--------------------------------");
+            return false;
         }
-        return this.message;
+        return true;
     }
 
     /* Abstract method to implement in child class */
-    abstract public String toString(); // String representation
-    abstract public String toData(); // String data written to products.txt
-    abstract public String getProductDetail(); // Product detailed information
+    public abstract String toString(); // String representation
+    public abstract  String toData(); // String data written to products.txt
+    public abstract String getProductDetail(); // Product detailed information
+
+    public String getDefaultMessage() {return defaultMessage;}
 }
 

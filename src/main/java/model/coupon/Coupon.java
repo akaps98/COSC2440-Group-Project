@@ -37,6 +37,14 @@ public abstract class Coupon {
         return Pattern.matches("[pd]09\\d{2}[ab]", couponID);
     }
 
+    public static boolean checkCouponExisted(String couponID, CouponList couponList) {
+        if (couponList.contains(couponID)) {
+            return true;
+        }
+        System.out.println("Coupon is not existed in the system. Please try again!");
+        return false;
+    }
+
     /**
      * This method identify the coupon type
      *

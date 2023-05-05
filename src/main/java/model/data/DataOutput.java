@@ -18,6 +18,21 @@ import model.product.ProductMap;
 import model.product.Tax;
 
 public class DataOutput {
+    private static DataOutput instance;
+    StringBuilder outputText;
+
+    // CONSTRUCTOR
+    private DataOutput() {
+        outputText = new StringBuilder();
+    }
+
+    public static synchronized DataOutput getInstance() {
+        if (instance == null) {
+            instance = new DataOutput();
+        }
+        return instance;
+    }
+
     public void writeReceipt(int cartID) {
         try {
             FileWriter fWriter = new FileWriter("src/main/java/database/receipts/cart"+cartID+".txt");
@@ -77,9 +92,9 @@ public class DataOutput {
                         cartDiscount = c.getItemDiscount(p.getName(),products);
                         // Write discount price for price coupon and percent coupon
                         if (coupon instanceof PriceCoupon) {
-                            fWriter.write(String.format("  *Discount(-%.2f)*",((PriceCoupon) coupon).getCouponValue())+ "\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
+                            fWriter.write(String.format("  *Discount(-%.2f)*",((PriceCoupon) coupon).getCouponValue())+ "\t\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
                         } else {
-                            fWriter.write(String.format("  *Discount(%d%%)*", ((PercentCoupon) coupon).getCouponValue()) + "\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
+                            fWriter.write(String.format("  *Discount(%d%%)*", ((PercentCoupon) coupon).getCouponValue()) + "\t\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
                         }
                     }
                 }
@@ -88,7 +103,7 @@ public class DataOutput {
             // Cart Items Amount
             fWriter.write("Items Count: " + c.countItems() + "\n\n");
             fWriter.write("Subtotal: \t\t\t\t\t\t\t\t" + String.format("$%.2f", subCartTotal) + "\n");
-            fWriter.write("Discount: \t\t\t\t\t\t\t\t-" + String.format("($%.2f)", cartDiscount) + "\n");
+            fWriter.write("Discount: \t\t\t\t\t\t\t\t-" + String.format("$%.2f", cartDiscount) + "\n");
             fWriter.write("Tax: \t\t\t\t\t\t\t\t\t+" + String.format("$%.2f", cartTax) + "\n\n");
             fWriter.write("TOTAL: \t\t\t\t\t\t\t\t\t" + String.format("$%.2f",c.cartAmount(products)) + "\n");
             fWriter.flush();
@@ -103,13 +118,13 @@ public class DataOutput {
 
     public static void main(String[] args) {
         // Test data input
-        DataInput dataProcess = new DataInput();
+        DataInput dataProcess = DataInput.getInstance();
         dataProcess.readProductFile();
         dataProcess.readCartFile();
 
         // Test data output
-        DataOutput dOut = new DataOutput();
+        DataOutput dOut = DataOutput.getInstance();
         ShoppingDB db = ShoppingDB.getInstance();
-        dOut.writeReceipt(7);
+        dOut.writeReceipt(10);
     }
 }

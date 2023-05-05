@@ -23,8 +23,9 @@ public class ShoppingDB {
 
     // Static method to create instance of ShoppingDB class
     public static synchronized ShoppingDB getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new ShoppingDB();
+        }
         return instance;
     }
 

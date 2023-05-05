@@ -8,6 +8,7 @@ package model.cart;
  */
 
 import database.ShoppingDB;
+import model.Gift;
 import model.product.Product;
 import model.product.ProductMap;
 import model.product.Physical;
@@ -25,6 +26,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     protected int cartID;
     protected String appliedCouponID;
     protected Map<String, Integer> cartItems;
+    protected Map<String, String> cartGiftMessages;
     protected double totalWeight;
 
 
@@ -32,6 +34,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     public ShoppingCart(int cartID){
         this.cartID = cartID;
         cartItems = new HashMap<>();
+        cartGiftMessages = new HashMap<>();
         totalWeight = 0;
     }
 
@@ -62,8 +65,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
     public void setTotalWeight(double totalWeight) {this.totalWeight = totalWeight;}
 
-
-    // METHOD
+// METHOD
 
     /* Utilities Method */
     public void resetCart() {cartItems.clear();}
@@ -85,18 +87,48 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
                 return true;
             }
         }
-        System.out.println("Product is not existed in the shopping cart!");
+        System.out.println("This item is not existed in the cart!" +
+                "\nPlease select another name." +
+                "\n--------------------------------");
         return false;
     }
 
-    public static boolean checkCartExisted(int cartID, ShoppingCartList carts){
+    public boolean containGiftMessage(String productName) {
+        if (cartGiftMessages.containsKey(productName)) {
+            if (cartGiftMessages.get(productName) != null) {
+                return true;
+            }
+            System.out.println("Product does not contain any gift message in this cart!");
+        } else {
+            System.out.println("Product is not existed in the shopping cart!");
+        }
+        return false;
+    }
+
+    public void setItemGiftMessage(String productName, String msg) {
+        cartGiftMessages.put(productName, msg);
+    }
+
+
+
+    public static boolean checkCartAlreadyExisted(int cartID, ShoppingCartList carts){
         if (carts.contains(cartID)) {
             System.out.println("This cart is already existed on our system!" +
                     "\nPlease select another ID." +
                     "\n--------------------------------");
-            return false;
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    public static boolean checkCartNotExisted(int cartID, ShoppingCartList carts){
+        if (!carts.contains(cartID)) {
+            System.out.println("This cart is not existed in our system!" +
+                    "\nPlease select another ID." +
+                    "\n--------------------------------");
+            return true;
+        }
+        return false;
     }
 
 
@@ -134,7 +166,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             cartItems.put(productName, quantity);
         }
 
-        p.setQuantity(p.getQuantity() - 1); // update available quantity for the product
+        p.setQuantity(p.getQuantity() - quantity); // update available quantity for the product
         calTotalWeight(productList); // Calculate the new total weight for the shopping cart
         return true;
     }
@@ -280,6 +312,34 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return discount;
     }
 
+    public void viewCartInfo() {
+        StringBuilder cartInfo = new StringBuilder();
+        cartInfo.append(this.toString());
+        this.viewCartGiftMessages();
+        if (appliedCouponID != null) {
+            cartInfo.append("\nCart applied coupon: " + appliedCouponID);
+        } else {
+            cartInfo.append("\nCart applied coupon: none");
+        }
+        cartInfo.append("\nCart weight: " + totalWeight + "g");
+        cartInfo.append(String.format("\nCart amount: $%.2f", cartAmount(ShoppingDB.getInstance().getProducts())));
+        System.out.println(cartInfo);
+    }
+
+    public void viewCartGiftMessages() {
+        StringBuilder cartItemGiftMessages = new StringBuilder();
+        cartItemGiftMessages.append("Cart gift messages: \n[");
+        Iterator<String> it = cartGiftMessages.keySet().iterator();
+        while (it.hasNext()) {
+            String nextProduct = it.next();
+            cartItemGiftMessages.append(nextProduct + ": " + cartGiftMessages.get(nextProduct) + ", ");
+        }
+        cartItemGiftMessages.append("]");
+        // Display to the console
+        System.out.println("Number of unique items contain gift message: ");
+        System.out.println(cartItemGiftMessages);
+    }
+
     /**
      * The method use to print out the cart information: Cart #number, and all the cart items (Product) info
      *
@@ -320,5 +380,17 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 //        } else return -1;
     }
 
+    public boolean setMessage(String productName, String msg) {
+        if (cartItems.containsKey(productName)) {
+            cartGiftMessages.put(productName, msg);
+            return true;
+        }
+        System.out.println("Product is not existed in the shopping cart and cannot set gift message");
+        return false;
+    }
+
+    public String getMessage(String productName) {
+        return cartGiftMessages.get(productName);
+    }
 }
 
