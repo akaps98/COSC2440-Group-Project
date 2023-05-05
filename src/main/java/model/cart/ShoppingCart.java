@@ -233,8 +233,8 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
 //            Formula for total price is item subtotal - discount + tax
             totalPrice += itemSubtotal; // price of all the products before coupons and taxes
-            totalPrice -= discount; // coupon placeholder for price after coupon
-            totalPrice += tax; // price after tax
+            totalPrice -= discount; // price after subtracting the discount
+            totalPrice += tax; // price after adding tax
         }
 
 //        Shipping fee is added to the total price
