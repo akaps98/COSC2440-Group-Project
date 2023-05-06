@@ -1,6 +1,8 @@
 package model.product;
 
 import model.Gift;
+import model.cart.ShoppingCart;
+import model.cart.ShoppingCartList;
 
 /**
  * The class stores information about the Product

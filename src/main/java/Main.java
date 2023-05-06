@@ -364,7 +364,7 @@ public class Main { // run the program
         do {
             System.out.print("Enter the product quantity to add: ");
             quantity = Integer.parseInt(input.nextLine());
-        } while (!Product.checkQuantityIsValid(quantity) || !Product.checkQuantityIsEnough(quantity,name,products));
+        } while (!Product.checkQuantityIsValid(quantity) || !Product.checkQuantityIsEnough(quantity, name, products));
 
         // Add product to cart
         check = c.addItem(name, quantity, products);
