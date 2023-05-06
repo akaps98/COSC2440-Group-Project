@@ -14,8 +14,6 @@ import model.product.Digital;
 import model.product.Physical;
 import model.product.Product;
 import model.product.ProductMap;
-
-
 import java.util.Scanner;
 // this one is to run the Online Shopping Service
 
@@ -66,7 +64,7 @@ public class Main { // run the program
                     do {
                         System.out.print("Enter product name to view: ");
                         name = input.nextLine();
-                    } while (!products.contains(name));
+                    } while (Product.checkProductNotExisted(name, products));
 
                     // Found a product, proceeding to get the product detail
                     Product p = products.getProduct(name);
@@ -119,7 +117,7 @@ public class Main { // run the program
         do {
             System.out.print("Enter product name: ");
             name = input.nextLine();
-        } while (!products.contains(name));
+        } while (Product.checkProductAlreadyExisted(name, products));
 
         // Get input for quantity and check if it is valid
         int quantity;
@@ -139,8 +137,7 @@ public class Main { // run the program
             System.out.println("""
                     What is the type of the product?
                     1. Digital
-                    2. Physical
-                    """);
+                    2. Physical""");
             System.out.print("Enter your option: ");
             int productTypeOption = Integer.parseInt(input.nextLine());
             if (productTypeOption == 1) { // Create Digital Product
@@ -195,22 +192,20 @@ public class Main { // run the program
         do {
             System.out.print("Enter product name: ");
             name = input.nextLine();
-        } while (!products.contains(name));
+        } while (Product.checkProductNotExisted(name, products));
 
         Product modifiedProduct = products.getProduct(name);
         // Create a loop until user enter a valid choice
         int option = -1;
-        while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7) {
+        while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6) {
             System.out.println("""
                     ----------------------------------------
                     1. Change description
                     2. Update available quantity
                     3. Adjust price
-                    4. Add gift message
-                    5. Update weight (physical product only)
-                    6. Change tax type
-                    7. Go Back
-                    """);
+                    4. Update weight (physical product only)
+                    5. Change tax type
+                    6. Go Back""");
             System.out.print("Enter your choice: ");
             option = Integer.parseInt(input.nextLine());
             switch (option) { // validate the choice from user
@@ -236,13 +231,7 @@ public class Main { // run the program
                     double newPrice = Double.parseDouble(input.nextLine());
                     modifiedProduct.setPrice(newPrice);
                     break;
-                // Update product as a gift
                 case 4:
-                    System.out.print("\nEnter the message you want to deliver for this gift: ");
-                    String giftMsg = input.nextLine();
-                    modifiedProduct.setMessage(giftMsg);
-                    break;
-                case 5:
                     // Check if product is a Physical Product
                     if (modifiedProduct instanceof Physical) {
                         // Set new weight
@@ -254,9 +243,9 @@ public class Main { // run the program
                                 "\n-----------------------");
                     }
                     break;
-                case 6:
+                case 5:
                     // Get input for tax type
-                    while (!check) {
+                    while (true) {
                         System.out.println("""
                                 Tax Type:
                                 1. Free Tax
@@ -268,10 +257,13 @@ public class Main { // run the program
                         // Update corresponding tax type
                         if (taxOption == 1) {
                             modifiedProduct.setTaxType("freeTax");
+                            break;
                         } else if (taxOption == 2) {
                             modifiedProduct.setTaxType("normalTax");
+                            break;
                         } else if (taxOption == 3) {
                             modifiedProduct.setTaxType("luxuryTax");
+                            break;
                         } else {
                             System.out.println("Invalid option. Please enter again!" +
                                     "\n-----------------------");
@@ -279,7 +271,7 @@ public class Main { // run the program
                     }
                     break;
                 // Return to the primary menu
-                case 7:
+                case 6:
                     break;
                 // User input invalid choice --> reenter the choice
                 default:
@@ -288,7 +280,7 @@ public class Main { // run the program
             }
         }
         // Output the message accordingly if the product is successfully modifidied
-        if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6) {
+        if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5) {
             check = true;
         }
 
@@ -316,7 +308,7 @@ public class Main { // run the program
         do {
             System.out.print("Enter shopping cart ID: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        } while (ShoppingCart.checkCartAlreadyExisted(cartID, carts));
 
         ShoppingCart c = new ShoppingCart(cartID);
         carts.addCart(c);
@@ -354,7 +346,7 @@ public class Main { // run the program
         do {
             System.out.print("Enter the product name to add to cart: ");
             name = input.nextLine();
-        } while (!products.contains(name));
+        } while (Product.checkProductNotExisted(name, products));
 
         // Display the available carts in the console
         carts.viewCarts();
@@ -364,7 +356,7 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to add product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
         ShoppingCart c = carts.getCart(cartID);
 
         // Get input for quantity to add and check if it is valid
@@ -372,15 +364,15 @@ public class Main { // run the program
         do {
             System.out.print("Enter the product quantity to add: ");
             quantity = Integer.parseInt(input.nextLine());
-        } while (!Product.checkQuantityIsValid(quantity));
+        } while (!Product.checkQuantityIsValid(quantity) || !Product.checkQuantityIsEnough(quantity, name, products));
 
         // Add product to cart
         check = c.addItem(name, quantity, products);
 
         if (check == true) { // display a message whether the product is added successfully to the shopping cart
-            System.out.println(String.format("Successfully add %s to cart #%d!", name, c.getCartID()));
+            System.out.println(String.format("Successfully add %d %s to cart #%d!", quantity, name, c.getCartID()));
         } else {
-            System.out.println(String.format("Cannot add %s to cart #%d. Please try again!", name, c.getCartID()));
+            System.out.println(String.format("Cannot add %d %s to cart #%d. Please try again!", quantity, name, c.getCartID()));
         }
 
         return check;
@@ -417,7 +409,7 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
         ShoppingCart c = carts.getCart(cartID);
 
         // Display the available products in the cart
@@ -428,12 +420,12 @@ public class Main { // run the program
         do {
             System.out.print("Enter the product name to remove from cart: ");
             name = input.nextLine();
-        } while (!products.contains(name) || !c.containItem(name));
+        } while (!c.containItem(name));
 
         // Get input for quantity to add and check if it is valid
         int quantity;
         do {
-            System.out.print("Enter the product quantity to add: ");
+            System.out.print("Enter the product quantity to remove: ");
             quantity = Integer.parseInt(input.nextLine());
         } while (!Product.checkQuantityIsValid(quantity));
 
@@ -441,7 +433,7 @@ public class Main { // run the program
         check = c.removeItem(name, quantity, products);
 
         if (check == true) { // display a message whether the product is added successfully to the shopping cart
-            System.out.println(String.format("Successfully remove %s from cart %d!", name, c.getCartID()));
+            System.out.println(String.format("Successfully remove %d %s from cart %d!", quantity, name, c.getCartID()));
         } else {
             System.out.println(String.format("Cannot remove %s from cart %d. Please try again!", name, c.getCartID()));
         }
@@ -503,7 +495,7 @@ public class Main { // run the program
                     do {
                         System.out.print("Enter the product name to apply coupon: ");
                         name = input.nextLine();
-                    } while (!products.contains(name));
+                    } while (Product.checkProductNotExisted(name, products));
 
                     // Apply the coupon to the selected product
                     usedCoupon.setProductName(name);
@@ -518,6 +510,22 @@ public class Main { // run the program
                             "\n-----------------------");
                 }
             }
+        } else {
+            // Display all available products in the system
+            products.viewAllProducts();
+
+            // Get input for product name and check if it existed in the system
+            String name;
+            do {
+                System.out.print("Enter the product name to apply coupon: ");
+                name = input.nextLine();
+            } while (Product.checkProductNotExisted(name, products));
+
+            // Apply the coupon to the selected product
+            usedCoupon.setProductName(name);
+
+            System.out.println(String.format("Apply coupon - <%s> successfully to new product - <$s>", couponID, name));
+            return true;
         }
         return false;
     }
@@ -532,7 +540,7 @@ public class Main { // run the program
      *
      * @return boolean: boolean value states if the cart amount has been calculated successfully
      */
-    public boolean displayCartAmount() {
+    public boolean displayCartDetail() {
         // Check if there is any shopping cart existed
         if (carts.countCarts() == 0) {
             System.out.println("No shopping cart found! Please create a shopping cart first!");
@@ -545,19 +553,135 @@ public class Main { // run the program
         // Get input for shopping cart ID and check if the cart existed
         int cartID;
         do {
-            System.out.print("Select the shopping cart # to remove product: ");
+            System.out.print("Select the shopping cart # to view further detail: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
         ShoppingCart c = carts.getCart(cartID);
 
-        // Calculate the cart amount and display in the console
-        System.out.println(String.format("Shopping Cart #%d's cart amount: %,.2f", c.getCartID(), c.cartAmount(products)));
-
+        // Display cart information
+        c.viewCartInfo();
         return true;
     }
 
     /**
-     * Function 10: this method is used to display all the Shopping Carts in the system
+     * This method is used to edit the shopping cart detail
+     *
+     */
+    public boolean editCart() {
+        check = false; // boolean value to return
+        carts.viewCarts(); // display all carts for user to view
+
+        // Get input for shopping cart ID and check if the cart existed
+        int cartID;
+        do {
+            System.out.print("Select the shopping cart # to remove product: ");
+            cartID = Integer.parseInt(input.nextLine());
+        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
+        ShoppingCart modifiedCart = carts.getCart(cartID);
+
+        // Create a loop until user enter a valid choice
+        int option = -1;
+        while (option != 4) {
+            System.out.println("""
+                    ----------------------------------------
+                    1. Change applied coupon
+                    2. Update gift message for a product 
+                    3. Make cart empty
+                    4. Go Back""");
+            System.out.print("Enter your choice: ");
+            option = Integer.parseInt(input.nextLine());
+            switch (option) { // validate the choice from user
+                // Update cart applied coupon
+                case 1:
+                    // Get input for new couponID and check if it is valid
+                    String newCouponID;
+                    do {
+                        System.out.print("Enter the updated coupon ID for this cart: ");
+                        newCouponID = input.nextLine();
+                    } while (!Coupon.checkCouponExisted(newCouponID, coupons));
+                    modifiedCart.setAppliedCouponID(newCouponID);
+                    break;
+                // Update gift message for a product
+                case 2:
+                    // view all items gift message in the cart
+                    modifiedCart.viewCartGiftMessages();
+
+                    // Get input for product name and check if it existed
+                    String name;
+                    do {
+                        System.out.print("Enter the product name to set gift message: ");
+                        name = input.nextLine();
+                    } while (!modifiedCart.containItem(name));
+
+                    //
+                    if (modifiedCart.containGiftMessage(name)) {
+                        System.out.println("This product has already contain a gift message: " + modifiedCart.getMessage(name));
+                        int newOption = -1;
+                        while (true) {
+                            System.out.println("""
+                        Do you want to set a new gift message for this product in this cart?
+                        1. Yes
+                        2. No""");
+                            System.out.print("Enter your option: ");
+                            option = Integer.parseInt(input.nextLine());
+                            // Case 1: User agree to update the new gift message for this product
+                            if (option == 1) {
+                                // Get input for the new message
+                                System.out.print("Enter the new gift message: ");
+                                String newMessage = input.nextLine();
+                                modifiedCart.setMessage(name,newMessage);
+                                System.out.println(String.format("Update new message - <%s> successfully to new product - <$s>", newMessage, name));
+                                return true;
+                            } else if (option == 2) { // Case 2: User do not agree to update the new gift message
+                                System.out.println("Did not change the previous gift message for this product! Please try again.");
+                                break;
+                            } else {
+                                System.out.println("Invalid option. Please enter again!" +
+                                        "\n-----------------------");
+                            }
+                        }
+                    } else {
+                        System.out.print("Enter the new gift message to set for this product: ");
+                        String newMessage = input.nextLine();
+                        modifiedCart.setMessage(name,newMessage);
+                        System.out.println(String.format("Update new message - <%s> successfully to new product - <$s>", newMessage, name));
+                        return true;
+                    }
+                    break;
+                // Make cart empty
+                case 3:
+                    if (modifiedCart.getCartItems() == null) {
+                        System.out.println("The cart is already empty!");
+                    } else {
+                        modifiedCart.resetCart();
+                        System.out.println(String.format("Reset cart #%d successfully!",cartID));
+                        return true;
+                    }
+                    break;
+                // Return to the primary menu
+                case 4:
+                    break;
+                // User input invalid choice --> reenter the choice
+                default:
+                    System.out.println("Invalid option. Please enter again!" +
+                            "\n-----------------------");
+            }
+        }
+        // Output the message accordingly if the product is successfully modifidied
+        if (option == 1 || option == 2 || option == 3 || option == 4) {
+            check = true;
+        }
+
+        if (check) { // display a message if success
+            System.out.println(String.format("Successfully modified cart #%d!", cartID));
+        } else {
+            System.out.println("Did not modify cart!");
+        }
+        return check;
+    }
+
+    /**
+     * Function 11: this method is used to display all the Shopping Carts in the system
      *
      * Condition: the carts will be displayed in ascending order based on the cart's weight
      *
@@ -568,7 +692,7 @@ public class Main { // run the program
     }
 
     /**
-     *  Function 11: this method is used to print the receipt of a shopping cart
+     *  Function 12: this method is used to print the receipt of a shopping cart
      */
     public void printReceipt() {
         // Display all available cart in the system
@@ -579,19 +703,19 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartExisted(cartID, carts));
+        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
 
         // Print the receipt for the selected shopping cart
-        DataOutput dOut = new DataOutput();
+        DataOutput dOut = DataOutput.getInstance();
         dOut.writeReceipt(cartID);
 
         // Also display the receipt in the console
-        DataInput dIn = new DataInput();
+        DataInput dIn = DataInput.getInstance();
         dIn.readReceipt(cartID);
     }
 
     public static void generateData() {
-        DataInput dIn = new DataInput();
+        DataInput dIn = DataInput.getInstance();
         dIn.readProductFile();
         dIn.readCartFile();
     }
@@ -604,21 +728,21 @@ public class Main { // run the program
                 ----------------------------------------
                     *** ONLINE SHOPPING SERVICE  ***    
                 ----------------------------------------
-                1. View product(s)
-                2. Create new product
-                3. Edit product
-                4. Create a new shopping cart
-                5. Add product(s) to shopping cart
-                6. Remove product(s) from shopping cart
-                7. View all coupons
-                8. Apply coupon to product
-                9. Display the cart amount
-                10. Display shopping cart(s)
+                1.  View product(s) detail
+                2.  Create new product
+                3.  Edit product
+                4.  Create a new shopping cart
+                5.  Add product(s) to shopping cart
+                6.  Remove product(s) from shopping cart
+                7.  View all coupons
+                8.  Apply coupon to product
+                9.  View shopping cart(s) detail
+                10. Edit shopping cart
+                11. Display all shopping cart
                 (sorted based on the cart's weight)
-                11. Print receipt for a shopping cart
-                12. Exit
-                ----------------------------------------
-                """);
+                12. Print shopping cart receipt
+                13. Exit
+                ----------------------------------------""");
         System.out.print("Select the option you want: ");
     }
 
@@ -631,7 +755,7 @@ public class Main { // run the program
 
         // --------------MAIN PROGRAM--------------
         System.out.println("\nWelcome to the online shopping service application!");
-        while (choice != 12) {
+        while (choice != 13) {
             displayMenu();
             choice = Integer.parseInt(input.nextLine()); // get the user's input
             switch (choice) {
@@ -639,10 +763,10 @@ public class Main { // run the program
                     displayProducts();
                     break;
                 case 2:
-                    editProduct();
+                    createProduct();
                     break;
                 case 3:
-                    createProduct();
+                    editProduct();
                     break;
                 case 4:
                     createShoppingCart();
@@ -660,15 +784,18 @@ public class Main { // run the program
                     applyCoupon();
                     break;
                 case 9:
-                    displayCartAmount();
+                    displayCartDetail();
                     break;
                 case 10:
-                    displayAllCartByWeight();
+                    editCart();
                     break;
                 case 11:
-                    printReceipt();
+                    displayAllCartByWeight();
                     break;
                 case 12:
+                    printReceipt();
+                    break;
+                case 13:
                     System.out.println("\nThank you for using our service! We hope to see you again ^^");
                     break;
                 default:

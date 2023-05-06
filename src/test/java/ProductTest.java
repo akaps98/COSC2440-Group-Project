@@ -26,8 +26,8 @@ class ProductTest {
         // if the input name by user is not unique, it returns false.
         // but it is unique, it returns true.
 
-        assertFalse(Product.checkProductExisted("iPhone", savedProductsOnSystem));
-        assertTrue(Product.checkProductExisted("Comic", savedProductsOnSystem));
+        assertFalse(Product.checkProductAlreadyExisted("iPhone", savedProductsOnSystem));
+        assertTrue(Product.checkProductAlreadyExisted("Comic", savedProductsOnSystem));
     }
 
     @Test

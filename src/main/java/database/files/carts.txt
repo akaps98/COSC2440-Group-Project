@@ -5,6 +5,6 @@
 5,Coupon:,Iphone Case:2,Apple Stickers:4,16gb USB:3,Coursera Course:8,Python Tutorial eBook:1
 6,Coupon:p0912a,Nintendo Switch:1,HP Printer:5,Enkor Speakers:10,Router Wifi:2,Corsair Mousepad:2,iPad:4,Macbook:2,iMac:1,Magic Mouse:2,Mechanical Keyboard:3,Steam Gift Card:6,VPN Server Agent:1,PDF Watermark:1,Image Converter:1,Spotify Premium:1,Apple Stickers:5,Adobe Package:2
 7,Coupon:p0925a,Office 365:1,JetBrains License:1,Netflix Family:4,Shooting Game:1,Canvas Pro:1,ChatGPT Account:1,NordVPN Plus:1,Youtube Premium:1,CGV VIP membership:1,Nicepage Premium:1,Galaxy S23:3,Samsung Buds2 Pro:2,Huawei FreeBuds:1,Nintendo Switch:4,Router Wifi:8,BHD Cinema eTicket:16,16gb USB:4
-8,Coupon:p0901a,iPad:1,Apple Watch:2,Webcam:1,Streaming Dock:3,HP Printer:5,Magic Mouse:1,Mechanical Keyboard:1,ChatGPT Account:1,NordVPN Plus:2,Spotify Premium:1,VPN Server Agent:5,PDF Watermark:8,Image Converter:1,iWallpaper Template:12
-9,Coupon:p0922b,iPhone:1,iMac:1,Galaxy S23:1,Spotify Premium:1,GitHub Enterprise:4,Canvas Pro:1,Iphone Case:20,Laptop Holder:10,eLearning Account:2
-10,Coupon:p0917b,Webcam:5,HP Printer:5,GitHub Enterprise:5,WordPress Themes:10,Laptop Holder:1,Selfie Stick:1,BHD Cinema eTicket:10,eLearning Account:5,Adobe Package:1
+8,Coupon:p0901a,iPad:1-I think this ipad will fit your streaming room,Apple Watch:2,Webcam:1,Streaming Dock:3,HP Printer:5,Magic Mouse:1,Mechanical Keyboard:1,ChatGPT Account:1,NordVPN Plus:2,Spotify Premium:1,VPN Server Agent:5,PDF Watermark:8,Image Converter:1,iWallpaper Template:12
+9,Coupon:p0922b,iPad:1-This ipad is for your brother,iPhone:1,iMac:1,Galaxy S23:1,Spotify Premium:1,GitHub Enterprise:4,Canvas Pro:1,Iphone Case:20-20 iphone cases to sell for your store,Laptop Holder:10,eLearning Account:2
+10,Coupon:p0917b,iPad:1-You may consider to use ipad instead of iMac,Webcam:5,HP Printer:5,GitHub Enterprise:5,WordPress Themes:10,Laptop Holder:1,Selfie Stick:1,BHD Cinema eTicket:10,eLearning Account:5,Adobe Package:1

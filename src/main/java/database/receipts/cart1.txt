@@ -1,12 +1,14 @@
 				Online Shopping Service
 
 Receipt Number: C2440 - G09 - C1			
-04/05/2023 21:56:36
+05/05/2023 18:28:49
 User: Nguyen Anh Duy
 ------------------------------------------------
 ITEMS                                    PRICE 
 iPhone
 2 x 1430.00                             $2860.00
+Fitness Program
+1 x 89.99                               $89.99
 Airpods
 2 x 1200.00                             $2400.00
 iMac
@@ -16,10 +18,10 @@ iPad
 Macbook
 1 x 2500.00                             $2500.00
 ------------------------------------------------
-Items Count: 7
+Items Count: 8
 
-Subtotal: 								$1923.11
-Discount: 								-$12.50
-Tax: 									+$12.50
+Subtotal: 								$10037.99
+Discount: 								-($0.00)
+Tax: 									+$1012.80
 
-TOTAL: 									$11368.74
+TOTAL: 									$11476.73

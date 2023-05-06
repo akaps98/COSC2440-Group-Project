@@ -3,6 +3,7 @@ package model.data;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 import database.ShoppingDB;
 import model.product.Tax;
@@ -18,28 +19,33 @@ import model.product.Product;
 import model.product.ProductMap;
 
 public class DataInput {
-    ProductMap products;
-    ShoppingCartList carts;
-    CouponList coupons;
-    Tax taxes;
+    private static DataInput instance = null;
+    Scanner scanner;
 
     // CONSTRUCTOR
-    public DataInput() {
-        products = new ProductMap();
-        carts = new ShoppingCartList();
-        coupons = new CouponList();
-        taxes = new Tax();
+    private DataInput() {
+        scanner = new Scanner(System.in);
     }
 
     // METHOD
-    public void readProductFile() {
-        // Storing location of the created products
-        // ProductMap products = new ProductMap();
+    public static synchronized DataInput getInstance() {
+        if (instance == null) {
+            instance = new DataInput();
+        }
+        return instance;
+    }
 
+    public Scanner getScanner() {return scanner;}
+
+    public void readProductFile() {
+        // Initialise database locations to store data
+        ProductMap products = ShoppingDB.getInstance().getProducts();
+        CouponList coupons = ShoppingDB.getInstance().getCoupons();
+        Tax taxes = ShoppingDB.getInstance().getTaxes();
+
+        // Try to open the products.txt file
         try {
             Files.lines(Paths.get("src/main/java/database/files/products.txt"))
-                    // .filter(l -> l.length() > 5)
-                    // .map(line -> line.length())
                     .forEach(
                             line -> {
                                 if (!line.isEmpty()) {
@@ -91,16 +97,20 @@ public class DataInput {
                                 }
                             });
         } catch (IOException e) {}
+        System.out.println("Finish retrieving products, coupons, and tax information from database!");
         // Store all the created products, coupons, taxes into ShoppingDB
-        ShoppingDB db = ShoppingDB.getInstance();
-        db.setProducts(this.products);
-        db.setCoupons(this.coupons);
-        db.setTaxes(this.taxes);
+        ShoppingDB.getInstance().setProducts(products);
+        ShoppingDB.getInstance().setCoupons(coupons);
+        ShoppingDB.getInstance().setTaxes(taxes);
     }
 
     public void readCartFile() {
-//        // Storing location of the created Shopping Cart
-//        ShoppingCartList carts = new ShoppingCartList();
+        // Storing location of the created Shopping Cart
+        ShoppingCartList carts = ShoppingDB.getInstance().getCarts();
+
+        // Get products information from database
+        ProductMap products = ShoppingDB.getInstance().getProducts();
+
         try {
             Files.lines(Paths.get("src/main/java/database/files/carts.txt"))
                     .forEach(
@@ -115,15 +125,30 @@ public class DataInput {
                                     }
                                     for (int i = 2; i < newLine.length; i++) {
                                         String[] item = newLine[i].split(":");
-                                        c.addItem(item[0], Integer.parseInt(item[1]), products);
+
+                                        // Get product
+                                        Product p = products.getProduct(item[0]);
+
+                                        // Check for gift message existence
+                                        if (item[1].contains("-")) {
+                                            String[] itemDetail = item[1].split("-");
+                                            c.addItem(item[0], Integer.parseInt(itemDetail[0]), products);
+                                            c.setItemGiftMessage(item[0],itemDetail[1]);
+                                        } else {
+                                            c.addItem(item[0], Integer.parseInt(item[1]), products);
+                                            if (p.getDefaultMessage() != null) {
+                                                c.setItemGiftMessage(item[0],p.getDefaultMessage());
+                                            }
+                                        }
+
                                     }
                                     carts.addCart(c);
                                 }
                             });
-            System.out.println("Finish!");
+            System.out.println("Finish retrieving shopping carts information from database!");
         } catch (IOException e) {}
-        ShoppingDB db = ShoppingDB.getInstance();
-        db.setCarts(this.carts);
+        // Store all the created carts into ShoppingDB
+        ShoppingDB.getInstance().setCarts(carts);
     }
 
     public void readReceipt(int cartID) {
@@ -138,7 +163,7 @@ public class DataInput {
     }
 
     public static void main(String[] args) {
-        DataInput dataProcess = new DataInput();
+        DataInput dataProcess = DataInput.getInstance();
         dataProcess.readProductFile();
         dataProcess.readCartFile();
         ShoppingDB db = ShoppingDB.getInstance();

@@ -49,11 +49,25 @@ public class Digital extends Product implements Gift {
     public String getProductDetail() {
         // Set gift message accordingly if product is a gift
         String giftMessage = "None";
-        if (message != null) {
-            giftMessage = message;
+        if (defaultMessage != null) {
+            giftMessage = defaultMessage;
         }
         // Provide the String to store detail
-        String productDetail = String.format("{\nProduct Name: %s \nType: %s \nProduct Description: %s \nQuantity Available: %d \nPrice: $ %,.2f \nTaxType: %s \nGift message: %s \n}",name,"DIGITAL",description,quantity,price,taxType,giftMessage);
+        String productDetail = String.format("{\nProduct Name: %s \nType: %s \nProduct Description: %s \nQuantity Available: %d \nPrice: $ %,.2f \nTaxType: %s \nDefault gift message: %s \n}",name,"DIGITAL",description,quantity,price,taxType,giftMessage);
         return productDetail;
+    }
+
+    /* Gift methods overriding */
+    @Override
+    public void setMessage(String message) {
+        this.defaultMessage = message;
+    }
+
+    @Override
+    public String getMessage() {
+        if(this.defaultMessage == null) {
+            return "There is no message on this gift.";
+        }
+        return this.defaultMessage;
     }
 }
