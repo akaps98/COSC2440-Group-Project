@@ -23,11 +23,11 @@ class ProductTest {
         savedProductsOnSystem.addProduct(iPhone); // so, this process is to register new product on the store(system)
         savedProductsOnSystem.addProduct(eBook);
 
-        // if the input name by user is not unique, it returns false.
-        // but it is unique, it returns true.
+        // if the input name by user is not unique, it returns true.
+        // but it is unique, it returns false.
 
-        assertFalse(Product.checkProductAlreadyExisted("iPhone", savedProductsOnSystem));
-        assertTrue(Product.checkProductAlreadyExisted("Comic", savedProductsOnSystem));
+        assertTrue(Product.checkProductAlreadyExisted("iPhone", savedProductsOnSystem)); // iPhone is registered.
+        assertFalse(Product.checkProductAlreadyExisted("Comic", savedProductsOnSystem)); // Comic is not registered.
     }
 
     @Test
