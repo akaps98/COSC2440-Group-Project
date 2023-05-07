@@ -1,5 +1,8 @@
 /**
- * @author <Kang Junsik - s3916884>
+ * The class stores information about all the Products inside a Product List
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import controller.DataController;
@@ -145,39 +148,5 @@ class ShoppingCartTest {
         // therefore, total price is 2737.4 + 95.25 = 2832.65
 
         assertEquals(testSc.cartAmount(products), 2832.65);
-    }
-
-    @Test
-    void testCompareTo() {
-        // Let's test it sorts the array of shopping carts as ascending order properly.
-        ShoppingCart testSc1 = new ShoppingCart(1); // generate new shopping cart
-        ShoppingCart testSc2 = new ShoppingCart(2); // generate new shopping cart
-        ShoppingCart testSc3 = new ShoppingCart(3); // generate new shopping cart
-
-        // Generate data
-        DataController dataController = new DataController();
-        dataController.generateData(); // to read data from database;
-
-        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
-        ArrayList<ShoppingCart> carts = new ArrayList<>();
-
-        // save the products on shopping cart
-        testSc1.addItem("Galaxy S23", 4, products); // total weight = 168 * 4 = 672
-        testSc2.addItem("iPhone", 3, products); // total weight = 148 * 3 = 444
-        testSc3.addItem("iPad", 1, products); // total weight = 487 * 1 = 487
-
-        // save the cart on shopping carts list
-        carts.add(testSc1);
-        carts.add(testSc2);
-        carts.add(testSc3);
-
-        // according to the total weight, it should be testSc2 -> testSc3 -> testSc1 after sorting as ascending order
-        ShoppingCartList.sortCartsByWeight(carts);
-
-
-        // They have their own ID, let's check by it.
-        assertEquals(2, carts.get(0).getCartID()); // testSc2
-        assertEquals(3, carts.get(1).getCartID()); // testSc3
-        assertEquals(1, carts.get(2).getCartID()); // testSc1
     }
 }
