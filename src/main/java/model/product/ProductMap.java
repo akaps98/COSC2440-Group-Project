@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class ProductMap {
     // ATTRIBUTES
-    private Map<String, Product> productList;
+    private final Map<String, Product> productList;
 
     // CONSTRUCTOR
     public ProductMap() { productList = new HashMap<>();
@@ -32,13 +32,9 @@ public class ProductMap {
 
     public boolean containProduct(String productName) {return productList.containsKey(productName);}
 
-    public void addProduct(Product p) {
-        productList.put(p.getName(), p);
-    }
+    public void addProduct(Product p) {productList.put(p.getName(), p);}
 
-    public void removeProduct(Product p) {
-        productList.remove(p.getName());
-    }
+    public void removeProduct(Product p) {productList.remove(p.getName());}
 
     /**
      * The method used to provide all the product name inside the product list

@@ -1,7 +1,8 @@
 package model.product;
 
 import model.Gift;
-import model.product.Product;
+
+import java.util.Objects;
 
 /**
  * The class stores information about the Digital Product information
@@ -37,8 +38,7 @@ public class Digital extends Product implements Gift {
      */
     @Override
     public String toData() {
-        String productData = String.format("{%s,%s,%s,%d,%,.2f,%s}",name,"DIGITAL",description,quantity,price,taxType);
-        return productData;
+        return String.format("{%s,%s,%s,%d,%,.2f,%s}",name,"DIGITAL",description,quantity,price,taxType);
     }
 
     /**
@@ -53,8 +53,7 @@ public class Digital extends Product implements Gift {
             giftMessage = defaultMessage;
         }
         // Provide the String to store detail
-        String productDetail = String.format("{\nProduct Name: %s \nType: %s \nProduct Description: %s \nQuantity Available: %d \nPrice: $ %,.2f \nTaxType: %s \nDefault gift message: %s \n}",name,"DIGITAL",description,quantity,price,taxType,giftMessage);
-        return productDetail;
+        return String.format("{\nProduct Name: %s \nType: %s \nProduct Description: %s \nQuantity Available: %d \nPrice: $ %,.2f \nTaxType: %s \nDefault gift message: %s \n}",name,"DIGITAL",description,quantity,price,taxType,giftMessage);
     }
 
     /* Gift methods overriding */
@@ -65,9 +64,6 @@ public class Digital extends Product implements Gift {
 
     @Override
     public String getMessage() {
-        if(this.defaultMessage == null) {
-            return "There is no message on this gift.";
-        }
-        return this.defaultMessage;
+        return Objects.requireNonNullElse(this.defaultMessage, "There is no message on this gift.");
     }
 }
