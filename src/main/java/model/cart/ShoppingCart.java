@@ -30,8 +30,8 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     //? CONSTRUCTOR
     public ShoppingCart(int cartID){
         this.cartID = cartID;
-        cartItems = new HashMap<>();
-        cartGiftMessages = new HashMap<>();
+        cartItems = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        cartGiftMessages = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         totalWeight = 0;
     }
 
@@ -80,7 +80,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
     public boolean containItem(String productName) {
         for (String item : cartItems.keySet()) {
-            if (item.equals(productName)) {
+            if (item.equalsIgnoreCase(productName)) {
                 return true;
             }
         }
@@ -92,9 +92,9 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             if (cartGiftMessages.get(productName) != null) {
                 return true;
             }
-            System.out.println("Product does not contain any gift message in this cart!");
+            System.out.println("Product does not contain gift message in this cart!");
         } else {
-            System.out.println("Product is not existed in the shopping cart!");
+            System.out.println("Product does not exist in the shopping cart!");
         }
         return false;
     }
@@ -387,7 +387,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             cartGiftMessages.put(productName, msg);
             return true;
         }
-        System.out.println("Product is not existed in the shopping cart and cannot set gift message");
+        System.out.println("Product does not exist in the shopping cart and cannot set gift message");
         return false;
     }
 

@@ -43,7 +43,7 @@ public abstract class AppController {
                 6.  Add product(s) to shopping cart
                 7.  Remove product(s) from shopping cart
                 8.  View shopping cart(s) detail
-                9. Edit shopping cart
+                9.  Edit shopping cart
                 10. Display all shopping cart
                 (sorted based on the cart's weight)
                 11. Print shopping cart receipt

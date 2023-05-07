@@ -86,7 +86,7 @@ public class ShoppingCartList {
     public void viewCarts() {
         // Loop through all the carts in the list
         Iterator<ShoppingCart> it = cartList.iterator();
-        System.out.println(String.format("Number of Shopping Carts: %d", countCarts()));
+        System.out.printf("Number of Shopping Carts: %d%n", countCarts());
         while(it.hasNext()) { // Get the next shopping cart
             ShoppingCart c = it.next();
             System.out.println(c.toString()); // Display the cart detail
@@ -109,7 +109,7 @@ public class ShoppingCartList {
 
         // Now, loop through all the carts in the list that needs to be sorted
         it = sortedCartList.iterator();
-        System.out.println(String.format("Number of Shopping Carts: %d", countCarts()));
+        System.out.printf("Number of Shopping Carts: %d%n", countCarts());
         while(it.hasNext()) { // Get the next shopping cart
             ShoppingCart c = it.next();
             System.out.println(c.toString()); // Display the cart detail

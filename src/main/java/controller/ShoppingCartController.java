@@ -328,7 +328,7 @@ public class ShoppingCartController extends AppController {
 
                     //
                     if (modifiedCart.containGiftMessage(name)) {
-                        System.out.println("This product has already contain a gift message: " + modifiedCart.getMessage(name));
+                        System.out.println("This product already has a gift message: " + modifiedCart.getMessage(name));
                         while (true) {
                             System.out.println("""
                         Do you want to set a new gift message for this product in this cart?
@@ -343,6 +343,7 @@ public class ShoppingCartController extends AppController {
                                 String newMessage = input.nextLine();
                                 modifiedCart.setMessage(name,newMessage);
                                 System.out.printf("Update new message - <%s> successfully to new product - <%s>%n", newMessage, name);
+                                break;
                             } else if (option == 2) { // Case 2: User do not agree to update the new gift message
                                 System.out.println("Did not change the previous gift message for this product! Please try again.");
                                 return false;

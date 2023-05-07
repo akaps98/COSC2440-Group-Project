@@ -8,7 +8,6 @@ package model.product;
  */
 
 import java.util.Map;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class ProductMap {

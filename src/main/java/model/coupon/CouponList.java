@@ -55,9 +55,9 @@ public class CouponList {
 
     public void viewAllCoupons() {
         StringBuilder allCoupons = new StringBuilder();
-        allCoupons.append("[");
+        allCoupons.append("[\n");
         for (Coupon coupon : coupons) {
-            allCoupons.append(coupon.toString()).append(", ");
+            allCoupons.append(coupon.toString()).append("\n");
         }
         allCoupons.append("]");
         System.out.printf("Number of Coupons: %d%n", countCoupon());
