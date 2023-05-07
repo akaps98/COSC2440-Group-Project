@@ -242,11 +242,15 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         }
 
 //        Shipping fee is added to the total price
-        calTotalWeight(productList);
-        double shippingFee = totalWeight * 0.1;
-        totalPrice += shippingFee; // add the shipping fee to the total price
+
+        totalPrice += getShippingFee(productList); // add the shipping fee to the total price
 
         return totalPrice;
+    }
+
+    public double getShippingFee(ProductMap productList) {
+        calTotalWeight(productList);
+        return totalWeight * 0.1;
     }
 
     /**

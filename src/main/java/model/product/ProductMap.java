@@ -44,9 +44,11 @@ public class ProductMap {
      */
     public void viewAllProducts() {
         StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
+        allProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
             allProducts.append(p.toString()).append(": ").append(p.getQuantity()).append("\n");
         }
+        allProducts.append("]");
         // Display to the console
         System.out.println("Number of Products: " + countProduct());
         System.out.println(allProducts);

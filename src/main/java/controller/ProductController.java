@@ -334,7 +334,7 @@ public class ProductController extends AppController{
                                     --------------------------------------------------""");
             }
         }
-        // Output the message accordingly if the product is successfully modifidied
+        // Output the message accordingly if the product is successfully modified
         System.out.printf("Successfully modified product: %s!%n", name);
         return true;
     }

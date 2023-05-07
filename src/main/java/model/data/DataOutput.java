@@ -73,7 +73,7 @@ public class DataOutput {
 
                 int quantity = c.getCartItems().get(item);
                 double price = p.getPrice();
-                double subProductTotal = price * quantity;
+                double subProductTotal = c.getItemSubtotal(p.getName(), products);
                 subCartTotal += subProductTotal;
                 cartTax += c.getItemTax(p.getName(), products);
 
@@ -88,7 +88,7 @@ public class DataOutput {
 
                     // Check if the cart contains the product that can apply coupon
                     if (coupon.getProductName().equals(p.getName())) {
-                        cartDiscount = c.getItemDiscount(p.getName(),products);
+                        cartDiscount = c.getItemDiscount(p.getName(), products);
                         // Write discount price for price coupon and percent coupon
                         if (coupon instanceof PriceCoupon) {
                             fWriter.write(String.format("  *Discount(-%.2f)*",((PriceCoupon) coupon).getCouponValue())+ "\t\t\t\t\t\t" + String.format("($%.2f)", cartDiscount) + "\n");
@@ -104,7 +104,8 @@ public class DataOutput {
             fWriter.write("Subtotal: \t\t\t\t\t\t\t\t" + String.format("$%.2f", subCartTotal) + "\n");
             fWriter.write("Discount: \t\t\t\t\t\t\t\t-" + String.format("$%.2f", cartDiscount) + "\n");
             fWriter.write("Tax: \t\t\t\t\t\t\t\t\t+" + String.format("$%.2f", cartTax) + "\n\n");
-            fWriter.write("TOTAL: \t\t\t\t\t\t\t\t\t" + String.format("$%.2f",c.cartAmount(products)) + "\n");
+            fWriter.write("Shipping: \t\t\t\t\t\t\t\t\t+" + String.format("$%.2f", c.getShippingFee(products)) + "\n\n");
+            fWriter.write("TOTAL: \t\t\t\t\t\t\t\t" + String.format("$%.2f",c.cartAmount(products)) + "\n");
             fWriter.flush();
             fWriter.close();
             System.out.println("Finish writing the printing receipt for cart #" + c.getCartID() + "!");
