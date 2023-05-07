@@ -316,6 +316,7 @@ public class ShoppingCartController extends AppController {
                         newCouponID = input.nextLine();
                     } while (!Coupon.checkCouponExisted(newCouponID, coupons));
                     modifiedCart.setAppliedCouponID(newCouponID);
+                    System.out.printf("Update new applied couponID - <%s> successfully to cart #%d%n", newCouponID, cartID);
                     break;
                 // Update gift message for a product
                 case 2:
@@ -347,7 +348,6 @@ public class ShoppingCartController extends AppController {
                                 String newMessage = input.nextLine();
                                 modifiedCart.setMessage(name,newMessage);
                                 System.out.println(String.format("Update new message - <%s> successfully to new product - <$s>", newMessage, name));
-                                return true;
                             } else if (option == 2) { // Case 2: User do not agree to update the new gift message
                                 System.out.println("Did not change the previous gift message for this product! Please try again.");
                                 break;
@@ -362,7 +362,6 @@ public class ShoppingCartController extends AppController {
                         String newMessage = input.nextLine();
                         modifiedCart.setMessage(name,newMessage);
                         System.out.println(String.format("Update new message - <%s> successfully to new product - <$s>", newMessage, name));
-                        return true;
                     }
                     break;
                 // Make cart empty
@@ -372,7 +371,6 @@ public class ShoppingCartController extends AppController {
                     } else {
                         modifiedCart.resetCart();
                         System.out.println(String.format("Reset cart #%d successfully!",cartID));
-                        return true;
                     }
                     break;
                 // Return to the primary menu
@@ -385,12 +383,9 @@ public class ShoppingCartController extends AppController {
                                     --------------------------------------------------""");
             }
         }
-        // Output the message accordingly if the product is successfully modifidied
-        if (option == 1 || option == 2 || option == 3 || option == 4) {
-            check = true;
-        }
 
-        if (check) { // display a message if success
+        // display a message if success
+        if (check) {
             System.out.println(String.format("Successfully modified cart #%d!", cartID));
         } else {
             System.out.println("Did not modify cart!");

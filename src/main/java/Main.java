@@ -22,7 +22,7 @@ public class Main { // run the program
         int choice = -1;
         System.out.println("\nWelcome to the online shopping service application!");
         while (choice != 13) {
-            dataController.displayMenu();
+            AppController.displayMenu();
             choice = Integer.parseInt(input.nextLine()); // get the user's input
             switch (choice) {
                 case 1:
@@ -67,9 +67,7 @@ public class Main { // run the program
                 default:
                     System.out.println("""
                                     Invalid choice. Please enter again!
-                                    --------------------------------------------------""");
-                    AppController.displayMenu();
-                    choice = Integer.parseInt(input.nextLine());
+                                    """);
             }
         }
 
