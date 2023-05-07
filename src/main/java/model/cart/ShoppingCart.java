@@ -80,13 +80,10 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
     public boolean containItem(String productName) {
         for (String item : cartItems.keySet()) {
-            if (productName.equals(item)) {
+            if (item.equals(productName)) {
                 return true;
             }
         }
-        System.out.println("This item is not existed in the cart!" +
-                "\nPlease select another name." +
-                "\n--------------------------------");
         return false;
     }
 

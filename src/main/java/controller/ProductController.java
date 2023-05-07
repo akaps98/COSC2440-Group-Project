@@ -7,7 +7,7 @@ import model.product.ProductMap;
 
 public class ProductController extends AppController{
     // ATTRIBUTES
-    private ProductMap products;
+    private final ProductMap products;
 
     // CONSTRUCTOR
     public ProductController() {
@@ -100,8 +100,6 @@ public class ProductController extends AppController{
      * @return boolean: boolean value states if the Product has been created successfully
      */
     public boolean createProduct() {
-        boolean check = false; // boolean value to return
-
         // Get input for product name and check if it existed
         String name;
         do {
@@ -145,7 +143,7 @@ public class ProductController extends AppController{
         } while (price < 0);
 
         // Get input for product type and provide appropriate type casting
-        while (!check) {
+        while (true) {
             System.out.print("""
                     What is the type of the product?
                     ==================================================
@@ -158,7 +156,7 @@ public class ProductController extends AppController{
                 // Create a new Digital Product and add to system
                 Product addedProduct = new Digital(name, description, quantity, price);
                 products.addProduct(addedProduct);
-                check = true;
+                break;
             } else if (productTypeOption == 2) { // Create Physical Product
                 double weight;
                 do {
@@ -175,21 +173,16 @@ public class ProductController extends AppController{
                 // Create a new Physical Product and add to system
                 Physical addedProduct = new Physical(name, description, quantity, price, weight);
                 products.addProduct(addedProduct);
-                check = true;
+                break;
             } else {
                 System.out.println("""
                                     Invalid option. Please enter again!
                                     --------------------------------------------------""");
             }
         }
-
-        // Display corresponding message whether the product is created and added to the system
-        if (check) { // display a message if success
-            System.out.printf("Successfully create product: %s, available quantity: %d!%n", name, quantity);
-        } else {
-            System.out.println("Failed to create the product, please try again!");
-        }
-        return check;
+        // display a message if successfully created product
+        System.out.printf("Successfully create product: %s, available quantity: %d!%n", name, quantity);
+        return true;
     }
 
     /**
@@ -210,7 +203,6 @@ public class ProductController extends AppController{
      * @return boolean: boolean value states if the Product information has been modified successfully
      */
     public boolean editProduct() {
-        boolean check = false; // boolean value to return
         products.viewAllProducts(); // display all products for user to view
 
         // Get input for product name and check if it existed
@@ -229,7 +221,7 @@ public class ProductController extends AppController{
         Product modifiedProduct = products.getProduct(name);
         // Create a loop until user enter a valid choice
         int option = -1;
-        while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6) {
+        while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5) {
             System.out.print("""
                     ==================================================
                     1. Change description
@@ -333,7 +325,8 @@ public class ProductController extends AppController{
                     break;
                 // Return to the primary menu
                 case 6:
-                    break;
+                    System.out.println("Did not modify product!");
+                    return false;
                 // User input invalid choice --> reenter the choice
                 default:
                     System.out.println("""
@@ -342,15 +335,7 @@ public class ProductController extends AppController{
             }
         }
         // Output the message accordingly if the product is successfully modifidied
-        if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5) {
-            check = true;
-        }
-
-        if (check) { // display a message if success
-            System.out.printf("Successfully modified product: %s!%n", name);
-        } else {
-            System.out.println("Did not modify product!");
-        }
-        return check;
+        System.out.printf("Successfully modified product: %s!%n", name);
+        return true;
     }
 }

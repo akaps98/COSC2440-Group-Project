@@ -11,9 +11,9 @@ import model.product.ProductMap;
 
 public class ShoppingCartController extends AppController {
     // ATTRIBUTES
-    private ProductMap products;
-    private ShoppingCartList carts;
-    private CouponList coupons;
+    private final ProductMap products;
+    private final ShoppingCartList carts;
+    private final CouponList coupons;
 
     // CONSTRUCTOR
     public ShoppingCartController() {
@@ -69,8 +69,6 @@ public class ShoppingCartController extends AppController {
      * @return boolean: boolean value states if the Product has been added to the cart successfully
      */
     public boolean addProductToCart() {
-        boolean check = false; // boolean value to return
-
         // Check if there is any shopping cart existed in the shopping cart list
         if (carts.countCarts() == 0) {
             System.out.println("""
@@ -136,15 +134,11 @@ public class ShoppingCartController extends AppController {
         } while (quantity < 0);
 
         // Add product to cart
-        check = c.addItem(name, quantity, products);
+        c.addItem(name, quantity, products);
 
-        if (check) { // display a message whether the product is added successfully to the shopping cart
-            System.out.printf("Successfully add %d %s to cart #%d!%n", quantity, name, c.getCartID());
-        } else {
-            System.out.printf("Cannot add %d %s to cart #%d. Please try again!%n", quantity, name, c.getCartID());
-        }
-
-        return check;
+       // display a message whether the product is added successfully to the shopping cart
+        System.out.printf("Successfully add %d %s to cart #%d!%n", quantity, name, c.getCartID());
+        return true;
     }
 
     /**
@@ -162,8 +156,6 @@ public class ShoppingCartController extends AppController {
      * @return boolean: boolean value states if the Product has been removed successfully
      */
     public boolean removeProductFromCart() {
-        boolean check = false; // boolean value to return
-
         // Check if there is any shopping cart existed in the shopping cart list
         if (carts.countCarts() == 0) {
             System.out.println("""
@@ -184,7 +176,7 @@ public class ShoppingCartController extends AppController {
             if (!carts.containCart(cartID)) {
                 System.out.println("""
                                     This cart is not existed on our system.
-                                    Please select another cart ID1
+                                    Please select another cart ID!
                                     --------------------------------------------------""");
             }
 
@@ -221,14 +213,11 @@ public class ShoppingCartController extends AppController {
         } while (quantity < 0);
 
         // Remove product from cart
-        check = c.removeItem(name, quantity, products);
+        c.removeItem(name, quantity, products);
 
-        if (check) { // display a message whether the product is added successfully to the shopping cart
+        // display a message whether the product is added successfully to the shopping cart
             System.out.printf("Successfully remove %d %s from cart %d!%n", quantity, name, c.getCartID());
-        } else {
-            System.out.printf("Cannot remove %s from cart %d. Please try again!%n", name, c.getCartID());
-        }
-        return check;
+        return true;
     }
 
     /**
@@ -276,8 +265,8 @@ public class ShoppingCartController extends AppController {
      *
      */
     public boolean editCart() {
-        boolean check = false; // boolean value to return
-        carts.viewCarts(); // display all carts for user to view
+        // display all carts for user to view
+        carts.viewCarts();
 
         // Get input for shopping cart ID and check if the cart existed
         int cartID;
@@ -296,7 +285,7 @@ public class ShoppingCartController extends AppController {
 
         // Create a loop until user enter a valid choice
         int option = -1;
-        while (option != 4) {
+        while (option != 1 && option != 2 && option != 3) {
             System.out.print("""
                     ==================================================
                     1. Change applied coupon
@@ -316,6 +305,7 @@ public class ShoppingCartController extends AppController {
                         newCouponID = input.nextLine();
                     } while (!Coupon.checkCouponExisted(newCouponID, coupons));
                     modifiedCart.setAppliedCouponID(newCouponID);
+                    System.out.printf("Update new applied couponID - <%s> successfully to cart #%d%n", newCouponID, cartID);
                     break;
                 // Update gift message for a product
                 case 2:
@@ -346,10 +336,9 @@ public class ShoppingCartController extends AppController {
                                 String newMessage = input.nextLine();
                                 modifiedCart.setMessage(name,newMessage);
                                 System.out.printf("Update new message - <%s> successfully to new product - <%s>%n", newMessage, name);
-                                return true;
                             } else if (option == 2) { // Case 2: User do not agree to update the new gift message
                                 System.out.println("Did not change the previous gift message for this product! Please try again.");
-                                break;
+                                return false;
                             } else {
                                 System.out.println("""
                                     Invalid option. Please enter again!
@@ -361,22 +350,23 @@ public class ShoppingCartController extends AppController {
                         String newMessage = input.nextLine();
                         modifiedCart.setMessage(name,newMessage);
                         System.out.printf("Update new message - <%s> successfully to new product - <%s>%n", newMessage, name);
-                        return true;
                     }
                     break;
                 // Make cart empty
                 case 3:
                     if (modifiedCart.getCartItems() == null) {
-                        System.out.println("The cart is already empty!");
+                        System.out.println("""
+                                    The cart is already empty. Please select other options!
+                                    --------------------------------------------------""");
+                        return false;
                     } else {
                         modifiedCart.resetCart();
                         System.out.printf("Reset cart #%d successfully!%n",cartID);
-                        return true;
                     }
                     break;
                 // Return to the primary menu
                 case 4:
-                    break;
+                    return false;
                 // User input invalid choice --> reenter the choice
                 default:
                     System.out.println("""
@@ -384,17 +374,10 @@ public class ShoppingCartController extends AppController {
                                     --------------------------------------------------""");
             }
         }
-        // Output the message accordingly if the product is successfully modified
-        if (option == 1 || option == 2 || option == 3 || option == 4) {
-            check = true;
-        }
 
-        if (check) { // display a message if success
-            System.out.printf("Successfully modified cart #%d!%n", cartID);
-        } else {
-            System.out.println("Did not modify cart!");
-        }
-        return check;
+        // display a message if success
+        System.out.printf("Successfully modified cart #%d!%n", cartID);
+        return true;
     }
 
     /**
