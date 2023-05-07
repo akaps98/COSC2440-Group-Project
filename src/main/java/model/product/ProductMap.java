@@ -9,13 +9,14 @@ package model.product;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class ProductMap {
     // ATTRIBUTES
     private final Map<String, Product> productList;
 
     // CONSTRUCTOR
-    public ProductMap() { productList = new HashMap<>();
+    public ProductMap() { productList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
     // METHODS
