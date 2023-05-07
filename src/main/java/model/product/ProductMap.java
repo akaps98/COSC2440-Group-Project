@@ -7,8 +7,6 @@ package model.product;
  * @since 2023 - 04 - 01
  */
 
-import model.product.Product;
-
 import java.util.Map;
 import java.util.HashMap;
 
@@ -45,19 +43,16 @@ public class ProductMap {
     /**
      * The method used to provide all the product name inside the product list
      *
-     * @return StringBuilder: the StringBuilder contains the number of products in the list and the all the product names
+     * Action: print the StringBuilder that contains the number of products in the list and the all the product names
      */
-    public StringBuilder viewAllProducts() {
+    public void viewAllProducts() {
         StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
-        allProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
-            allProducts.append(p.toString() + ": " + p.getQuantity() + "\n");
+            allProducts.append(p.toString()).append(": ").append(p.getQuantity()).append("\n");
         }
-        allProducts.append("]");
         // Display to the console
         System.out.println("Number of Products: " + countProduct());
         System.out.println(allProducts);
-        return allProducts;
     }
 
     /**
@@ -73,7 +68,7 @@ public class ProductMap {
         availableProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
             if (p.getQuantity() != 0) {
-                availableProducts.append(p.toString() + ": " + p.getQuantity() + "\n"); // Add
+                availableProducts.append(p).append(": ").append(p.getQuantity()).append("\n"); // Add
                 availableCount++;
             }
         }

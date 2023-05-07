@@ -8,7 +8,6 @@ package model.cart;
  */
 
 import database.ShoppingDB;
-import model.Gift;
 import model.product.Product;
 import model.product.ProductMap;
 import model.product.Physical;
@@ -150,7 +149,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
      * The method use to remove item(s) (Product) into the shopping cart
      *
      * Conditions:
-     * 1. The product must existed in the Shopping Cart
+     * 1. The product must exist in the Shopping Cart
      * 2. The quantity to remove must <= the current product quantity in the cart
      *
      * @param productName - Name of the product
@@ -210,9 +209,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         // }
 
         // Iterate through all the product names in the cart items
-        Iterator<String> it = cartItems.keySet().iterator();
-        while(it.hasNext()) { // checking the next Product
-            String productName = it.next();
+        for (String productName : cartItems.keySet()) { // checking the next Product
             Product p = productList.getProduct(productName);
             if (p instanceof Physical) { // check if the product is a Physical Product
                 weight += ((Physical) p).getWeight() * cartItems.get(productName); // get the weight by casting PhysicalProduct type, and add to the weight variable
@@ -323,14 +320,14 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
     public void viewCartInfo() {
         StringBuilder cartInfo = new StringBuilder();
-        cartInfo.append(this.toString());
+        cartInfo.append(this);
         this.viewCartGiftMessages();
         if (appliedCouponID != null) {
-            cartInfo.append("\nCart applied coupon: " + appliedCouponID);
+            cartInfo.append("\nCart applied coupon: ").append(appliedCouponID);
         } else {
             cartInfo.append("\nCart applied coupon: none");
         }
-        cartInfo.append("\nCart weight: " + totalWeight + "g");
+        cartInfo.append("\nCart weight: ").append(totalWeight).append("g");
         cartInfo.append(String.format("\nCart amount: $%.2f", cartAmount(ShoppingDB.getInstance().getProducts())));
         System.out.println(cartInfo);
     }
@@ -338,10 +335,8 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     public void viewCartGiftMessages() {
         StringBuilder cartItemGiftMessages = new StringBuilder();
         cartItemGiftMessages.append("Cart gift messages: \n[");
-        Iterator<String> it = cartGiftMessages.keySet().iterator();
-        while (it.hasNext()) {
-            String nextProduct = it.next();
-            cartItemGiftMessages.append(nextProduct + ": " + cartGiftMessages.get(nextProduct) + ", ");
+        for (String nextProduct : cartGiftMessages.keySet()) {
+            cartItemGiftMessages.append(nextProduct).append(": ").append(cartGiftMessages.get(nextProduct)).append(", ");
         }
         cartItemGiftMessages.append("]");
         // Display to the console
@@ -357,11 +352,9 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     @Override
     public String toString() {
         String cartInfo = String.format("Cart #%d --- Cart items: ", cartID);
-        String cartItemsInfo = "";
-        Iterator<String> it = cartItems.keySet().iterator();
-        while (it.hasNext()) {
-            String nextProduct = it.next();
-            cartItemsInfo += nextProduct + ": " + cartItems.get(nextProduct) + ", ";
+        StringBuilder cartItemsInfo = new StringBuilder();
+        for (String nextProduct : cartItems.keySet()) {
+            cartItemsInfo.append(nextProduct).append(": ").append(cartItems.get(nextProduct)).append(", ");
         }
         return cartInfo + cartItemsInfo;
     }
@@ -381,12 +374,6 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     @Override
     public int compareTo(ShoppingCart c) {
         return Double.compare(totalWeight, c.getTotalWeight());
-
-//        if (totalWeight == ((ShoppingCart2) c).getTotalWeight()) {
-//            return 0;
-//        } else if (totalWeight > ((ShoppingCart2) c).getTotalWeight()) {
-//            return 1;
-//        } else return -1;
     }
 
     public boolean setMessage(String productName, String msg) {

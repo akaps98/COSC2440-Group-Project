@@ -59,9 +59,9 @@ public class ProductController extends AppController{
                     // Found a product, proceeding to get the product detail
                     Product p = products.getProduct(name);
                     if (p instanceof Physical) { // Check for product type to call the appropriate type casting getProductDetail() method
-                        System.out.println(((Physical) p).getProductDetail());
+                        System.out.println(p.getProductDetail());
                     } else {
-                        System.out.println(((Digital) p).getProductDetail());
+                        System.out.println(p.getProductDetail());
                     }
                     break;
                 // View every product that existed in the product list
@@ -162,7 +162,7 @@ public class ProductController extends AppController{
             } else if (productTypeOption == 2) { // Create Physical Product
                 double weight;
                 do {
-                    System.out.print("\nEnter product weight(g): ");
+                    System.out.print("Enter product weight(g): ");
                     weight = Double.parseDouble(input.nextLine());
                     if (weight < 0) {
                         System.out.println("""
@@ -185,7 +185,7 @@ public class ProductController extends AppController{
 
         // Display corresponding message whether the product is created and added to the system
         if (check) { // display a message if success
-            System.out.println(String.format("Successfully create product: %s, available quantity: %d!", name, quantity));
+            System.out.printf("Successfully create product: %s, available quantity: %d!%n", name, quantity);
         } else {
             System.out.println("Failed to create the product, please try again!");
         }
@@ -347,7 +347,7 @@ public class ProductController extends AppController{
         }
 
         if (check) { // display a message if success
-            System.out.println(String.format("Successfully modified product: %s!", name));
+            System.out.printf("Successfully modified product: %s!%n", name);
         } else {
             System.out.println("Did not modify product!");
         }

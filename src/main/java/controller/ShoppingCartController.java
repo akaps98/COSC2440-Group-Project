@@ -51,14 +51,14 @@ public class ShoppingCartController extends AppController {
 
         ShoppingCart c = new ShoppingCart(cartID);
         carts.addCart(c);
-        System.out.println(String.format("Successfully created cart %d!", c.getCartID()));
+        System.out.printf("Successfully created cart %d!%n", c.getCartID());
     }
 
     /**
      * Function 7: this method adds a Product to a Shopping Cart
      * <p>
      * User inputs:
-     * 1/ product name (must existed in the product list)
+     * 1/ product name (must exist in the product list)
      * 2/ cartID (the ID is corresponding to the selected shopping cart)
      * <p>
      * Conditions:
@@ -74,7 +74,7 @@ public class ShoppingCartController extends AppController {
         // Check if there is any shopping cart existed in the shopping cart list
         if (carts.countCarts() == 0) {
             System.out.println("""
-                                    No shopping cart found! 
+                                    No shopping cart found!
                                     Please create a shopping cart before adding the product.
                                     --------------------------------------------------""");
             return false;
@@ -138,10 +138,10 @@ public class ShoppingCartController extends AppController {
         // Add product to cart
         check = c.addItem(name, quantity, products);
 
-        if (check == true) { // display a message whether the product is added successfully to the shopping cart
-            System.out.println(String.format("Successfully add %d %s to cart #%d!", quantity, name, c.getCartID()));
+        if (check) { // display a message whether the product is added successfully to the shopping cart
+            System.out.printf("Successfully add %d %s to cart #%d!%n", quantity, name, c.getCartID());
         } else {
-            System.out.println(String.format("Cannot add %d %s to cart #%d. Please try again!", quantity, name, c.getCartID()));
+            System.out.printf("Cannot add %d %s to cart #%d. Please try again!%n", quantity, name, c.getCartID());
         }
 
         return check;
@@ -151,7 +151,7 @@ public class ShoppingCartController extends AppController {
      * Function 8: this method removes a Product from a Shopping Cart
      * <p>
      * User inputs:
-     * 1/ product name (must existed in the product list)
+     * 1/ product name (must exist in the product list)
      * 2/ cartID (the ID is corresponding to the selected shopping cart)
      * <p>
      * Conditions:
@@ -167,7 +167,7 @@ public class ShoppingCartController extends AppController {
         // Check if there is any shopping cart existed in the shopping cart list
         if (carts.countCarts() == 0) {
             System.out.println("""
-                                    No shopping cart found! 
+                                    No shopping cart found!
                                     Please create a shopping cart before removing the product.
                                     --------------------------------------------------""");
             return false;
@@ -192,7 +192,7 @@ public class ShoppingCartController extends AppController {
         ShoppingCart c = carts.getCart(cartID);
 
         // Display the available products in the cart
-        c.toString();
+        System.out.println(c.toString());
 
         // Get input for product name and check if it existed in the system and the cart
         String name;
@@ -223,10 +223,10 @@ public class ShoppingCartController extends AppController {
         // Remove product from cart
         check = c.removeItem(name, quantity, products);
 
-        if (check == true) { // display a message whether the product is added successfully to the shopping cart
-            System.out.println(String.format("Successfully remove %d %s from cart %d!", quantity, name, c.getCartID()));
+        if (check) { // display a message whether the product is added successfully to the shopping cart
+            System.out.printf("Successfully remove %d %s from cart %d!%n", quantity, name, c.getCartID());
         } else {
-            System.out.println(String.format("Cannot remove %s from cart %d. Please try again!", name, c.getCartID()));
+            System.out.printf("Cannot remove %s from cart %d. Please try again!%n", name, c.getCartID());
         }
         return check;
     }
@@ -332,7 +332,6 @@ public class ShoppingCartController extends AppController {
                     //
                     if (modifiedCart.containGiftMessage(name)) {
                         System.out.println("This product has already contain a gift message: " + modifiedCart.getMessage(name));
-                        int newOption = -1;
                         while (true) {
                             System.out.println("""
                         Do you want to set a new gift message for this product in this cart?
@@ -346,7 +345,7 @@ public class ShoppingCartController extends AppController {
                                 System.out.print("Enter the new gift message: ");
                                 String newMessage = input.nextLine();
                                 modifiedCart.setMessage(name,newMessage);
-                                System.out.println(String.format("Update new message - <%s> successfully to new product - <$s>", newMessage, name));
+                                System.out.printf("Update new message - <%s> successfully to new product - <%s>%n", newMessage, name);
                                 return true;
                             } else if (option == 2) { // Case 2: User do not agree to update the new gift message
                                 System.out.println("Did not change the previous gift message for this product! Please try again.");
@@ -361,7 +360,7 @@ public class ShoppingCartController extends AppController {
                         System.out.print("Enter the new gift message to set for this product: ");
                         String newMessage = input.nextLine();
                         modifiedCart.setMessage(name,newMessage);
-                        System.out.println(String.format("Update new message - <%s> successfully to new product - <$s>", newMessage, name));
+                        System.out.printf("Update new message - <%s> successfully to new product - <%s>%n", newMessage, name);
                         return true;
                     }
                     break;
@@ -371,7 +370,7 @@ public class ShoppingCartController extends AppController {
                         System.out.println("The cart is already empty!");
                     } else {
                         modifiedCart.resetCart();
-                        System.out.println(String.format("Reset cart #%d successfully!",cartID));
+                        System.out.printf("Reset cart #%d successfully!%n",cartID);
                         return true;
                     }
                     break;
@@ -385,13 +384,13 @@ public class ShoppingCartController extends AppController {
                                     --------------------------------------------------""");
             }
         }
-        // Output the message accordingly if the product is successfully modifidied
+        // Output the message accordingly if the product is successfully modified
         if (option == 1 || option == 2 || option == 3 || option == 4) {
             check = true;
         }
 
         if (check) { // display a message if success
-            System.out.println(String.format("Successfully modified cart #%d!", cartID));
+            System.out.printf("Successfully modified cart #%d!%n", cartID);
         } else {
             System.out.println("Did not modify cart!");
         }
