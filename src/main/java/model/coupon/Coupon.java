@@ -1,5 +1,12 @@
 package model.coupon;
 
+/**
+ * The class stores information about all coupons inside a cart
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
+
 import java.util.regex.Pattern;
 
 public abstract class Coupon {

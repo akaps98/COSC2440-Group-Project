@@ -1,5 +1,5 @@
 /**
- * The class stores information about all the Products inside a Product List
+ * The class is a test unit for ShoppingCart class
  *
  * @author Group 9
  * @since 2023 - 05 - 07

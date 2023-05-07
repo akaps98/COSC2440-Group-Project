@@ -1,5 +1,12 @@
 package model.data;
 
+/**
+ * The class is to control data output
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;

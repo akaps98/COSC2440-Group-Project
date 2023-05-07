@@ -3,8 +3,8 @@ package model.product;
 /**
  * The class stores information about all the Products inside a Product List
  *
- * @author Nguyen Anh Duy - s3878141
- * @since 2023 - 04 - 01
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import java.util.Map;

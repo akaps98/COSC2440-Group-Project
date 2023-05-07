@@ -1,10 +1,16 @@
 package database;
 
+/**
+ * The class stores information about the shopping database
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
+
 import model.cart.ShoppingCartList;
 import model.coupon.CouponList;
 import model.product.ProductMap;
 import model.product.Tax;
-
 
 public class ShoppingDB {
     private static ShoppingDB instance = null;

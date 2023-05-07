@@ -3,8 +3,8 @@ package model.cart;
 /**
  * The class store information about the Shopping Cart
  *
- * @author Nguyen Anh Duy - s3878141
- * @since 2023 - 03 - 31
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import database.ShoppingDB;

@@ -1,9 +1,10 @@
 package model.cart;
+
 /**
  * The Comparator class manually created to compare the shopping carts in a shopping cart list (for sorting)
  *
- * @author Nguyen Anh Duy - s3878141
- * @since 2023 - 03 - 31
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import model.cart.ShoppingCart;

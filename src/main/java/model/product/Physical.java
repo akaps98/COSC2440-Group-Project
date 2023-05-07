@@ -1,13 +1,13 @@
 package model.product;
 
-import model.Gift;
-
 /**
  * The class stores information about the Physical Product information
  *
- * @author
- * @since 2023 - 05 - 01
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
+
+import model.Gift;
 
 public class Physical extends Product implements Gift {
     // ATTRIBUTES

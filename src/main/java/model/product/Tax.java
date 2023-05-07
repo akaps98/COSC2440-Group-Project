@@ -1,13 +1,16 @@
 package model.product;
 
+/**
+ * The class stores information about all taxes inside a Product List
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
+
 import database.ShoppingDB;
 
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * @author Group
- */
 
 public class Tax {
     private final Map<String, Double> taxes;

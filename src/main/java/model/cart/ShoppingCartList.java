@@ -3,8 +3,8 @@ package model.cart;
 /**
  * The class stores information about all the shopping carts
  *
- * @author Nguyen Anh Duy - s3878141
- * @since 2023 - 03 - 31
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import model.cart.ShoppingCart;

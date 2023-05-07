@@ -3,9 +3,10 @@ package model.product;
 /**
  * The class stores information about the Product
  *
- * @author
- * @since 2023 - 05 - 01
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
+
 public abstract class Product {
     // ATTRIBUTES
     protected String name;

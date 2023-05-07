@@ -1,15 +1,15 @@
 package model.product;
 
-import model.Gift;
-
-import java.util.Objects;
-
 /**
  * The class stores information about the Digital Product information
  *
- * @author
- * @since 2023 - 05 - 31
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
+
+import model.Gift;
+
+import java.util.Objects;
 
 public class Digital extends Product implements Gift {
 

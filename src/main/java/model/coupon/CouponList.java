@@ -1,6 +1,11 @@
 package model.coupon;
 
-import model.coupon.Coupon;
+/**
+ * The class is a coupon list which contain all the saved coupons
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
 
 import java.util.ArrayList;
 import java.util.List;
