@@ -1,14 +1,13 @@
 package controller;
 
-import model.cart.ShoppingCart;
 import model.coupon.Coupon;
 import model.coupon.CouponList;
 import model.product.ProductMap;
 
 public class CouponController extends AppController {
     // ATTRIBUTES
-    private ProductMap products;
-    private CouponList coupons;
+    private final ProductMap products;
+    private final CouponList coupons;
 
     // CONSTRUCTOR
     public CouponController() {
@@ -53,7 +52,7 @@ public class CouponController extends AppController {
         if (usedCoupon.getProductName() != null) {
             System.out.println("The selected coupon has already applied to " + usedCoupon.getProductName());
 
-            int option = -1;
+            int option;
             while (true) {
                 System.out.print("""
                         Do you want to apply this coupon to the new product instead?
@@ -65,59 +64,37 @@ public class CouponController extends AppController {
                 option = Integer.parseInt(input.nextLine());
                 // Case 1: User agree to update the new product to apply the coupon
                 if (option == 1) {
-                    // Display all available products in the system
-                    products.viewAllProducts();
-
-                    // Get input for product name and check if it existed in the system
-                    String name;
-                    do {
-                        System.out.print("Enter new product name to apply coupon: ");
-                        name = input.nextLine();
-                        if (!products.containProduct(name)) {
-                            System.out.println("""
-                                    This product name is not existed on our system.
-                                    Please select another name!
-                                    --------------------------------------------------""");
-                        }
-                    } while (!products.containProduct(name));
-
-                    // Apply the coupon to the selected product
-                    usedCoupon.setProductName(name);
-
-                    System.out.println(String.format("Apply coupon - <%s> successfully to new product - <$s>", couponID, name));
-                    return true;
+                    break;
                 } else if (option == 2) { // Case 2: User do not agree to update the new product to apply the coupon
                     System.out.println("Did not apply this coupon to a new product! Please try again.");
-                    break;
+                    return false;
                 } else {
                     System.out.println("""
-                                    Invalid option. Please enter again!
-                                    --------------------------------------------------""");
+                            Invalid option. Please enter again!
+                            --------------------------------------------------""");
                 }
             }
-        } else {
-            // Display all available products in the system
-            products.viewAllProducts();
-
-            // Get input for product name and check if it existed in the system
-            String name;
-            do {
-                System.out.print("Enter new product name to apply coupon: ");
-                name = input.nextLine();
-                if (!products.containProduct(name)) {
-                    System.out.println("""
-                                    This product name is not existed on our system.
-                                    Please select another name!
-                                    --------------------------------------------------""");
-                }
-            } while (!products.containProduct(name));
-
-            // Apply the coupon to the selected product
-            usedCoupon.setProductName(name);
-
-            System.out.println(String.format("Apply coupon - <%s> successfully to new product - <$s>", couponID, name));
-            return true;
         }
-        return false;
+        // Display all available products in the system
+        products.viewAllProducts();
+
+        // Get input for product name and check if it existed in the system
+        String name;
+        do {
+            System.out.print("Enter new product name to apply coupon: ");
+            name = input.nextLine();
+            if (!products.containProduct(name)) {
+                System.out.println("""
+                        This product name is not existed on our system.
+                        Please select another name!
+                        --------------------------------------------------""");
+            }
+        } while (!products.containProduct(name));
+
+        // Apply the coupon to the selected product
+        usedCoupon.setProductName(name);
+
+        System.out.printf("Apply coupon - <%s> successfully to new product - <%s>%n", couponID, name);
+        return true;
     }
 }

@@ -1,11 +1,7 @@
 package controller;
 
 import database.ShoppingDB;
-import model.cart.ShoppingCartList;
-import model.coupon.CouponList;
 import model.data.DataInput;
-import model.product.ProductMap;
-import model.product.Tax;
 
 import java.util.Scanner;
 

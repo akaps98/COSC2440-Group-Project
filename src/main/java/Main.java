@@ -25,51 +25,25 @@ public class Main { // run the program
             AppController.displayMenu();
             choice = Integer.parseInt(input.nextLine()); // get the user's input
             switch (choice) {
-                case 1:
-                    productController.displayProducts();
-                    break;
-                case 2:
-                    productController.createProduct();
-                    break;
-                case 3:
-                    productController.editProduct();
-                    break;
-                case 4:
-                    couponController.displayAllCoupons();
-                    break;
-                case 5:
-                    couponController.applyCoupon();
-                    break;
-                case 6:
-                    cartController.createShoppingCart();
-                    break;
-                case 7:
-                    cartController.addProductToCart();
-                    break;
-                case 8:
-                    cartController.removeProductFromCart();
-                    break;
-                case 9:
-                    cartController.displayCartDetail();
-                    break;
-                case 10:
-                    cartController.editCart();
-                    break;
-                case 11:
-                    cartController.displayAllCartByWeight();
-                    break;
-                case 12:
-                    cartController.printReceipt();
-                    break;
-                case 13:
-                    System.out.println("\nThank you for using our service! We hope to see you again ^^");
-                    break;
-                default:
-                    System.out.println("""
-                                    Invalid choice. Please enter again!
-                                    """);
+                case 1 -> productController.displayProducts();
+                case 2 -> productController.createProduct();
+                case 3 -> productController.editProduct();
+                case 4 -> couponController.displayAllCoupons();
+                case 5 -> couponController.applyCoupon();
+                case 6 -> cartController.createShoppingCart();
+                case 7 -> cartController.addProductToCart();
+                case 8 -> cartController.removeProductFromCart();
+                case 9 -> cartController.displayCartDetail();
+                case 10 -> cartController.editCart();
+                case 11 -> cartController.displayAllCartByWeight();
+                case 12 -> cartController.printReceipt();
+                default -> System.out.println("""
+                        Invalid choice. Please enter again!
+                        """);
             }
         }
 
+        // Closing message
+        System.out.println("\nThank you for using our service! We hope to see you again ^^");
     }
 }
