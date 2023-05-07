@@ -39,16 +39,15 @@ public abstract class AppController {
                 2.  Create new product
                 3.  Edit product
                 4.  View all coupons
-                5.  Apply a coupon to product
-                6.  Create a new shopping cart
-                7.  Add product(s) to shopping cart
-                8.  Remove product(s) from shopping cart
-                9.  View shopping cart(s) detail
-                10. Edit shopping cart
-                11. Display all shopping cart
+                5.  Create a new shopping cart
+                6.  Add product(s) to shopping cart
+                7.  Remove product(s) from shopping cart
+                8.  View shopping cart(s) detail
+                9. Edit shopping cart
+                10. Display all shopping cart
                 (sorted based on the cart's weight)
-                12. Print shopping cart receipt
-                13. Exit
+                11. Print shopping cart receipt
+                12. Exit
                 --------------------------------------------------
                 Select the option you want:\040""");
     }

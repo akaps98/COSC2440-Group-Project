@@ -248,6 +248,11 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return totalPrice;
     }
 
+    /**
+     * Calculate the shipping fee of this cart
+     * @param productList List of all products
+     * @return double: shipping fee
+     */
     public double getShippingFee(ProductMap productList) {
         calTotalWeight(productList);
         return totalWeight * 0.1;

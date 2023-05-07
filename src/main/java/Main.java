@@ -32,14 +32,13 @@ public class Main { // run the program
                 case 2 -> productController.createProduct();
                 case 3 -> productController.editProduct();
                 case 4 -> couponController.displayAllCoupons();
-                case 5 -> couponController.applyCoupon();
-                case 6 -> cartController.createShoppingCart();
-                case 7 -> cartController.addProductToCart();
-                case 8 -> cartController.removeProductFromCart();
-                case 9 -> cartController.displayCartDetail();
-                case 10 -> cartController.editCart();
-                case 11 -> cartController.displayAllCartByWeight();
-                case 12 -> cartController.printReceipt();
+                case 5 -> cartController.createShoppingCart();
+                case 6 -> cartController.addProductToCart();
+                case 7 -> cartController.removeProductFromCart();
+                case 8 -> cartController.displayCartDetail();
+                case 9 -> cartController.editCart();
+                case 10 -> cartController.displayAllCartByWeight();
+                case 11 -> cartController.printReceipt();
                 default -> System.out.println("""
                         Invalid choice. Please enter again!
                         """);

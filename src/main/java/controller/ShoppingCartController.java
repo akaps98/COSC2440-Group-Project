@@ -32,7 +32,7 @@ public class ShoppingCartController extends AppController {
 
     // METHOD
     /**
-     * Function 6: this method creates a new Shopping Cart for user
+     * Function 5: this method creates a new Shopping Cart for user
      * <p>
      * Conditions:
      * 1/ Scope: Cannot remove a shopping cart
@@ -62,7 +62,7 @@ public class ShoppingCartController extends AppController {
     }
 
     /**
-     * Function 7: this method adds a Product to a Shopping Cart
+     * Function 6: this method adds a Product to a Shopping Cart
      * <p>
      * User inputs:
      * 1/ product name (must exist in the product list)
@@ -149,7 +149,7 @@ public class ShoppingCartController extends AppController {
     }
 
     /**
-     * Function 8: this method removes a Product from a Shopping Cart
+     * Function 7: this method removes a Product from a Shopping Cart
      * <p>
      * User inputs:
      * 1/ product name (must exist in the product list)
@@ -228,7 +228,7 @@ public class ShoppingCartController extends AppController {
     }
 
     /**
-     * Function 9: this method is used to display a cart amount of the shopping cart
+     * Function 8: this method is used to display a cart amount of the shopping cart
      * <p>
      * User input:
      * 1/ cartID (the id is corresponding to the selected shopping cart)
@@ -388,7 +388,7 @@ public class ShoppingCartController extends AppController {
     }
 
     /**
-     * Function 11: this method is used to display all the Shopping Carts in the system
+     * Function 10: this method is used to display all the Shopping Carts in the system
      *
      * Condition: the carts will be displayed in ascending order based on the cart's weight
      *
@@ -399,7 +399,7 @@ public class ShoppingCartController extends AppController {
     }
 
     /**
-     *  Function 12: this method is used to print the receipt of a shopping cart
+     *  Function 11: this method is used to print the receipt of a shopping cart
      */
     public void printReceipt() {
         // Display all available cart in the system
