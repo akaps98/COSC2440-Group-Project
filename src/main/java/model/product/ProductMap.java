@@ -7,17 +7,16 @@ package model.product;
  * @since 2023 - 04 - 01
  */
 
-import model.product.Product;
-
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class ProductMap {
     // ATTRIBUTES
-    private Map<String, Product> productList;
+    private final Map<String, Product> productList;
 
     // CONSTRUCTOR
-    public ProductMap() { productList = new HashMap<>();
+    public ProductMap() { productList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
     // METHODS
@@ -32,40 +31,25 @@ public class ProductMap {
         productList.clear();
     }
 
-    public boolean contains(String productName) {return productList.containsKey(productName);}
+    public boolean containProduct(String productName) {return productList.containsKey(productName);}
 
-    public boolean addProduct(Product p) {
-        if (productList.containsValue(p)) { // Check if the product list contains the existed product name
-            return false;
-        }
-        productList.put(p.getName(), p);
-        return true;
-    }
+    public void addProduct(Product p) {productList.put(p.getName(), p);}
 
-    public boolean removeProduct(Product p) {
-        if (productList.containsValue(p)) { // Check if the product list contains the existed product name
-            productList.remove(p.getName());
-            return true;
-        }
-        return false;
-    }
+    public void removeProduct(Product p) {productList.remove(p.getName());}
 
     /**
      * The method used to provide all the product name inside the product list
      *
-     * @return StringBuilder: the StringBuilder contains the number of products in the list and the all the product names
+     * Action: print the StringBuilder that contains the number of products in the list and the all the product names
      */
-    public StringBuilder viewAllProducts() {
+    public void viewAllProducts() {
         StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
-        allProducts.append("[");
         for (Product p : productList.values()) { // Loop for each product inside the list
-            allProducts.append(p.toString() + ": " + p.getQuantity() + ", ");
+            allProducts.append(p.toString()).append(": ").append(p.getQuantity()).append("\n");
         }
-        allProducts.append("]");
         // Display to the console
         System.out.println("Number of Products: " + countProduct());
         System.out.println(allProducts);
-        return allProducts;
     }
 
     /**
@@ -78,9 +62,10 @@ public class ProductMap {
     public void viewAvailableProducts() {
         StringBuilder availableProducts = new StringBuilder(); // The String that contains information of all available products
         int availableCount = 0;
+        availableProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
             if (p.getQuantity() != 0) {
-                availableProducts.append(p.toString() + ": " + p.getQuantity() + ", "); // Add
+                availableProducts.append(p).append(": ").append(p.getQuantity()).append("\n"); // Add
                 availableCount++;
             }
         }

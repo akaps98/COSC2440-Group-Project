@@ -15,7 +15,6 @@ import model.coupon.PercentCoupon;
 import model.coupon.PriceCoupon;
 import model.product.Product;
 import model.product.ProductMap;
-import model.product.Tax;
 
 public class DataOutput {
     private static DataOutput instance;
@@ -47,7 +46,7 @@ public class DataOutput {
             ProductMap products = db.getProducts();
             ShoppingCartList carts = db.getCarts();
             CouponList coupons = db.getCoupons();
-            Tax taxes = db.getTaxes();
+
             ShoppingCart c = carts.getCart(cartID);
 
             // Header
@@ -124,7 +123,6 @@ public class DataOutput {
 
         // Test data output
         DataOutput dOut = DataOutput.getInstance();
-        ShoppingDB db = ShoppingDB.getInstance();
         dOut.writeReceipt(10);
     }
 }

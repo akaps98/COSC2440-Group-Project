@@ -40,7 +40,7 @@ public class ShoppingCartList {
         return false;
     }
 
-    public boolean contains(int cartID) {
+    public boolean containCart(int cartID) {
         for (ShoppingCart cart : cartList) {
             if (cart.getCartID() == cartID) {
                 return true;

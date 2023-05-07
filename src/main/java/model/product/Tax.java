@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public class Tax {
-    private Map<String, Double> taxes;
+    private final Map<String, Double> taxes;
 
     public Tax() {
         taxes = new HashMap<>();
