@@ -2,6 +2,8 @@
  * @author <Kang Junsik - s3916884>
  */
 
+import controller.DataController;
+import database.ShoppingDB;
 import model.cart.ShoppingCart;
 import model.cart.ShoppingCartList;
 import model.product.ProductMap;
@@ -16,12 +18,13 @@ class ShoppingCartTest {
 
     @Test
     void testAddItemWithShoppingCartSize() {
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
+
         ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
-
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
 
         testSc.addItem("iPhone", 3, products); // save the products on shopping cart
         testSc.addItem("WordPress Themes", 5, products);
@@ -29,17 +32,18 @@ class ShoppingCartTest {
         // now, I added two products on shopping cart; iPhone and eBook.
         // Let's check the size of shopping cart. I added only 2 products.
 
-        assertEquals(2, testSc.getCartItems().size());
+        assertEquals(2, testSc.countUniqueItems());
     }
 
     @Test
     void testAddItemWithProductNameInShoppingCart() {
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
+
         ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
-
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
 
         testSc.addItem("iPhone", 3, products); // save the products on shopping cart
         testSc.addItem("WordPress Themes", 5, products);
@@ -53,12 +57,13 @@ class ShoppingCartTest {
 
     @Test
     void testRemoveItem() {
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
+
         ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
-
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
 
         testSc.addItem("iPhone", 3, products); // save the products on shopping cart
         testSc.addItem("WordPress Themes", 5, products);
@@ -72,12 +77,13 @@ class ShoppingCartTest {
 
     @Test
     void testGetItemDiscount() {
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
+
         ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
-
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
 
         testSc.addItem("Airpods", 2, products);
         testSc.setAppliedCouponID("p0904a"); // register coupon for airpods
@@ -90,12 +96,13 @@ class ShoppingCartTest {
 
     @Test
     void testGetItemTax() {
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
+
         ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
-
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
 
         testSc.addItem("iPhone", 3, products); // save the products on shopping cart
 
@@ -109,12 +116,13 @@ class ShoppingCartTest {
 
     @Test
     void testCartAmount() {
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
+
         ShoppingCart testSc = new ShoppingCart(1); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
-
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
 
         testSc.setAppliedCouponID("d0901a"); // register coupon for ChatGPT Account
 
@@ -146,10 +154,11 @@ class ShoppingCartTest {
         ShoppingCart testSc2 = new ShoppingCart(2); // generate new shopping cart
         ShoppingCart testSc3 = new ShoppingCart(3); // generate new shopping cart
 
-        Main.generateData(); // to read data from database
-        Main program = new Main();
+        // Generate data
+        DataController dataController = new DataController();
+        dataController.generateData(); // to read data from database;
 
-        ProductMap products = program.products; // make a products map
+        ProductMap products = ShoppingDB.getInstance().getProducts(); // get list of products from database
         ArrayList<ShoppingCart> carts = new ArrayList<>();
 
         // save the products on shopping cart
