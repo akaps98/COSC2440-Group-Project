@@ -15,6 +15,10 @@ import model.coupon.Coupon;
 import model.coupon.PriceCoupon;
 import model.coupon.PercentCoupon;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class ShoppingCart implements Comparable<ShoppingCart> {
@@ -101,6 +105,14 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
     public void setItemGiftMessage(String productName, String msg) {
         cartGiftMessages.put(productName, msg);
+    }
+
+    public boolean existReceipt() {
+        Path path = Paths.get("src/main/java/database/receipts/cart" + cartID + ".txt");
+        if (Files.exists(path)) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -393,6 +405,11 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
     public String getMessage(String productName) {
         return cartGiftMessages.get(productName);
+    }
+
+    public static void main(String[] args) {
+        ShoppingCart c1 = new ShoppingCart(1);
+        System.out.println(c1.existReceipt());
     }
 }
 

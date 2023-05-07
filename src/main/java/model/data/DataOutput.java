@@ -132,5 +132,7 @@ public class DataOutput {
         // Test data output
         DataOutput dOut = DataOutput.getInstance();
         dOut.writeReceipt(10);
+        ShoppingCart c = ShoppingDB.getInstance().getCarts().getCart(10);
+        System.out.println(c.existReceipt());
     }
 }

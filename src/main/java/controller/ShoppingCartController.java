@@ -16,6 +16,10 @@ import model.data.DataOutput;
 import model.product.Product;
 import model.product.ProductMap;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class ShoppingCartController extends AppController {
     // ATTRIBUTES
     private final ProductMap products;
@@ -119,6 +123,14 @@ public class ShoppingCartController extends AppController {
         } while (!carts.containCart(cartID));
         ShoppingCart c = carts.getCart(cartID);
 
+        // Check if cart receipt is existed
+        if (c.existReceipt()) {
+            System.out.println("""
+                                This shopping cart has an existed printing receipt and cannot made any further change.
+                                Please select another cart to modify!""");
+            return false;
+        }
+
         // Get input for quantity to add and check if it is valid
         int quantity;
         do {
@@ -193,6 +205,14 @@ public class ShoppingCartController extends AppController {
         // Display the available products in the cart
         System.out.println(c.toString());
 
+        // Check if cart receipt is existed
+        if (c.existReceipt()) {
+            System.out.println("""
+                                This shopping cart has an existed printing receipt and cannot made any further change.
+                                Please select another cart to modify!""");
+            return false;
+        }
+
         // Get input for product name and check if it existed in the system and the cart
         String name;
         do {
@@ -255,7 +275,7 @@ public class ShoppingCartController extends AppController {
             if (!carts.containCart(cartID)) {
                 System.out.println("""
                                     This cart is not existed on our system.
-                                    Please select another cart ID1
+                                    Please select another cart ID!
                                     --------------------------------------------------""");
             }
 
@@ -283,12 +303,20 @@ public class ShoppingCartController extends AppController {
             if (!carts.containCart(cartID)) {
                 System.out.println("""
                                     This cart is not existed on our system.
-                                    Please select another cart ID1
+                                    Please select another cart ID!
                                     --------------------------------------------------""");
             }
 
         } while (!carts.containCart(cartID));
         ShoppingCart modifiedCart = carts.getCart(cartID);
+
+        // Check if cart receipt is existed
+        if (modifiedCart.existReceipt()) {
+            System.out.println("""
+                                This shopping cart has an existed printing receipt and cannot made any further change.
+                                Please select another cart to modify!""");
+            return false;
+        }
 
         // Create a loop until user enter a valid choice
         int option = -1;
@@ -328,13 +356,15 @@ public class ShoppingCartController extends AppController {
 
                     //
                     if (modifiedCart.containGiftMessage(name)) {
-                        System.out.println("This product already has a gift message: " + modifiedCart.getMessage(name));
+                        System.out.print("This product already has a gift message: " + modifiedCart.getMessage(name));
                         while (true) {
                             System.out.println("""
                         Do you want to set a new gift message for this product in this cart?
+                        ==================================================
                         1. Yes
-                        2. No""");
-                            System.out.print("Enter your option: ");
+                        2. No
+                        ==================================================
+                        Enter your choice:\040""");
                             option = Integer.parseInt(input.nextLine());
                             // Case 1: User agree to update the new gift message for this product
                             if (option == 1) {
@@ -363,9 +393,7 @@ public class ShoppingCartController extends AppController {
                 // Make cart empty
                 case 3:
                     if (modifiedCart.getCartItems() == null) {
-                        System.out.println("""
-                                    The cart is already empty. Please select other options!
-                                    --------------------------------------------------""");
+                        System.out.println("The cart is already empty. Please select other options!");
                         return false;
                     } else {
                         modifiedCart.resetCart();
@@ -414,7 +442,7 @@ public class ShoppingCartController extends AppController {
             if (!carts.containCart(cartID)) {
                 System.out.println("""
                                     This cart is not existed on our system.
-                                    Please select another cart ID1
+                                    Please select another cart ID!
                                     --------------------------------------------------""");
             }
 

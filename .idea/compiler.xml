@@ -14,7 +14,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="COSC2440-Group-Project" options="--add-modules java.base" />
+      <module name="COSC2440-Group-Project" options="" />
     </option>
   </component>
 </project>

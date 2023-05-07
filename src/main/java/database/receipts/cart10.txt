@@ -1,31 +1,31 @@
 				Online Shopping Service
 
 Receipt Number: C2440 - G09 - C10			
-07/05/2023 17:03:12
-User: Hoang
+07/05/2023 23:06:59
+User: Nguyen Anh Duy
 ------------------------------------------------
 ITEMS                                    PRICE 
-eLearning Account
-5 x 55.90                               $279.50
-HP Printer
-5 x 125.50                              $627.50
-  *Discount(18%)*						($112.95)
 Adobe Package
 1 x 1200.00                             $1200.00
 BHD Cinema eTicket
 10 x 4.80                                $48.00
-WordPress Themes
-10 x 25.40                               $254.00
-Webcam
-5 x 34.00                               $170.00
-iPad
-1 x 1200.00                             $1200.00
+eLearning Account
+5 x 55.90                               $279.50
 GitHub Enterprise
 5 x 89.90                               $449.50
-Selfie Stick
-1 x 3.80                                $3.80
+HP Printer
+5 x 125.50                              $627.50
+  *Discount(18%)*						($112.95)
+iPad
+1 x 1200.00                             $1200.00
 Laptop Holder
 1 x 11.90                               $11.90
+Selfie Stick
+1 x 3.80                                $3.80
+Webcam
+5 x 34.00                               $170.00
+WordPress Themes
+10 x 25.40                               $254.00
 ------------------------------------------------
 Items Count: 44
 
@@ -35,4 +35,4 @@ Tax: 									+$571.18
 
 Shipping: 									+$1443.06
 
-TOTAL: 									$6145.49
+TOTAL: 								$6145.49
