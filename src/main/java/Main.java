@@ -48,13 +48,14 @@ public class Main { // run the program
         // Create a loop until user enter a valid choice
         int option = -1;
         while (option != 1 && option != 2 && option != 3 && option != 4) {
-            System.out.println("----------------------------------------\n");
-            System.out.println("      1. View a product detail");
-            System.out.println("      2. View all products (product names)");
-            System.out.println("      3. View available products to buy (product names)");
-            System.out.println("      4. Go Back");
-            System.out.println("\n----------------------------------------");
-            System.out.print("Enter your choice: ");
+            System.out.print("""
+                    ==================================================
+                    1. View a product detail
+                    2. View all products (product names)
+                    3. View available products to buy (product names)
+                    4. Go Back
+                    ==================================================
+                    Enter your choice:\040""");
             option = Integer.parseInt(input.nextLine());
             switch (option) { // validate the choice from user
                 // View a product detail
@@ -64,7 +65,13 @@ public class Main { // run the program
                     do {
                         System.out.print("Enter product name to view: ");
                         name = input.nextLine();
-                    } while (Product.checkProductNotExisted(name, products));
+                        if (!products.containProduct(name)) {
+                            System.out.println("""
+                                    This product name is not existed on our system.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+                        }
+                    } while (!products.containProduct(name));
 
                     // Found a product, proceeding to get the product detail
                     Product p = products.getProduct(name);
@@ -87,8 +94,9 @@ public class Main { // run the program
                     break;
                 // User input invalid choice --> reenter the choice
                 default:
-                    System.out.println("Invalid option. Please enter again!" +
-                            "\n-----------------------");
+                    System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
             }
         }
 
@@ -115,44 +123,81 @@ public class Main { // run the program
         // Get input for product name and check if it existed
         String name;
         do {
-            System.out.print("Enter product name: ");
+            System.out.print("Enter new product name: ");
             name = input.nextLine();
-        } while (Product.checkProductAlreadyExisted(name, products));
+            if (products.containProduct(name)) {
+                System.out.println("""
+                                    This product name is already existed on our system.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+            }
+        } while (products.containProduct(name));
 
         // Get input for quantity and check if it is valid
         int quantity;
         do {
             System.out.print("Enter product available quantity: ");
             quantity = Integer.parseInt(input.nextLine());
-        } while (!Product.checkQuantityIsValid(quantity));
+            if (quantity < 0) {
+                System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid quantity again!
+                                    --------------------------------------------------""");
+            }
+        } while (quantity < 0);
 
         // Get all the other inputs (description, price)
         System.out.print("Enter product description: ");
         String description = input.nextLine();
-        System.out.print("Enter product price($): ");
-        double price = Double.parseDouble(input.nextLine());
+
+        double price;
+        do {
+            System.out.print("Enter product price($): ");
+            price = Double.parseDouble(input.nextLine());
+            if (price < 0) {
+                System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid price again!
+                                    --------------------------------------------------""");
+            }
+        } while (price < 0);
 
         // Get input for product type and provide appropriate type casting
         while (!check) {
-            System.out.println("""
+            System.out.print("""
                     What is the type of the product?
+                    ==================================================
                     1. Digital
-                    2. Physical""");
-            System.out.print("Enter your option: ");
+                    2. Physical
+                    ==================================================
+                    Enter your choice:\040""");
             int productTypeOption = Integer.parseInt(input.nextLine());
-            if (productTypeOption == 1) { // Create Digital Product
+            if (productTypeOption == 1) {
+                // Create a new Digital Product and add to system
                 Product addedProduct = new Digital(name, description, quantity, price);
                 products.addProduct(addedProduct);
                 check = true;
             } else if (productTypeOption == 2) { // Create Physical Product
-                System.out.print("\nEnter product weight(g): ");
-                double weight = Double.parseDouble(input.nextLine());
+                double weight;
+                do {
+                    System.out.print("\nEnter product weight(g): ");
+                    weight = Double.parseDouble(input.nextLine());
+                    if (weight < 0) {
+                        System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid weight again!
+                                    --------------------------------------------------""");
+                    }
+                } while (weight < 0);
+
+                // Create a new Physical Product and add to system
                 Physical addedProduct = new Physical(name, description, quantity, price, weight);
                 products.addProduct(addedProduct);
                 check = true;
             } else {
-                System.out.println("Invalid option. Please enter again!" +
-                        "\n-----------------------");
+                System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
             }
         }
 
@@ -190,23 +235,30 @@ public class Main { // run the program
         // Get input for product name and check if it existed
         String name;
         do {
-            System.out.print("Enter product name: ");
+            System.out.print("Enter product name to edit: ");
             name = input.nextLine();
-        } while (Product.checkProductNotExisted(name, products));
+            if (!products.containProduct(name)) {
+                System.out.println("""
+                                    This product name is not existed on our system.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+            }
+        } while (!products.containProduct(name));
 
         Product modifiedProduct = products.getProduct(name);
         // Create a loop until user enter a valid choice
         int option = -1;
         while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6) {
-            System.out.println("""
-                    ----------------------------------------
+            System.out.print("""
+                    ==================================================
                     1. Change description
                     2. Update available quantity
                     3. Adjust price
                     4. Update weight (physical product only)
                     5. Change tax type
-                    6. Go Back""");
-            System.out.print("Enter your choice: ");
+                    6. Go Back
+                    ==================================================
+                    Enter your choice:\040""");
             option = Integer.parseInt(input.nextLine());
             switch (option) { // validate the choice from user
                 // Update product description
@@ -222,25 +274,51 @@ public class Main { // run the program
                     do {
                         System.out.print("Enter the updated product available quantity in stock: ");
                         newQuantity = Integer.parseInt(input.nextLine());
-                    } while (!Product.checkQuantityIsValid(newQuantity));
+                        if (newQuantity < 0) {
+                            System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid quantity again!
+                                    --------------------------------------------------""");
+                        }
+                    } while (newQuantity < 0);
                     modifiedProduct.setQuantity(newQuantity);
                     break;
                 // Update product price
                 case 3:
-                    System.out.print("\nEnter the adjusted product price: ");
-                    double newPrice = Double.parseDouble(input.nextLine());
+                    double newPrice;
+                    do {
+                        System.out.print("Enter the adjusted product price($): ");
+                        newPrice = Double.parseDouble(input.nextLine());
+                        if (newPrice < 0) {
+                            System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid price again!
+                                    --------------------------------------------------""");
+                        }
+                    } while (newPrice < 0);
                     modifiedProduct.setPrice(newPrice);
                     break;
                 case 4:
                     // Check if product is a Physical Product
                     if (modifiedProduct instanceof Physical) {
                         // Set new weight
-                        System.out.print("\nEnter the adjusted weight: ");
-                        double newWeight = Double.parseDouble(input.nextLine());
+                        double newWeight;
+                        do {
+                            System.out.print("\nEnter the adjusted product weight(g): ");
+                            newWeight = Double.parseDouble(input.nextLine());
+                            if (newWeight < 0) {
+                                System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid weight again!
+                                    --------------------------------------------------""");
+                            }
+                        } while (newWeight < 0);
                         ((Physical) modifiedProduct).setWeight(newWeight);
                     } else {
-                        System.out.println("This is a physical product and cannot adjust the weight. Please select other options!" +
-                                "\n-----------------------");
+                        System.out.println("""
+                                    This is a physical product and cannot adjust the weight.
+                                    Please select other options!
+                                    --------------------------------------------------""");
                     }
                     break;
                 case 5:
@@ -248,11 +326,12 @@ public class Main { // run the program
                     while (true) {
                         System.out.println("""
                                 Tax Type:
+                                ==================================================
                                 1. Free Tax
                                 2. Normal Tax
                                 3. Luxury Tax
-                                """);
-                        System.out.print("Enter your option: ");
+                                ==================================================
+                                Enter your choice:\040""");
                         int taxOption = Integer.parseInt(input.nextLine());
                         // Update corresponding tax type
                         if (taxOption == 1) {
@@ -265,8 +344,9 @@ public class Main { // run the program
                             modifiedProduct.setTaxType("luxuryTax");
                             break;
                         } else {
-                            System.out.println("Invalid option. Please enter again!" +
-                                    "\n-----------------------");
+                            System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
                         }
                     }
                     break;
@@ -275,8 +355,9 @@ public class Main { // run the program
                     break;
                 // User input invalid choice --> reenter the choice
                 default:
-                    System.out.println("Invalid option. Please enter again!" +
-                            "\n-----------------------");
+                    System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
             }
         }
         // Output the message accordingly if the product is successfully modifidied
@@ -308,7 +389,14 @@ public class Main { // run the program
         do {
             System.out.print("Enter shopping cart ID: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartAlreadyExisted(cartID, carts));
+            if (carts.containCart(cartID)) {
+                System.out.println("""
+                                    This cart is already existed on our system.
+                                    Please select another cart ID1
+                                    --------------------------------------------------""");
+            }
+
+        } while (carts.containCart(cartID));
 
         ShoppingCart c = new ShoppingCart(cartID);
         carts.addCart(c);
@@ -334,7 +422,10 @@ public class Main { // run the program
 
         // Check if there is any shopping cart existed in the shopping cart list
         if (carts.countCarts() == 0) {
-            System.out.println("No shopping cart found! Please create a shopping cart before adding the product.");
+            System.out.println("""
+                                    No shopping cart found! 
+                                    Please create a shopping cart before adding the product.
+                                    --------------------------------------------------""");
             return false;
         }
 
@@ -344,9 +435,15 @@ public class Main { // run the program
         // Get input for product name and check if it existed
         String name;
         do {
-            System.out.print("Enter the product name to add to cart: ");
+            System.out.print("Enter product name to add to cart: ");
             name = input.nextLine();
-        } while (Product.checkProductNotExisted(name, products));
+            if (!products.containProduct(name)) {
+                System.out.println("""
+                                    This product name is not existed on our system.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+            }
+        } while (!products.containProduct(name));
 
         // Display the available carts in the console
         carts.viewCarts();
@@ -356,15 +453,36 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to add product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
+            if (!carts.containCart(cartID)) {
+                System.out.println("""
+                                    This cart is not existed on our system.
+                                    Please select another cart ID1
+                                    --------------------------------------------------""");
+            }
+
+        } while (!carts.containCart(cartID));
         ShoppingCart c = carts.getCart(cartID);
 
         // Get input for quantity to add and check if it is valid
         int quantity;
         do {
-            System.out.print("Enter the product quantity to add: ");
+            System.out.print("Enter product quantity to add: ");
             quantity = Integer.parseInt(input.nextLine());
-        } while (!Product.checkQuantityIsValid(quantity) || !Product.checkQuantityIsEnough(quantity, name, products));
+            if (quantity < 0) {
+                System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid quantity again!
+                                    --------------------------------------------------""");
+            } else {
+                Product addedProduct = products.getProduct(name);
+                if (quantity > addedProduct.getQuantity()) {
+                    System.out.println("""
+                                    The quantity you want exceeds our stock for this product!"
+                                    Please enter another quantity value!
+                                    --------------------------------------------------""");
+                }
+            }
+        } while (quantity < 0);
 
         // Add product to cart
         check = c.addItem(name, quantity, products);
@@ -397,7 +515,10 @@ public class Main { // run the program
 
         // Check if there is any shopping cart existed in the shopping cart list
         if (carts.countCarts() == 0) {
-            System.out.println("No shopping cart found! Please create a shopping cart before adding the product.");
+            System.out.println("""
+                                    No shopping cart found! 
+                                    Please create a shopping cart before removing the product.
+                                    --------------------------------------------------""");
             return false;
         }
 
@@ -409,7 +530,14 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to remove product: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
+            if (!carts.containCart(cartID)) {
+                System.out.println("""
+                                    This cart is not existed on our system.
+                                    Please select another cart ID1
+                                    --------------------------------------------------""");
+            }
+
+        } while (!carts.containCart(cartID));
         ShoppingCart c = carts.getCart(cartID);
 
         // Display the available products in the cart
@@ -420,14 +548,26 @@ public class Main { // run the program
         do {
             System.out.print("Enter the product name to remove from cart: ");
             name = input.nextLine();
+            if (!c.containItem(name)) {
+                System.out.println("""
+                                    This product name is not existed on this cart.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+            }
         } while (!c.containItem(name));
 
-        // Get input for quantity to add and check if it is valid
+        // Get input for quantity to remove and check if it is valid
         int quantity;
         do {
-            System.out.print("Enter the product quantity to remove: ");
+            System.out.print("Enter product quantity to remove: ");
             quantity = Integer.parseInt(input.nextLine());
-        } while (!Product.checkQuantityIsValid(quantity));
+            if (quantity < 0) {
+                System.out.println("""
+                                    You cannot input negative number.
+                                    Please input a valid quantity again!
+                                    --------------------------------------------------""");
+            }
+        } while (quantity < 0);
 
         // Remove product from cart
         check = c.removeItem(name, quantity, products);
@@ -478,12 +618,13 @@ public class Main { // run the program
 
             int option = -1;
             while (true) {
-                System.out.println("""
+                System.out.print("""
                         Do you want to apply this coupon to the new product instead?
+                        ==================================================
                         1. Yes
                         2. No
-                        """);
-                System.out.print("Enter your option: ");
+                        ==================================================
+                        Enter your choice:\040""");
                 option = Integer.parseInt(input.nextLine());
                 // Case 1: User agree to update the new product to apply the coupon
                 if (option == 1) {
@@ -493,9 +634,15 @@ public class Main { // run the program
                     // Get input for product name and check if it existed in the system
                     String name;
                     do {
-                        System.out.print("Enter the product name to apply coupon: ");
+                        System.out.print("Enter new product name to apply coupon: ");
                         name = input.nextLine();
-                    } while (Product.checkProductNotExisted(name, products));
+                        if (!products.containProduct(name)) {
+                            System.out.println("""
+                                    This product name is not existed on our system.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+                        }
+                    } while (!products.containProduct(name));
 
                     // Apply the coupon to the selected product
                     usedCoupon.setProductName(name);
@@ -506,8 +653,9 @@ public class Main { // run the program
                     System.out.println("Did not apply this coupon to a new product! Please try again.");
                     break;
                 } else {
-                    System.out.println("Invalid option. Please enter again!" +
-                            "\n-----------------------");
+                    System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
                 }
             }
         } else {
@@ -517,9 +665,15 @@ public class Main { // run the program
             // Get input for product name and check if it existed in the system
             String name;
             do {
-                System.out.print("Enter the product name to apply coupon: ");
+                System.out.print("Enter new product name to apply coupon: ");
                 name = input.nextLine();
-            } while (Product.checkProductNotExisted(name, products));
+                if (!products.containProduct(name)) {
+                    System.out.println("""
+                                    This product name is not existed on our system.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+                }
+            } while (!products.containProduct(name));
 
             // Apply the coupon to the selected product
             usedCoupon.setProductName(name);
@@ -555,7 +709,14 @@ public class Main { // run the program
         do {
             System.out.print("Select the shopping cart # to view further detail: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
+            if (!carts.containCart(cartID)) {
+                System.out.println("""
+                                    This cart is not existed on our system.
+                                    Please select another cart ID1
+                                    --------------------------------------------------""");
+            }
+
+        } while (!carts.containCart(cartID));
         ShoppingCart c = carts.getCart(cartID);
 
         // Display cart information
@@ -574,21 +735,29 @@ public class Main { // run the program
         // Get input for shopping cart ID and check if the cart existed
         int cartID;
         do {
-            System.out.print("Select the shopping cart # to remove product: ");
+            System.out.print("Select the shopping cart # to edit: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
+            if (!carts.containCart(cartID)) {
+                System.out.println("""
+                                    This cart is not existed on our system.
+                                    Please select another cart ID1
+                                    --------------------------------------------------""");
+            }
+
+        } while (!carts.containCart(cartID));
         ShoppingCart modifiedCart = carts.getCart(cartID);
 
         // Create a loop until user enter a valid choice
         int option = -1;
         while (option != 4) {
-            System.out.println("""
-                    ----------------------------------------
+            System.out.print("""
+                    ==================================================
                     1. Change applied coupon
-                    2. Update gift message for a product 
+                    2. Update gift message for a product
                     3. Make cart empty
-                    4. Go Back""");
-            System.out.print("Enter your choice: ");
+                    4. Go Back
+                    ==================================================
+                    Enter your choice:\040""");
             option = Integer.parseInt(input.nextLine());
             switch (option) { // validate the choice from user
                 // Update cart applied coupon
@@ -636,8 +805,9 @@ public class Main { // run the program
                                 System.out.println("Did not change the previous gift message for this product! Please try again.");
                                 break;
                             } else {
-                                System.out.println("Invalid option. Please enter again!" +
-                                        "\n-----------------------");
+                                System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
                             }
                         }
                     } else {
@@ -663,8 +833,9 @@ public class Main { // run the program
                     break;
                 // User input invalid choice --> reenter the choice
                 default:
-                    System.out.println("Invalid option. Please enter again!" +
-                            "\n-----------------------");
+                    System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
             }
         }
         // Output the message accordingly if the product is successfully modifidied
@@ -701,9 +872,16 @@ public class Main { // run the program
         // Get input for shopping cart ID and check if the cart existed
         int cartID;
         do {
-            System.out.print("Select the shopping cart # to remove product: ");
+            System.out.print("Select the shopping cart # to print receipt: ");
             cartID = Integer.parseInt(input.nextLine());
-        } while (ShoppingCart.checkCartNotExisted(cartID, carts));
+            if (!carts.containCart(cartID)) {
+                System.out.println("""
+                                    This cart is not existed on our system.
+                                    Please select another cart ID1
+                                    --------------------------------------------------""");
+            }
+
+        } while (!carts.containCart(cartID));
 
         // Print the receipt for the selected shopping cart
         DataOutput dOut = DataOutput.getInstance();
@@ -724,10 +902,10 @@ public class Main { // run the program
      * Display the console application primary menu (menu for user to select the feature)
      */
     public void displayMenu() {
-        System.out.println("""
-                ----------------------------------------
-                    *** ONLINE SHOPPING SERVICE  ***    
-                ----------------------------------------
+        System.out.print("""
+                --------------------------------------------------
+                         *** ONLINE SHOPPING SERVICE  ***
+                --------------------------------------------------
                 1.  View product(s) detail
                 2.  Create new product
                 3.  Edit product
@@ -742,8 +920,8 @@ public class Main { // run the program
                 (sorted based on the cart's weight)
                 12. Print shopping cart receipt
                 13. Exit
-                ----------------------------------------""");
-        System.out.print("Select the option you want: ");
+                --------------------------------------------------
+                Select the option you want:\040""");
     }
 
     /**
@@ -799,7 +977,9 @@ public class Main { // run the program
                     System.out.println("\nThank you for using our service! We hope to see you again ^^");
                     break;
                 default:
-                    System.out.println("\n Invalid choice, please try again!");
+                    System.out.println("""
+                                    Invalid choice. Please enter again!
+                                    --------------------------------------------------""");
                     displayMenu();
                     choice = Integer.parseInt(input.nextLine());
             }

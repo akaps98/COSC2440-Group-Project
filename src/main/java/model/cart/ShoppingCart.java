@@ -108,28 +108,6 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     }
 
 
-
-    public static boolean checkCartAlreadyExisted(int cartID, ShoppingCartList carts){
-        if (carts.contains(cartID)) {
-            System.out.println("This cart is already existed on our system!" +
-                    "\nPlease select another ID." +
-                    "\n--------------------------------");
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean checkCartNotExisted(int cartID, ShoppingCartList carts){
-        if (!carts.contains(cartID)) {
-            System.out.println("This cart is not existed in our system!" +
-                    "\nPlease select another ID." +
-                    "\n--------------------------------");
-            return true;
-        }
-        return false;
-    }
-
-
     /**
      * This method add the new item with the specific number of quantity to the item map
      *
@@ -146,7 +124,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
      */
     public boolean addItem(String productName, int quantity, ProductMap productList) {
         // Check if the item map contains the existed product name
-        if (!productList.contains(productName)) {
+        if (!productList.containProduct(productName)) {
             System.out.println("Product not existed!");
             return false;
         }

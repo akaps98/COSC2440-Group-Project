@@ -81,7 +81,7 @@ public abstract class Product {
      * @return
      */
     public static boolean checkProductAlreadyExisted(String productName, ProductMap products) { // validation to check the name is unique
-        if (products.contains(productName)) {
+        if (products.containProduct(productName)) {
             System.out.println("This product name is already existed on our system!" +
                     "\nPlease select another name." +
                     "\n--------------------------------");
@@ -91,7 +91,7 @@ public abstract class Product {
     }
 
     public static boolean checkProductNotExisted(String productName, ProductMap products) { // validation to check the name is unique
-        if (!products.contains(productName)) {
+        if (!products.containProduct(productName)) {
             System.out.println("This product name is not existed on our system!" +
                     "\nPlease select another name." +
                     "\n--------------------------------");

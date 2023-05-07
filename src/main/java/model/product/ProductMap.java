@@ -32,22 +32,14 @@ public class ProductMap {
         productList.clear();
     }
 
-    public boolean contains(String productName) {return productList.containsKey(productName);}
+    public boolean containProduct(String productName) {return productList.containsKey(productName);}
 
-    public boolean addProduct(Product p) {
-        if (productList.containsValue(p)) { // Check if the product list contains the existed product name
-            return false;
-        }
+    public void addProduct(Product p) {
         productList.put(p.getName(), p);
-        return true;
     }
 
-    public boolean removeProduct(Product p) {
-        if (productList.containsValue(p)) { // Check if the product list contains the existed product name
-            productList.remove(p.getName());
-            return true;
-        }
-        return false;
+    public void removeProduct(Product p) {
+        productList.remove(p.getName());
     }
 
     /**
