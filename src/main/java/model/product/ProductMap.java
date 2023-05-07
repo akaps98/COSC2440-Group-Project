@@ -49,9 +49,9 @@ public class ProductMap {
      */
     public StringBuilder viewAllProducts() {
         StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
-        allProducts.append("[");
+        allProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
-            allProducts.append(p.toString() + ": " + p.getQuantity() + ", ");
+            allProducts.append(p.toString() + ": " + p.getQuantity() + "\n");
         }
         allProducts.append("]");
         // Display to the console
@@ -70,9 +70,10 @@ public class ProductMap {
     public void viewAvailableProducts() {
         StringBuilder availableProducts = new StringBuilder(); // The String that contains information of all available products
         int availableCount = 0;
+        availableProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
             if (p.getQuantity() != 0) {
-                availableProducts.append(p.toString() + ": " + p.getQuantity() + ", "); // Add
+                availableProducts.append(p.toString() + ": " + p.getQuantity() + "\n"); // Add
                 availableCount++;
             }
         }
