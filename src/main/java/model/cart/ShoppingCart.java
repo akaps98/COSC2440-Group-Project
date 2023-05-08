@@ -215,7 +215,9 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
 
         // Check if the quantity number to remove is valid
         if (cartItems.get(productName) < quantity) {
-            System.out.println("Your quantity number is larger than the current number of this product in the cart!");
+            System.out.println("""
+            Your quantity number is larger than the current number of this product in the cart.
+            Please try again!""");
             return false;
         }
 

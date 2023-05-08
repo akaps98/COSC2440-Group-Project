@@ -236,11 +236,13 @@ public class ShoppingCartController extends AppController {
         } while (quantity < 0);
 
         // Remove product from cart
-        c.removeItem(name, quantity, products);
+        boolean check = c.removeItem(name, quantity, products); // check if the product can be removed
 
         // display a message whether the product is added successfully to the shopping cart
+        if (check == true) {
             System.out.printf("Successfully remove %d %s from cart %d!%n", quantity, name, c.getCartID());
-        return true;
+        }
+        return check;
     }
 
     /**
