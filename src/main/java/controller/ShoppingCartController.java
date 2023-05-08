@@ -375,7 +375,13 @@ public class ShoppingCartController extends AppController {
                     do {
                         System.out.print("Enter the product name to set gift message: ");
                         name = input.nextLine();
-                    } while (modifiedCart.containItem(name));
+                        if (!modifiedCart.containItem(name)) {
+                            System.out.println("""
+                                    This product name is not existed on this cart.
+                                    Please select another name!
+                                    --------------------------------------------------""");
+                        }
+                    } while (!modifiedCart.containItem(name));
 
                     //
                     if (modifiedCart.containGiftMessage(name)) {
