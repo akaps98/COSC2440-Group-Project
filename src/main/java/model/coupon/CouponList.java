@@ -1,11 +1,17 @@
 package model.coupon;
 
-import model.coupon.Coupon;
+/**
+ * The class contains information about the list which stores all the coupons information
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CouponList {
+    // ATTRIBUTES
     private List<Coupon> coupons;
 
     // CONSTRUCTOR
@@ -50,9 +56,9 @@ public class CouponList {
 
     public void viewAllCoupons() {
         StringBuilder allCoupons = new StringBuilder();
-        allCoupons.append("[");
+        allCoupons.append("[\n");
         for (Coupon coupon : coupons) {
-            allCoupons.append(coupon.toString()).append(", ");
+            allCoupons.append(coupon.toString()).append("\n");
         }
         allCoupons.append("]");
         System.out.printf("Number of Coupons: %d%n", countCoupon());

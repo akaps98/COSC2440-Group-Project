@@ -1,6 +1,11 @@
 package model.coupon;
 
-import model.coupon.Coupon;
+/**
+ * The class stores information about price coupon
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
 
 public class PriceCoupon extends Coupon {
     // ATTRIBUTES

@@ -1,5 +1,8 @@
 /**
- * @author <Kang Junsik - s3916884>
+ * The class is a test unit for Physical class
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import model.product.Physical;

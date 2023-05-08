@@ -3,37 +3,55 @@ package model.product;
 /**
  * The class stores information about all the Products inside a Product List
  *
- * @author Nguyen Anh Duy - s3878141
- * @since 2023 - 04 - 01
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
 
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class ProductMap {
     // ATTRIBUTES
     private final Map<String, Product> productList;
 
     // CONSTRUCTOR
-    public ProductMap() { productList = new HashMap<>();
+    public ProductMap() { productList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
     // METHODS
     public Product getProduct(String productName) {return productList.get(productName);}
 
     /* Utilities Methods */
+
+    /**
+     * This methods count the number of unique product in the list
+     * @return int: total number of unique products
+     */
     public int countProduct() {
         return productList.size();
     }
 
+    /**
+     * This methods reset the product list to empty list
+     */
     public void resetProductList() {
         productList.clear();
     }
 
+    /**
+     * This methods check if the product existed in the list
+     * @return boolean: total number of unique products
+     */
     public boolean containProduct(String productName) {return productList.containsKey(productName);}
 
+    /**
+     * This method add a new product to the product list
+     */
     public void addProduct(Product p) {productList.put(p.getName(), p);}
 
+    /**
+     * This method remove an existing product to the list
+     */
     public void removeProduct(Product p) {productList.remove(p.getName());}
 
     /**
@@ -43,9 +61,11 @@ public class ProductMap {
      */
     public void viewAllProducts() {
         StringBuilder allProducts = new StringBuilder(); // The String that contains information of all existing products
+        allProducts.append("[\n");
         for (Product p : productList.values()) { // Loop for each product inside the list
             allProducts.append(p.toString()).append(": ").append(p.getQuantity()).append("\n");
         }
+        allProducts.append("]");
         // Display to the console
         System.out.println("Number of Products: " + countProduct());
         System.out.println(allProducts);

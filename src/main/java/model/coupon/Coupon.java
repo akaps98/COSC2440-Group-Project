@@ -1,8 +1,16 @@
 package model.coupon;
 
+/**
+ * The class stores information about Coupon
+ *
+ * @author Group 9
+ * @since 2023 - 05 - 07
+ */
+
 import java.util.regex.Pattern;
 
 public abstract class Coupon {
+    // ATTRIBUTES
     protected String couponID;
     protected String productName;
 

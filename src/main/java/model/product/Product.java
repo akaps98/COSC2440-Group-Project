@@ -3,9 +3,10 @@ package model.product;
 /**
  * The class stores information about the Product
  *
- * @author
- * @since 2023 - 05 - 01
+ * @author Group 9
+ * @since 2023 - 05 - 07
  */
+
 public abstract class Product {
     // ATTRIBUTES
     protected String name;
@@ -17,6 +18,7 @@ public abstract class Product {
 
     // CONSTRUCTORS
     public Product(){}
+
     public Product(String name, String description, int quantity, double price) {
         this.name = name;
         this.description = description;
@@ -68,13 +70,13 @@ public abstract class Product {
 
     public void setTaxType(String taxType) {this.taxType = taxType;}
 
+    public String getDefaultMessage() {return defaultMessage;}
+
     // METHODS
 
     /* Abstract method to implement in child class */
     public abstract String toString(); // String representation
     public abstract  String toData(); // String data written to products.txt
     public abstract String getProductDetail(); // Product detailed information
-
-    public String getDefaultMessage() {return defaultMessage;}
 }
 
