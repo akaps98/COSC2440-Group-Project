@@ -123,9 +123,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             if (cartGiftMessages.get(productName) != null) {
                 return true;
             }
-            System.out.println("Product does not contain gift message in this cart!");
-        } else {
-            System.out.println("Product does not exist in the shopping cart!");
+            System.out.println("Product does not contain any gift message in this cart!");
         }
         return false;
     }

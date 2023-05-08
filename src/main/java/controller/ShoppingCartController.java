@@ -383,7 +383,7 @@ public class ShoppingCartController extends AppController {
                         }
                     } while (!modifiedCart.containItem(name));
 
-                    //
+                    // Check if product has a gift message
                     if (modifiedCart.containGiftMessage(name)) {
                         System.out.print("This product already has a gift message: " + modifiedCart.getMessage(name));
                         while (true) {
