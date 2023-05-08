@@ -22,18 +22,36 @@ public class ProductMap {
     public Product getProduct(String productName) {return productList.get(productName);}
 
     /* Utilities Methods */
+
+    /**
+     * This methods count the number of unique product in the list
+     * @return int: total number of unique products
+     */
     public int countProduct() {
         return productList.size();
     }
 
+    /**
+     * This methods reset the product list to empty list
+     */
     public void resetProductList() {
         productList.clear();
     }
 
+    /**
+     * This methods check if the product existed in the list
+     * @return boolean: total number of unique products
+     */
     public boolean containProduct(String productName) {return productList.containsKey(productName);}
 
+    /**
+     * This method add a new product to the product list
+     */
     public void addProduct(Product p) {productList.put(p.getName(), p);}
 
+    /**
+     * This method remove an existing product to the list
+     */
     public void removeProduct(Product p) {productList.remove(p.getName());}
 
     /**
