@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * desc
+ * This class is the controller for all the product functions (features)
  *
  * @author Group 9
  * @since 2023 - 05 - 07
@@ -133,10 +133,11 @@ public class ProductController extends AppController{
             }
         } while (quantity < 0);
 
-        // Get all the other inputs (description, price)
+        // Get input for description
         System.out.print("Enter product description: ");
         String description = input.nextLine();
 
+        // Get input for price and validate the input
         double price;
         do {
             System.out.print("Enter product price($): ");
@@ -165,6 +166,7 @@ public class ProductController extends AppController{
                 products.addProduct(addedProduct);
                 break;
             } else if (productTypeOption == 2) { // Create Physical Product
+                // Get input for weight and validate the input
                 double weight;
                 do {
                     System.out.print("Enter product weight(g): ");
@@ -265,6 +267,7 @@ public class ProductController extends AppController{
                     break;
                 // Update product price
                 case 3:
+                    // Get input for price and validate the input
                     double newPrice;
                     do {
                         System.out.print("Enter the adjusted product price($): ");
@@ -276,12 +279,13 @@ public class ProductController extends AppController{
                                     --------------------------------------------------""");
                         }
                     } while (newPrice < 0);
+                    // Set new price
                     modifiedProduct.setPrice(newPrice);
                     break;
                 case 4:
                     // Check if product is a Physical Product
                     if (modifiedProduct instanceof Physical) {
-                        // Set new weight
+                        // Get input for weight and validate the input
                         double newWeight;
                         do {
                             System.out.print("\nEnter the adjusted product weight(g): ");
@@ -293,6 +297,7 @@ public class ProductController extends AppController{
                                     --------------------------------------------------""");
                             }
                         } while (newWeight < 0);
+                        // Set new weight for physical product
                         ((Physical) modifiedProduct).setWeight(newWeight);
                     } else {
                         System.out.println("""

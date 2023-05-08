@@ -101,16 +101,3 @@ COUPON,d0925a,12.2,Adobe Package
 TAX,freeTax,0.0
 TAX,normalTax,0.1
 TAX,luxuryTax,0.2
-
-(40 Products, 10 gifts, 50 coupons, 3 tax values)
---- PRODUCT syntax ---
-#type {PHYSICAL / DIGITAL},#name,#description,#quantity,#price($),#taxType,#weight(g) *only for PHYSICAL PRODUCTS*
-
---- GIFT syntax ---
-#type {GIFT},#type,#name,#description,#quantity,#price($),#taxType,#weight(g) *only for PHYSICAL PRODUCTS*,#giftMessage *only for GIFT PRODUCTS*
-
---- COUPON syntax ---
-#type {COUPON},#couponID,#couponValue,#productName
-
---- TAX syntax ---
-#type {COUPON},#taxType,#taxValue

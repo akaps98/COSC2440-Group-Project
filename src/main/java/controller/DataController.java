@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * desc
+ * This class is the controller to execute the data functions (features)
  *
  * @author Group 9
  * @since 2023 - 05 - 07
@@ -18,6 +18,7 @@ public class DataController extends AppController {
     // METHOD
     /**
      * This method generate data from the text files and store in the system database
+     * The text files used are: products.txt and carts.txt
      */
     public void generateData() {
         DataInput dIn = DataInput.getInstance();

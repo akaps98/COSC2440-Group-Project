@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * desc
+ * This class is the controller for all the shopping cart functions (features)
  *
  * @author Group 9
  * @since 2023 - 05 - 07
@@ -15,10 +15,6 @@ import model.data.DataInput;
 import model.data.DataOutput;
 import model.product.Product;
 import model.product.ProductMap;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class ShoppingCartController extends AppController {
     // ATTRIBUTES
@@ -218,13 +214,13 @@ public class ShoppingCartController extends AppController {
         do {
             System.out.print("Enter the product name to remove from cart: ");
             name = input.nextLine();
-            if (!c.containItem(name)) {
+            if (c.containItem(name)) {
                 System.out.println("""
                                     This product name is not existed on this cart.
                                     Please select another name!
                                     --------------------------------------------------""");
             }
-        } while (!c.containItem(name));
+        } while (c.containItem(name));
 
         // Get input for quantity to remove and check if it is valid
         int quantity;
@@ -339,6 +335,20 @@ public class ShoppingCartController extends AppController {
                         System.out.print("Enter the updated coupon ID for this cart: ");
                         newCouponID = input.nextLine();
                     } while (!Coupon.checkCouponExisted(newCouponID, coupons));
+
+                    // Get the coupon corresponding to the ID and the product it is applied to
+                    Coupon coupon = coupons.getCoupon(newCouponID);
+                    String appliedProduct = coupon.getProductName();
+
+                    // Deny if the shopping cart does not contain the item associated with the coupon
+                    if (!modifiedCart.containItem(appliedProduct)) {
+                        System.out.printf("""
+                                    This coupon you chose cannot be used because there is no product (%s)
+                                    in this cart that can be applied!
+                                    We still updated the new coupon ID, but please aware of this!
+                                    --------------------------------------------------""",appliedProduct);
+                    }
+
                     modifiedCart.setAppliedCouponID(newCouponID);
                     System.out.printf("Update new applied couponID - <%s> successfully to cart #%d%n", newCouponID, cartID);
                     break;
@@ -352,7 +362,7 @@ public class ShoppingCartController extends AppController {
                     do {
                         System.out.print("Enter the product name to set gift message: ");
                         name = input.nextLine();
-                    } while (!modifiedCart.containItem(name));
+                    } while (modifiedCart.containItem(name));
 
                     //
                     if (modifiedCart.containGiftMessage(name)) {
@@ -453,7 +463,11 @@ public class ShoppingCartController extends AppController {
         dOut.writeReceipt(cartID);
 
         // Also display the receipt in the console
+        System.out.println("""
+        Here is the printing receipt for this cart:
+        ==================================================""");
         DataInput dIn = DataInput.getInstance();
         dIn.readReceipt(cartID);
+        System.out.println("==================================================");
     }
 }

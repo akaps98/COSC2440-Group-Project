@@ -13,12 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tax {
+    // ATTRIBUTES
     private final Map<String, Double> taxes;
 
+    // CONSTRUCTOR
     public Tax() {
         taxes = new HashMap<>();
     }
 
+    // METHODS
     public void addTax(String taxType, double taxValue) {
         taxes.put(taxType, taxValue);
     }

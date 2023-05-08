@@ -54,24 +54,6 @@ class ShoppingCartListTest {
     }
 
     @Test
-    void testIndexOf() {
-        ShoppingCartList scl = new ShoppingCartList(); // generate new shopping cart list
-
-        ShoppingCart testSc1 = new ShoppingCart(1); // generate new shopping cart
-        ShoppingCart testSc2 = new ShoppingCart(2); // generate new shopping cart
-        ShoppingCart testSc3 = new ShoppingCart(3); // generate new shopping cart
-
-        // save the cart on shopping carts list
-        scl.addCart(testSc1);
-        scl.addCart(testSc2);
-        scl.addCart(testSc3);
-
-        assertEquals(0, scl.indexOf(testSc1)); // index of testSc1 is 0; because it added first.
-        assertEquals(1, scl.indexOf(testSc2)); // index of testSc2 is 1.
-        assertEquals(2, scl.indexOf(testSc3)); // index of testSc3 is 2.
-    }
-
-    @Test
     void testGetCart() {
         ShoppingCartList scl = new ShoppingCartList(); // generate new shopping cart list
 

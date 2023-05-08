@@ -1,7 +1,7 @@
 package model.coupon;
 
 /**
- * The class stores information about all price coupons
+ * The class stores information about price coupon
  *
  * @author Group 9
  * @since 2023 - 05 - 07

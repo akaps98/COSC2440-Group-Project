@@ -15,7 +15,6 @@ import model.coupon.Coupon;
 import model.coupon.PriceCoupon;
 import model.coupon.PercentCoupon;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,7 +30,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     protected double totalWeight;
 
 
-    //? CONSTRUCTOR
+    // CONSTRUCTORS
     public ShoppingCart(int cartID){
         this.cartID = cartID;
         cartItems = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -46,7 +45,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         totalWeight = 0;
     }
 
-    //? GETTERS & SETTERS
+    // GETTERS & SETTERS
     public int getCartID() {return cartID;}
 
     public void setCartID(int cartID) {this.cartID = cartID;}
@@ -63,17 +62,37 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     public void setAppliedCouponID(String appliedCouponID) {this.appliedCouponID = appliedCouponID;}
 
     public double getTotalWeight() {return this.totalWeight;}
-
     public void setTotalWeight(double totalWeight) {this.totalWeight = totalWeight;}
 
-// METHOD
+    // This setter put the gift message to the associated product in the list
+    public boolean setMessage(String productName, String msg) {
+        if (cartItems.containsKey(productName)) {
+            cartGiftMessages.put(productName, msg);
+            return true;
+        }
+        System.out.println("Product does not exist in the shopping cart and cannot set gift message");
+        return false;
+    }
+
+    public String getMessage(String productName) {
+        return cartGiftMessages.get(productName);
+    }
+
+    // METHOD
 
     /* Utilities Method */
-    public void resetCart() {cartItems.clear();}
-
+    /**
+     * This method use count the unique item names in the shopping cart
+     * @return int: the number of keys in the cartItems map - number of different product name
+     */
     public int countUniqueItems() {
         return cartItems.keySet().size();
     }
+
+    /**
+     * This method use count the total number of items in the shopping cart
+     * @return int: the total values of all different keys in the cartItems map
+     */
     public int countItems() {
         int itemCount = 0;
         for (int itemQuantity : cartItems.values()) {
@@ -82,6 +101,10 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return itemCount;
     }
 
+    /**
+     * This method use to check if the item is existed in the shopping cart
+     * @return boolean: this value states whether the cart contain the product or not
+     */
     public boolean containItem(String productName) {
         for (String item : cartItems.keySet()) {
             if (item.equalsIgnoreCase(productName)) {
@@ -91,6 +114,10 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return false;
     }
 
+    /**
+     * This method use to check if the item in the shopping cart contains a gift message
+     * @return boolean: this value states whether the item has a gift message or not
+     */
     public boolean containGiftMessage(String productName) {
         if (cartGiftMessages.containsKey(productName)) {
             if (cartGiftMessages.get(productName) != null) {
@@ -103,19 +130,30 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return false;
     }
 
+    /**
+     * This method use to set a new gift message for an existed product in the shopping cart
+     *
+     */
     public void setItemGiftMessage(String productName, String msg) {
         cartGiftMessages.put(productName, msg);
     }
 
+
+    /**
+     * This method use to reset all items in the shopping cart
+     */
+    public void resetCart() {cartItems.clear();}
+
+    /**
+     * This method use to check if the shopping cart details has been exported to a receipt in the database
+     * @return boolean: check if the receipt of this cart existed
+     */
     public boolean existReceipt() {
         Path path = Paths.get("src/main/java/database/receipts/cart" + cartID + ".txt");
-        if (Files.exists(path)) {
-            return true;
-        }
-        return false;
+        return Files.exists(path);
     }
 
-
+    /* Main methods */
     /**
      * This method add the new item with the specific number of quantity to the item map
      *
@@ -136,6 +174,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
             System.out.println("Product not existed!");
             return false;
         }
+
         // Check if there is enough available quantity for the added product(s)
         Product p = productList.getProduct(productName);
         if (p.getQuantity() < quantity) {
@@ -151,7 +190,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         }
 
         p.setQuantity(p.getQuantity() - quantity); // update available quantity for the product
-        calTotalWeight(productList); // Calculate the new total weight for the shopping cart
+        getTotalWeight(productList); // Calculate the new total weight for the shopping cart
         return true;
     }
     /**
@@ -186,7 +225,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         // Reduce a number of quantity from the product
         cartItems.put(productName, cartItems.get(productName) - quantity);
         p.setQuantity(p.getQuantity() + quantity); // update available quantity for the product
-        calTotalWeight(productList); // Calculate the new total weight for the shopping cart
+        getTotalWeight(productList); // Calculate the new total weight for the shopping cart
 
         // Remove the product entirely if the quantity reduced to 0
         if (cartItems.get(productName) == 0) {
@@ -204,19 +243,12 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
      * @return double - the double value is the total weight of the Physical Products in the cart
      * Action: set the total weight of
      */
-    public double calTotalWeight(ProductMap productList) {
+    public double getTotalWeight(ProductMap productList) {
         // Check if shopping cart is empty
         if (cartItems.size() == 0) {
             return 0;
         }
         double weight = 0;
-        // for (String productName : cartItems) {
-        //     Product p = App.productList.getProduct(productName);
-        //     if (p instanceof PhysicalProduct) {
-        //         weight += ((PhysicalProduct) p).getWeight();
-        //     }
-        // }
-
         // Iterate through all the product names in the cart items
         for (String productName : cartItems.keySet()) { // checking the next Product
             Product p = productList.getProduct(productName);
@@ -254,7 +286,6 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         }
 
 //        Shipping fee is added to the total price
-
         totalPrice += getShippingFee(productList); // add the shipping fee to the total price
 
         return totalPrice;
@@ -266,7 +297,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
      * @return double: shipping fee
      */
     public double getShippingFee(ProductMap productList) {
-        calTotalWeight(productList);
+        getTotalWeight(productList);
         return totalWeight * 0.1;
     }
 
@@ -336,6 +367,10 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         return discount;
     }
 
+    /**
+     * This method display all the detailed information about the Shopping Cart
+     * Included: gift messages, appliedCouponID, cartWeight, cartAmount
+     */
     public void viewCartInfo() {
         StringBuilder cartInfo = new StringBuilder();
         cartInfo.append(this);
@@ -350,6 +385,9 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
         System.out.println(cartInfo);
     }
 
+    /**
+     * This method display all gift messages contained in the shopping cart
+     */
     public void viewCartGiftMessages() {
         StringBuilder cartItemGiftMessages = new StringBuilder();
         cartItemGiftMessages.append("Cart gift messages: \n[");
@@ -392,24 +430,6 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
     @Override
     public int compareTo(ShoppingCart c) {
         return Double.compare(totalWeight, c.getTotalWeight());
-    }
-
-    public boolean setMessage(String productName, String msg) {
-        if (cartItems.containsKey(productName)) {
-            cartGiftMessages.put(productName, msg);
-            return true;
-        }
-        System.out.println("Product does not exist in the shopping cart and cannot set gift message");
-        return false;
-    }
-
-    public String getMessage(String productName) {
-        return cartGiftMessages.get(productName);
-    }
-
-    public static void main(String[] args) {
-        ShoppingCart c1 = new ShoppingCart(1);
-        System.out.println(c1.existReceipt());
     }
 }
 
