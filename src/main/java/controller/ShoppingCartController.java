@@ -214,13 +214,13 @@ public class ShoppingCartController extends AppController {
         do {
             System.out.print("Enter the product name to remove from cart: ");
             name = input.nextLine();
-            if (c.containItem(name)) {
+            if (!c.containItem(name)) {
                 System.out.println("""
                                     This product name is not existed on this cart.
                                     Please select another name!
                                     --------------------------------------------------""");
             }
-        } while (c.containItem(name));
+        } while (!c.containItem(name));
 
         // Get input for quantity to remove and check if it is valid
         int quantity;
