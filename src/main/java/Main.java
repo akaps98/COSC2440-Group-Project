@@ -23,9 +23,9 @@ public class Main { // run the program
 
         // --------------MAIN PROGRAM--------------
         int choice = -1;
-        System.out.println("\nWelcome to the online shopping service application!");
-        while (choice != 13) {
-            AppController.displayMenu();
+        AppController.displayInstructions(); // display instructions
+        while (choice != 12) {
+            AppController.displayMenu(); // display primary menu
             choice = Integer.parseInt(input.nextLine()); // get the user's input
             switch (choice) {
                 case 1 -> productController.displayProducts();

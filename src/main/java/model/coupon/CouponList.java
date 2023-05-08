@@ -1,7 +1,7 @@
 package model.coupon;
 
 /**
- * The class is a coupon list which contain all the saved coupons
+ * The class contains information about the list which stores all the coupons information
  *
  * @author Group 9
  * @since 2023 - 05 - 07
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CouponList {
+    // ATTRIBUTES
     private List<Coupon> coupons;
 
     // CONSTRUCTOR

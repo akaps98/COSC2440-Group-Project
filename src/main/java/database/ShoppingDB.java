@@ -1,7 +1,7 @@
 package database;
 
 /**
- * The class stores information about the shopping database
+ * The class is the database that stores all the information about the system
  *
  * @author Group 9
  * @since 2023 - 05 - 07
@@ -13,11 +13,12 @@ import model.product.ProductMap;
 import model.product.Tax;
 
 public class ShoppingDB {
+    // ATTRIBUTES
     private static ShoppingDB instance = null;
-    ProductMap products;
-    ShoppingCartList carts;
-    CouponList coupons;
-    Tax taxes;
+    ProductMap products; // Store all the products
+    ShoppingCartList carts; // Store all the Shopping Carts
+    CouponList coupons; // Store all the coupons
+    Tax taxes; // Store all the taxes
 
     // CONSTRUCTOR
     private ShoppingDB() {

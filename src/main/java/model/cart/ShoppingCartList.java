@@ -1,14 +1,11 @@
 package model.cart;
 
 /**
- * The class stores information about all the shopping carts
+ * The class stores information about the list which stores all shopping cart information
  *
  * @author Group 9
  * @since 2023 - 05 - 07
  */
-
-import model.cart.ShoppingCart;
-import model.cart.ShoppingCartComparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.Iterator;
 
 public class ShoppingCartList {
     // ATTRIBUTE
-    private List<ShoppingCart> cartList;
+    private final List<ShoppingCart> cartList;
 
     // CONSTRUCTOR
     public ShoppingCartList() {
@@ -24,6 +21,12 @@ public class ShoppingCartList {
     }
 
     // METHODS
+
+    /**
+     * This method add a new cart to the list
+     * @param c: added shopping cart
+     * @return boolean: states if it is successfully added to the list
+     */
     public boolean addCart(ShoppingCart c) {
         if (c != null) {
             cartList.add(c);
@@ -32,6 +35,11 @@ public class ShoppingCartList {
         return false;
     }
 
+    /**
+     * This method remove a cart from the list
+     * @param c: removed shopping cart
+     * @return boolean: states if it is successfully remove from the list
+     */
     public boolean removeCart(ShoppingCart c) { // Unused method
         if (c != null) {
             cartList.remove(c);
@@ -40,6 +48,10 @@ public class ShoppingCartList {
         return false;
     }
 
+    /**
+     * This method check if a cart existed in the list
+     * @return boolean: states if the list contains the cart
+     */
     public boolean containCart(int cartID) {
         for (ShoppingCart cart : cartList) {
             if (cart.getCartID() == cartID) {
@@ -49,11 +61,10 @@ public class ShoppingCartList {
         return false;
     }
 
-
-    public int indexOf(ShoppingCart c) {
-        return cartList.indexOf(c);
-    }
-
+    /**
+     * This method counts the number of carts existed in the list
+     * @return int: total number of carts
+     */
     public int countCarts() {
         return cartList.size();
     }
@@ -62,7 +73,7 @@ public class ShoppingCartList {
      * The method return the Shopping Cart according to the cartNumber
      *
      * @param cartID: the cart # that is stored inside the Shopping Cart list (not the index of the cart in the list)
-     * @return ShoppingCart: the Shopping Cart instance at the cartNumber - 1 position in the list
+     * @return ShoppingCart: the Shopping Cart with associated cartID
      */
     public ShoppingCart getCart(int cartID) {
         for (ShoppingCart cart : cartList) {
