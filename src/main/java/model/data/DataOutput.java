@@ -52,10 +52,11 @@ public class DataOutput {
      *
      * Action: write a new text file (cart_.txt) into the database (_ stands for the cartID)
      */
-    public void writeReceipt(int cartID) {
+    public void writeReceipt(int cartID, String fileName) {
+        // Try to create the writer for the cart
         try {
             // Initialise the writer
-            FileWriter fWriter = new FileWriter("src/main/java/database/receipts/cart"+cartID+".txt");
+            FileWriter fWriter = new FileWriter("src/main/java/database/receipts/"+fileName+".txt");
 
 
             // Get input from user
@@ -140,7 +141,7 @@ public class DataOutput {
             System.out.println("Finish writing the printing receipt for cart #" + c.getCartID() + "!");
 
         } catch (IOException ioex) {
-            // do nothing
+            System.out.println("Could not write the receipt for this cart!");
         }
 
     }
@@ -153,7 +154,7 @@ public class DataOutput {
 
         // Test data output
         DataOutput dOut = DataOutput.getInstance();
-        dOut.writeReceipt(10);
+        dOut.writeReceipt(10, "cart10.txt");
         ShoppingCart c = ShoppingDB.getInstance().getCarts().getCart(10);
         System.out.println(c.existReceipt());
     }

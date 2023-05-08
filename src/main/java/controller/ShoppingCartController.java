@@ -316,13 +316,14 @@ public class ShoppingCartController extends AppController {
 
         // Create a loop until user enter a valid choice
         int option = -1;
-        while (option != 1 && option != 2 && option != 3) {
+        while (option != 1 && option != 2 && option != 3 && option != 4) {
             System.out.print("""
                     ==================================================
                     1. Change applied coupon
-                    2. Update gift message for a product
-                    3. Make cart empty
-                    4. Go Back
+                    2. Remove coupon from cart
+                    3. Update gift message for a product
+                    4. Make cart empty
+                    5. Go Back
                     ==================================================
                     Enter your choice:\040""");
             option = Integer.parseInt(input.nextLine());
@@ -352,8 +353,18 @@ public class ShoppingCartController extends AppController {
                     modifiedCart.setAppliedCouponID(newCouponID);
                     System.out.printf("Update new applied couponID - <%s> successfully to cart #%d%n", newCouponID, cartID);
                     break;
-                // Update gift message for a product
+                // Remove applied coupon from the cart
                 case 2:
+                    // Check if the shopping cart contains a coupon or not
+                    if (modifiedCart.getAppliedCouponID() == null || modifiedCart.getAppliedCouponID().equalsIgnoreCase("")) {
+                        System.out.println("This shopping cart does not contain any coupon to apply. Please try again!");
+                        return false;
+                    }
+                    modifiedCart.setAppliedCouponID("");
+                    break;
+
+                // Update gift message for a product
+                case 3:
                     // view all items gift message in the cart
                     modifiedCart.viewCartGiftMessages();
 
@@ -401,7 +412,7 @@ public class ShoppingCartController extends AppController {
                     }
                     break;
                 // Make cart empty
-                case 3:
+                case 4:
                     if (modifiedCart.getCartItems() == null) {
                         System.out.println("The cart is already empty. Please select other options!");
                         return false;
@@ -411,7 +422,7 @@ public class ShoppingCartController extends AppController {
                     }
                     break;
                 // Return to the primary menu
-                case 4:
+                case 5:
                     return false;
                 // User input invalid choice --> reenter the choice
                 default:
@@ -458,16 +469,49 @@ public class ShoppingCartController extends AppController {
 
         } while (!carts.containCart(cartID));
 
+        // Get user selected option for create file name
+        int option = -1;
+        String fileName = "";
+        while (option != 1 && option != 2) {
+            System.out.print("""
+                What is the file name?
+                ==================================================
+                1. Choose a file name
+                2. Use default name (cart#.txt)
+                ==================================================
+                Enter your choice:\040""");
+            option = Integer.parseInt(DataInput.getInstance().getScanner().nextLine());
+
+            // Get corresponding file name
+            switch (option) {
+                case 1:
+                    System.out.print("Enter the file name: ");
+                    fileName = input.nextLine();
+                    break;
+                case 2:
+                    fileName = String.format("cart" + cartID);
+                    System.out.printf("Your file name by default is: %s.txt" + fileName);
+                    break;
+                default:
+                    System.out.println("""
+                                    Invalid option. Please enter again!
+                                    --------------------------------------------------""");
+                    break;
+            }
+        }
+
+
+
         // Print the receipt for the selected shopping cart
         DataOutput dOut = DataOutput.getInstance();
-        dOut.writeReceipt(cartID);
+        dOut.writeReceipt(cartID, fileName);
 
         // Also display the receipt in the console
         System.out.println("""
         Here is the printing receipt for this cart:
-        ==================================================""");
+        ========================================================""");
         DataInput dIn = DataInput.getInstance();
-        dIn.readReceipt(cartID);
-        System.out.println("==================================================");
+        dIn.readReceipt(cartID, fileName);
+        System.out.println("========================================================");
     }
 }

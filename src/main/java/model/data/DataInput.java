@@ -216,10 +216,10 @@ public class DataInput {
      * This method read the receipt and print to the console application for user to view
      * @param cartID
      */
-    public void readReceipt(int cartID) {
+    public void readReceipt(int cartID, String fileName) {
         // Try to find and open the cart file
         try {
-            Files.lines(Paths.get("src/main/java/database/receipts/cart"+cartID+".txt"))
+            Files.lines(Paths.get("src/main/java/database/receipts/"+fileName+".txt"))
                     // Print each line from the receipt to the console
                     .forEach(
                             line -> {
