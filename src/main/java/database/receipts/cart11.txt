@@ -1,0 +1,23 @@
+				Online Shopping Service
+
+Receipt Number: C2440 - G09 - C11			
+08/05/2023 22:19:04
+User: Hoang
+--------------------------------------------------------
+ITEMS                                         PRICE 
+macbook
+1 x $2500.00                                  $2500.00
+  *Discount(-31.00)*							  ($31.00)
+pencil
+3 x $5.00                                     $15.00
+vpn server agent
+2 x $12.40                                    $24.80
+--------------------------------------------------------
+Items Count: 6
+
+Subtotal: 									  $2539.80
+Discount: 									 -$31.00
+Tax: 										 +$254.96
+Shipping: 									 +$232.00
+
+TOTAL: 										  $3026.76

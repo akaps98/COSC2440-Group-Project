@@ -1,0 +1,37 @@
+				Online Shopping Service
+
+Receipt Number: C2440 - G09 - C9			
+08/05/2023 22:19:25
+User: Hoang
+--------------------------------------------------------
+ITEMS                                         PRICE 
+Canvas Pro
+1 x $20.00                                    $20.00
+eLearning Account
+2 x $55.90                                    $111.80
+Galaxy S23
+1 x $865.00                                   $865.00
+GitHub Enterprise
+4 x $89.90                                    $359.60
+iMac
+1 x $988.00                                   $988.00
+iPad
+1 x $1200.00                                  $1200.00
+iPhone
+1 x $1430.00                                  $1430.00
+Iphone Case
+20 x $20.50                                    $410.00
+Laptop Holder
+10 x $11.90                                    $119.00
+  *Discount(15%)*							  ($17.85)
+Spotify Premium
+1 x $20.90                                    $20.90
+--------------------------------------------------------
+Items Count: 42
+
+Subtotal: 									  $5524.30
+Discount: 									 -$17.85
+Tax: 										 +$662.99
+Shipping: 									 +$420.30
+
+TOTAL: 										  $6589.74

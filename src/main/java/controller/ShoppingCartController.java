@@ -498,7 +498,7 @@ public class ShoppingCartController extends AppController {
                     break;
                 case 2:
                     fileName = String.format("cart" + cartID);
-                    System.out.printf("Your file name by default is: %s.txt" + fileName);
+                    System.out.printf("Your file name by default is: %s.txt%n", fileName);
                     break;
                 default:
                     System.out.println("""
