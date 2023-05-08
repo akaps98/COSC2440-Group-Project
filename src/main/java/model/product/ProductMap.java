@@ -18,11 +18,12 @@ public class ProductMap {
     public ProductMap() { productList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
-    // METHODS
+    // GETTERS & SETTERS
     public Product getProduct(String productName) {return productList.get(productName);}
 
-    /* Utilities Methods */
+    // METHODS
 
+    /* Utilities Methods */
     /**
      * This methods count the number of unique product in the list
      * @return int: total number of unique products
@@ -44,6 +45,7 @@ public class ProductMap {
      */
     public boolean containProduct(String productName) {return productList.containsKey(productName);}
 
+    /* Main methods */
     /**
      * This method add a new product to the product list
      */

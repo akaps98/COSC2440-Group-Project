@@ -500,8 +500,6 @@ public class ShoppingCartController extends AppController {
             }
         }
 
-
-
         // Print the receipt for the selected shopping cart
         DataOutput dOut = DataOutput.getInstance();
         dOut.writeReceipt(cartID, fileName);

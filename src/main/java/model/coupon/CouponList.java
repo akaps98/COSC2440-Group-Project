@@ -1,7 +1,7 @@
 package model.coupon;
 
 /**
- * The class contains information about the list which stores all the coupons information
+ * The class contains information about the list which stores all the couponList information
  *
  * @author Group 9
  * @since 2023 - 05 - 07
@@ -12,28 +12,28 @@ import java.util.List;
 
 public class CouponList {
     // ATTRIBUTES
-    private List<Coupon> coupons;
+    private final List<Coupon> couponList;
 
     // CONSTRUCTOR
     public CouponList() {
-        coupons = new ArrayList<>();
+        couponList = new ArrayList<>();
     }
 
     // METHODS
     public void addCoupon(Coupon coupon) {
-        coupons.add(coupon);
+        couponList.add(coupon);
     }
 
     public void removeCoupon(Coupon coupon) {
-        coupons.remove(coupon);
+        couponList.remove(coupon);
     }
 
     public int countCoupon() {
-        return coupons.size();
+        return couponList.size();
     }
 
     public Coupon getCoupon(String couponID) {
-        for (Coupon coupon : coupons) {
+        for (Coupon coupon : couponList) {
             if (coupon.getCouponID().equals(couponID)) {
                 return coupon;
             }
@@ -42,7 +42,7 @@ public class CouponList {
     }
 
     public boolean contains(String id) {
-        for (Coupon c : coupons) {
+        for (Coupon c : couponList) {
             if (c.getCouponID().equals(id)) {
                 return true;
             }
@@ -51,17 +51,17 @@ public class CouponList {
     }
 
     public List<Coupon> getCoupons() {
-        return coupons;
+        return couponList;
     }
 
     public void viewAllCoupons() {
-        StringBuilder allCoupons = new StringBuilder();
-        allCoupons.append("[\n");
-        for (Coupon coupon : coupons) {
-            allCoupons.append(coupon.toString()).append("\n");
+        StringBuilder allcouponList = new StringBuilder();
+        allcouponList.append("[\n");
+        for (Coupon coupon : couponList) {
+            allcouponList.append(coupon.toString()).append("\n");
         }
-        allCoupons.append("]");
-        System.out.printf("Number of Coupons: %d%n", countCoupon());
-        System.out.println(allCoupons);
+        allcouponList.append("]");
+        System.out.printf("Number of couponList: %d%n", countCoupon());
+        System.out.println(allcouponList);
     }
 }

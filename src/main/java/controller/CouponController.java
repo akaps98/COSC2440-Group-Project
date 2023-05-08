@@ -7,19 +7,15 @@ package controller;
  * @since 2023 - 05 - 07
  */
 
-import model.coupon.Coupon;
 import model.coupon.CouponList;
-import model.product.ProductMap;
 
 public class CouponController extends AppController {
     // ATTRIBUTES
-    private final ProductMap products; // Store all the product information from the database
     private final CouponList coupons; // Store all the coupons information from the database
 
     // CONSTRUCTOR
     public CouponController() {
         super();
-        products = db.getProducts();
         coupons = db.getCoupons();
 
     }
