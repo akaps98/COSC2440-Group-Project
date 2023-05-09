@@ -87,7 +87,7 @@ public class ShoppingCartList {
     /**
      * The method sort all the Shopping Carts in the list according to the weight of the cart
      */
-    public static void sortCartsByWeight(ArrayList<ShoppingCart> sortedList) {
+    public void sortCartsByWeight(ArrayList<ShoppingCart> sortedList) {
         sortedList.sort(new ShoppingCartComparator()); // Using the ShoppingCart Comparator as the indicator for the sorting element
     }
 

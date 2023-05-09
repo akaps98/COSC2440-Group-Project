@@ -27,7 +27,7 @@ public class ShoppingCartComparator implements Comparator<ShoppingCart>{
      */
     @Override
     public int compare(ShoppingCart c1, ShoppingCart c2) {
-        return Double.compare(c2.getTotalWeight(), c1.getTotalWeight());
+        return Double.compare(c1.getTotalWeight(), c2.getTotalWeight());
     }
 }
 
