@@ -95,7 +95,8 @@ class ShoppingCartListTest {
         carts.add(testSc3);
 
         // according to the total weight, it should be testSc2 -> testSc3 -> testSc1 after sorting as ascending order
-        ShoppingCartList.sortCartsByWeight(carts);
+        ShoppingCartList scl = new ShoppingCartList();
+        scl.sortCartsByWeight(carts);
 
         // They have their own ID, let's check by it.
         assertEquals(2, carts.get(0).getCartID()); // testSc2
