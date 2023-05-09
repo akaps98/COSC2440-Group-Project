@@ -15,10 +15,10 @@ import model.product.Tax;
 public class ShoppingDB {
     // ATTRIBUTES
     private static ShoppingDB instance = null;
-    ProductMap products; // Store all the products
-    ShoppingCartList carts; // Store all the Shopping Carts
-    CouponList coupons; // Store all the coupons
-    Tax taxes; // Store all the taxes
+    private ProductMap products; // Store all the products
+    private ShoppingCartList carts; // Store all the Shopping Carts
+    private CouponList coupons; // Store all the coupons
+    private Tax taxes; // Store all the taxes
 
     // CONSTRUCTOR
     private ShoppingDB() {

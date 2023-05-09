@@ -19,19 +19,42 @@ public class CouponList {
         couponList = new ArrayList<>();
     }
 
+    // GETTERS & SETTERS
+    public List<Coupon> getCoupons() {
+        return couponList;
+    }
+
     // METHODS
+
+    /**
+     * Add a coupon to the list
+     * @param coupon: the coupon Object to be added
+     */
     public void addCoupon(Coupon coupon) {
         couponList.add(coupon);
     }
 
+    /**
+     * Remove a coupon fromthe list
+     * @param coupon: the coupon Object to be removed
+     */
     public void removeCoupon(Coupon coupon) {
         couponList.remove(coupon);
     }
 
+    /**
+     * Count total number of coupons in the list
+     * @return int: the total number of coupons
+     */
     public int countCoupon() {
         return couponList.size();
     }
 
+    /**
+     * Retrieve a coupon from the list
+     * @param couponID: the ID associated with the coupon object
+     * @return Coupon: the object needed to be returned
+     */
     public Coupon getCoupon(String couponID) {
         for (Coupon coupon : couponList) {
             if (coupon.getCouponID().equals(couponID)) {
@@ -41,6 +64,11 @@ public class CouponList {
         return null;
     }
 
+    /**
+     * Check if the list contain a coupon with the input ID
+     * @param id: the coupon ID
+     * @return boolean: states if the coupon existed or not
+     */
     public boolean contains(String id) {
         for (Coupon c : couponList) {
             if (c.getCouponID().equals(id)) {
@@ -50,10 +78,9 @@ public class CouponList {
         return false;
     }
 
-    public List<Coupon> getCoupons() {
-        return couponList;
-    }
-
+    /**
+     * Display all the coupons in the list
+     */
     public void viewAllCoupons() {
         StringBuilder allcouponList = new StringBuilder();
         allcouponList.append("[\n");
