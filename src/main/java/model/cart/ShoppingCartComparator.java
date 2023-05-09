@@ -27,6 +27,11 @@ public class ShoppingCartComparator implements Comparator<ShoppingCart>{
      */
     @Override
     public int compare(ShoppingCart c1, ShoppingCart c2) {
+        // If the cart is empty or only contains digital products --> compared by number of items
+        if (c1.totalWeight == 0 && c2.totalWeight == 0) {
+            return Double.compare(c1.countItems(), c2.countItems());
+        }
+        // Compared by weights
         return Double.compare(c1.getTotalWeight(), c2.getTotalWeight());
     }
 }

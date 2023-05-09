@@ -429,6 +429,7 @@ public class ShoppingCart implements Comparable<ShoppingCart> {
      */
     @Override
     public int compareTo(ShoppingCart c) {
+        // sorted based on weights
         return Double.compare(totalWeight, c.getTotalWeight());
     }
 }
